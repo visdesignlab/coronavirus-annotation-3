@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5Z8V65H');</script>
+  <!-- End Google Tag Manager -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coronavirus Annotation</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='bundle.css')}}">
+    <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
+
+    <script src="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.css" />
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  </head>
+  <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5Z8V65H"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+      <div id="top-bar">
+        <div id="user"></div> 
+        <div id="sign-out"><i class="fas fa-sign-out-alt"></i><span class="log-label">Log In</span></div>
+        <a href="https://vimeo.com/491949689/db7f76616b" target="_blank"><div id="vim-link"><i class="fab fa-vimeo-v fa-lg"></i><span class="log-label">Watch on Vimeo</span></div></a>
+        <div id="about"><i class="fas fa-info-circle fa-lg"></i><span class="log-label">About</span></div>
+        <a href="https://animationlab.utah.edu/cova">
+          <div id="home"><i class="fas fa-home fa-lg"></i><span class="log-label">Home</span></div>
+        </a>
+        <div id="toggle-show-wrap">
+          <div>
+            <label class="switch" id="show-doodle">
+              <span class="label">Show drawing <i class="fas fa-paint-brush"></i></span>
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
+          </div>
+          
+          <div>
+            <label class="switch" id="show-push">
+              <span class="label">Show push mark <i class="fas fa-map-marker-alt"></i></span>
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
+          </div>
+         
+        </div>
+
+        <div class = "toggle-show-title">Markings on video</div>
+       
+        <div class="add-comment"><button class="btn btn-outline-secondary btn-sm" value="off">Add Comment</button></div>
+
+        <div id="video-nav">
+          <!-- <div class="test-button one selected">Stage 1. 0:00 - 0:20</div>
+          <div class="test-button two">Stage 2. 0:20 - 0:50</div>
+          <div class="test-button three">Stage 3. 0:50 - 1:20</div> -->
+        </div>
+      </div>
+
+      <div id="wrapper">
+        <div id="left-wrap">
+          <div id="left-sidebar">
+            <div class="top"></div>
+            <div class="mouse-over-wrap"></div>
+            <div id="annotation-wrap">
+              <div class="sel-anno-wrap"></div>
+              <div class="gen-anno-wrap"></div>
+            </div>
+          </div>
+        </div>
+      
+      <div id="main">
+
+       <div id="loader">
+         <div class="line"></div>
+         <div class="subline inc"></div>
+         <div class="subline dec"></div>
+       </div>
+
+        <div id="video-wrap">
+          <div id="video-controls">
+            <div class="play-pause play">
+              <span class="play-span">
+                <i class="far fa-play-circle fa-2x"></i>
+              </span>
+              <span class="pause-span" style="opacity:0">
+                <i class="far fa-pause-circle fa-2x"></i>
+              </span>
+             
+            </div>
+
+            <div class="time" style="position:relative; left:-30px; top:-5px;">
+              <time id="time-elapsed">00:00</time>
+              <span> / </span>
+              <time id="duration">00:00</time>
+            </div>
+
+            <div class="volume-controls" style="position:relative; top:-5px">
+              <button data-title="Mute (m)" class="volume-button" id="volume-button">
+                <svg width="25" height="25">
+                  <g class="hidden" id="volume-mute" visibility="hidden">
+                    <path d="M12 3.984v4.219l-2.109-2.109zM4.266 3l16.734 16.734-1.266 1.266-2.063-2.063q-1.547 1.313-3.656 1.828v-2.063q1.172-0.328 2.25-1.172l-4.266-4.266v6.75l-5.016-5.016h-3.984v-6h4.734l-4.734-4.734zM18.984 12q0-2.391-1.383-4.219t-3.586-2.484v-2.063q3.047 0.656 5.016 3.117t1.969 5.648q0 2.203-1.031 4.172l-1.5-1.547q0.516-1.266 0.516-2.625zM16.5 12q0 0.422-0.047 0.609l-2.438-2.438v-2.203q1.031 0.516 1.758 1.688t0.727 2.344z"></path>
+                  </g>
+                  <g class="hidden" id="volume-low" visibility="hidden">
+                    <path d="M5.016 9h3.984l5.016-5.016v16.031l-5.016-5.016h-3.984v-6zM18.516 12q0 2.766-2.531 4.031v-8.063q1.031 0.516 1.781 1.711t0.75 2.32z"></path>
+                  </g>
+                  <g id="volume-high">
+                    <path d="M14.016 3.234q3.047 0.656 5.016 3.117t1.969 5.648-1.969 5.648-5.016 3.117v-2.063q2.203-0.656 3.586-2.484t1.383-4.219-1.383-4.219-3.586-2.484v-2.063zM16.5 12q0 2.813-2.484 4.031v-8.063q1.031 0.516 1.758 1.688t0.727 2.344zM3 9h3.984l5.016-5.016v16.031l-5.016-5.016h-3.984v-6z"></path>
+                  </g>
+                  <!-- <use class="hidden" href="#volume-mute"></use> -->
+                  <!-- <use class="hidden" href="#volume-low"></use> -->
+                  <!-- <use href="#volume-high"></use> -->
+                </svg>
+              </button>
+            
+              <input style="position:relative; top:3px" class="volume" id="volume" value="1" type="range" max="1" min="0" step="0.01">
+            </div>
+       
+        
+
+            <div class="progress-bar">
+              <div class="progress-bar-fill"></div>
+            </div>
+
+
+          </div>
+          <video controls class="video" id="video" preload="metadata">
+            <source src="{{url_for('static', filename='assets/sections1_2_3D_supercomp.mp4')}}" type="video/mp4">
+              <p>Your browser does not support HTML5 video.</p>
+          </video>
+          <canvas id="canvas"></canvas>
+          <div id="interaction"></div>
+        </div>
+        <div class="timeline-wrap">
+          <div id="timeline-tooltip" style="opacity:0"></div>
+        </div>
+      </div>
+      <div id="right-wrap">
+        
+        <div id="right-sidebar">
+          <div id="sign-in-wrap"></div>
+          <div class="top"></div>
+          <div id="comment-wrap">
+            <div class="selected-comm-wrap"></div>
+            <div class="general-comm-wrap"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="general-tooltip" style="opacity:0; position:absolute"></div>
+
+    <!-- <svg display="none">
+      <defs>
+        <symbol id="volume-high" viewBox="0 0 24 24">
+          <path d="M14.016 3.234q3.047 0.656 5.016 3.117t1.969 5.648-1.969 5.648-5.016 3.117v-2.063q2.203-0.656 3.586-2.484t1.383-4.219-1.383-4.219-3.586-2.484v-2.063zM16.5 12q0 2.813-2.484 4.031v-8.063q1.031 0.516 1.758 1.688t0.727 2.344zM3 9h3.984l5.016-5.016v16.031l-5.016-5.016h-3.984v-6z"></path>
+        </symbol>
+    
+        <symbol id="volume-low" viewBox="0 0 24 24">
+          <path d="M5.016 9h3.984l5.016-5.016v16.031l-5.016-5.016h-3.984v-6zM18.516 12q0 2.766-2.531 4.031v-8.063q1.031 0.516 1.781 1.711t0.75 2.32z"></path>
+        </symbol>
+    
+        <symbol id="volume-mute" viewBox="0 0 24 24">
+          <path d="M12 3.984v4.219l-2.109-2.109zM4.266 3l16.734 16.734-1.266 1.266-2.063-2.063q-1.547 1.313-3.656 1.828v-2.063q1.172-0.328 2.25-1.172l-4.266-4.266v6.75l-5.016-5.016h-3.984v-6h4.734l-4.734-4.734zM18.984 12q0-2.391-1.383-4.219t-3.586-2.484v-2.063q3.047 0.656 5.016 3.117t1.969 5.648q0 2.203-1.031 4.172l-1.5-1.547q0.516-1.266 0.516-2.625zM16.5 12q0 0.422-0.047 0.609l-2.438-2.438v-2.203q1.031 0.516 1.758 1.688t0.727 2.344z"></path>
+        </symbol>
+      </defs>
+    </svg> -->
+
+    <script src="{{url_for('static', filename='bundle.js')}}"></script>
+  </body>
+</html>

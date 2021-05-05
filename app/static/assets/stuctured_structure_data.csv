@@ -1,0 +1,12 @@
+Hierarchy,Structure,Colors,Hex,Time,Alias,Short
+cell,TMPRSS2,orange,FF8000,"[19,85]",,TMPRSS2
+cell,furin,cyan,00FFFF,"[19,85]",,Furin
+cell,ACE2,magenta,FF00FF,"[19,85]",,ACE2
+cell,cell membrane,blue,0000FF,"[19,85]",,Membrane
+virus,spike protein,green,00FF00,"[0,18],[21,85]",s protein,Spike
+virus,membrane protein,yellow,FFFF00,"[0,18],[21,28],[30,85]",m protein,M Protein
+virus,envelope protein,red,FF0000,"[0,18],[21,28]",e protein,E Protein
+virus,nucleocapsid protein,gray,808080,"[10,15]",n protein,N Protein
+virus,viral genome,orange,FF8000,"[10,15]",,Genome
+virus,virus membrane,white,FFFFFF,"[0,18],[21,28],[30,85]",,Membrane
+virus,sugars,gray,808080,"[0,18],[21,85]",,Sugars

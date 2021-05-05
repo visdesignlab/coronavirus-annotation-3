@@ -1,0 +1,16 @@
+venv
+node_modules
+*.pyc
+app.db
+app/static/bundle.css
+app/static/bundle.js
+.env
+firebase_data.json
+
+.env.prod
+.gitattributes
+.DS_Store
+
+**/stills/
+*.mp4
+
