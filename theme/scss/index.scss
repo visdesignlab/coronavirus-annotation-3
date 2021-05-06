@@ -222,8 +222,9 @@
   }
 
   #video-nav{
-    margin: auto;
-    padding-top: 20px;
+    //margin: auto;
+    margin-left:250px;
+    padding-top: 30px;
     display: block;
     width:80%;
     height:52px;
@@ -342,13 +343,13 @@ div{
   }
 
   rect.progress-underlay{
-    fill:#BBBBBB !important;
-    height:5px;
+    fill:#dfdddf !important;
+    height:9px;
   }
 
   rect.progress{
-    fill: #0b69ff !important;
-    height:5px;
+    fill: #5496ff!important;
+    height:7px;
   }
 }
 
@@ -377,11 +378,12 @@ div{
 .sections.selected{
 
   rect{
-   // fill: red;
+    fill: #696969;
   }
 
   .label{
-    font-size: 13px;
+    font-size: 14px;
+    fill:#fff;
   }
 
 } 
@@ -818,6 +820,16 @@ margin-top:10px;
 .pause-span{
   position:relative;
   left:-36px;
+
+  path{
+    fill: #696969;
+  }
+}
+
+.play-span, #volume-high, #volume-low, #volume-mute{
+  path{
+    fill: #696969;
+  }
 }
 
 .reply-wrap{
@@ -1094,20 +1106,18 @@ video, canvas, #interaction, #add-mark, #interaction svg, .overlay{
   display: block;
   height:16px;
   padding:.2px;
-  border: 2px solid black;
   border-radius: 2px;
-  margin-top:10px;
-  background-color:#fff;
+  background-color:#dfdddf;
 }
 
 #video-controls div.progress-bar div{
   width: 0;
-  height:12px;
-  background-color: #4d4949;
+  height:16px;
+  background-color: #5496ff;
   display: inline-block;
   border-radius: 2px;
   float:left;
-  margin-bottom:3px;
+  margin-bottom:2px;
 }
 
 video::-webkit-media-controls {

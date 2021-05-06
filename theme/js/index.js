@@ -52,8 +52,6 @@ export function renderSelected(selectedId){
   sectionGroups.selectAll('.progress-underlay').remove();
   sectionGroups.selectAll('.progress').remove();
 
-  console.log('sectiong',sectionGroups.data())
-
   let selectedGroup = sectionGroups.filter((f)=> f.id === selectedId).classed('selected', true);
 
   let progressRectUnderlay = selectedGroup.append('rect').attr('width', (d)=> {
@@ -75,7 +73,6 @@ export function renderTimeSections(segmentData){
   let groups = Array.from(new Set(segData.map(m=> m.group))).map(m=> {
     return {group: m, data: segData.filter(f=> f.group === m)}});
 
-  console.log('groussss', groups);
   let segSVG = d3.select('#video-nav').append('svg').classed('section-svg', true);
   let sectionGroups = segSVG.selectAll('g.section-group').data(groups).join('g').classed('section-group', true);
  
@@ -93,7 +90,9 @@ export function renderTimeSections(segmentData){
   }).attr('height', 20);//.attr('fill', 'red');
 
   let secLabels = subSegs.selectAll('text.label').data(d=> [d]).join('text').classed('label', true).text(d=> d.name);
-  secLabels.attr('transform', (d, i)=> `translate(0, 15)`);
+  secLabels.attr('transform', (d, i)=> {
+    return `translate(10, 15)`
+  });
 
   const pathGen = d3.line().curve(d3.curveNatural);
 
@@ -104,7 +103,7 @@ export function renderTimeSections(segmentData){
   }).style("stroke-dasharray", ("3, 3"));
 
   subSegs.on('click', function (event, d){
-    console.log('d on click', d);
+  
     phaseSelected(this, d);
   });
 
@@ -112,12 +111,9 @@ export function renderTimeSections(segmentData){
   renderSelected(selectedId);
 
   sectionGroups.attr('transform', (d, i)=> {
-    let index = sectionGroups.data().map(m=> m.class).indexOf('info');
-    if(i > index ){
-      return `translate(${((i * 354) - 100)},0)`;
-    }else{
+
       return `translate(${(i * 354)},0)`;
-    }
+   
     });
 }
 

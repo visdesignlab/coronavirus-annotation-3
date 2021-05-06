@@ -26,7 +26,50 @@ export async function phaseSelected(whichOne, data) {
 
   d3.select('.overlay').remove();
   d3.selectAll('.sections').classed('selected', false);
-  d3.select(whichOne).classed('selected', true);
+
+  if(data.group === 4){
+
+    let wrapperData = d3.select(whichOne.parentNode).data().map(m=> {
+      let otherDat = m.data.filter(f=> f.id != data.id);
+      let newDat = [data, otherDat[0]]
+      m.data = newDat
+      return m;
+    });
+
+  let pGroup = d3.select(whichOne.parentNode);
+  let subSegs = pGroup.selectAll('g.sections').data(wrapperData[0].data).join('g').classed('sections', true);
+  subSegs.attr('transform', (d, i) => `translate(0, ${(i * 28)})`);
+
+  let sectionRects = subSegs.selectAll('rect.section-rect').data(d => [d]).join('rect').classed('section-rect', true);
+  sectionRects
+  .attr('width', (d)=> {
+    if( d.name === 'Additional Info'){
+      return 150;
+    }else{
+      return 350;
+    }
+  }).attr('height', 20);//.attr('fill', 'red');
+
+  let secLabels = subSegs.selectAll('text.label').data(d=> [d]).join('text').classed('label', true).text(d=> d.name);
+  secLabels.attr('transform', (d, i)=> {
+    if(d.group === 1){
+      return `translate(100, 15)`
+    }else{
+      return `translate(10, 15)`
+    }
+  });
+
+  const pathGen = d3.line().curve(d3.curveNatural);
+
+  let secPaths = subSegs.append('path').attr('d', pathGen([[0, 20], [350, 20]])).join('path').attr('stroke', 'black');
+
+    //pGroup.selectAll('')
+  }else{
+
+    d3.select(whichOne).classed('selected', true);
+
+  }
+ 
 
   let timeRangeOb = timeRangeSingleton.getInstance();
 
@@ -86,7 +129,8 @@ function resizeVideoElements() {
 
   document.getElementById('video-controls').style.top = `${dimension.height + 7}px`;
 
-  d3.select('.progress-bar').node().style.width = `${Math.round(dimension.width)}px`;
+  d3.select('.progress-bar').node().style.width = `${Math.round(dimension.width - 68)}px`;
+  d3.select('.progress-bar').node().style['margin-left'] = '66px';
 
 }
 
@@ -871,13 +915,13 @@ export function videoUpdates(data, annoType) {
         d.index = i;
         return [d]}).join('text').classed('nav-label', true).text((d)=> {
         if(d.index === 0){
-          // console.log('find section',d)
+        
           return `Go back to ${d.sections[0].name}`;
         }else if(d.index  === 1){
-          // console.log('one go',d)
+         
           return `Replay`;
         }else{
-          // console.log('first go',d)
+        
           return `Go to ${d.sections[0].name}`;
         }
       });
@@ -888,10 +932,9 @@ export function videoUpdates(data, annoType) {
       navGs.on('click', (target, d)=> {
         
         let selG = d3.selectAll('.section-group').filter(f=> {
-          console.log('f', f, 'd', d);
           return f.id === d.id;
         });
-        console.log('test', target, d, 'data', selG);
+   
 
         //phaseSelected();
       })

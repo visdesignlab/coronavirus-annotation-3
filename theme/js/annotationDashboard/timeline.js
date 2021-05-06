@@ -8,6 +8,8 @@ import { structureSingleton } from './structureSingleton';
 import {playButtonChange, togglePlay, unselectStructure} from './video';
 import { timeRangeSingleton } from './videoTimeSingleton';
 
+const offsetX = 68;
+
 export function hoverEmphasis(d, type){
   if(type === "comment"){
     d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').filter(f=> f.key === d.key).classed('hover-em', true);
@@ -109,12 +111,33 @@ function structureTooltip(coord, d, type) {
   }
 }
 
+function renderEventsOnProgress(){
+  let dim = getRightDimension();
+  let rangeOb = timeRangeSingleton.getInstance();
+
+  const xScale = d3.scaleLinear().domain(rangeOb.currentRange()).range([0, (dim.width - (offsetX + 5))]).clamp(true);
+  
+  let annoEvents = annotationData[annotationData.length-1].filter(f=> f.annotation_type === "event");
+
+  console.log(annoEvents);
+
+  let eventSVG = d3.select('.progress-bar').selectAll('svg').data([annoEvents]).join('svg');
+  eventSVG.attr('width', dim.width).attr('height', 16).style('position', 'absolute').style('top', '37px').style('left', offsetX)
+
+  let groups = eventSVG.selectAll('g.events').data(annoEvents).join('g').classed('events', true);
+  groups.attr('transform', d=> `translate(${xScale(d.seconds[0])},0)`);
+  groups.selectAll('circle').data(d=> [d]).join('circle').attr('cx', -7).attr('cy', 7).attr('r', 7);
+
+}
+
 export async function renderTimeline(commentData) {
 
   // let rangeOb = timeRangeSingleton.getInstance();
   // let currentRange = rangeOb.currentRange();
 
-  let offsetX = 68;
+  renderEventsOnProgress();
+
+ // let offsetX = 68;
 
   let test = await structureSingleton.getInstance();
   let structureData = test.currentStructures();
@@ -132,15 +155,15 @@ export async function renderTimeline(commentData) {
 
   const timelineWrap = div.select('.timeline-wrap');
   timelineWrap.style('position', 'relative');
-  timelineWrap.style('top', `${(dim.height + dim.margin)}px`);
+  timelineWrap.style('top', `${(dim.height + 60)}px`);
   const timeSVG = timelineWrap.selectAll('svg').data(masterData).join('svg');
   timeSVG.style('width', `${dim.width}px`);
   timeSVG.style('position', 'relative');
   timeSVG.style('left', `-10px`);
-  timeSVG.style('top', `-4px`);
+  timeSVG.style('top', `0px`);
 
   const commentGroup = timeSVG.selectAll('g.comm-group').data(d=> [d.comments]).join('g').classed('comm-group', true);
-  commentGroup.attr('transform', `translate(${offsetX}, 0)`)
+  commentGroup.attr('transform', `translate(${offsetX}, 4)`)
   commentGroup.selectAll('text').data(d => [d.label]).join('text')
   .text(d=> d)
   .style('font-size', '11px')
@@ -331,7 +354,7 @@ export function timelineMouseover(event, d) {
   const xScale = d3.scaleLinear().domain([0, 89]).range([0, dim.width]);
   let hoverRectWidth  =  xScale(d.seconds[1]) - xScale(d.seconds[0]);
 
-  d3.select('.progress-bar').append('div').attr('id', 'progress-highlight')
+  let progress = d3.select('.progress-bar').append('div').attr('id', 'progress-highlight')
   .style('position', 'absolute')
   .style('left', `${xScale(d.seconds[0])}px`).style('opacity', '.2')
   .style('background-color', 'orange')
