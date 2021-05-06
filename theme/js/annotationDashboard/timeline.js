@@ -126,7 +126,7 @@ function renderEventsOnProgress(){
 
   let groups = eventSVG.selectAll('g.events').data(annoEvents).join('g').classed('events', true);
   groups.attr('transform', d=> `translate(${xScale(d.seconds[0])},0)`);
-  groups.selectAll('circle').data(d=> [d]).join('circle').attr('cx', -7).attr('cy', 7).attr('r', 7);
+  groups.selectAll('circle').data(d=> [d]).join('circle').attr('cx', -7).attr('cy', 7).attr('r', 7)//.attr('fill', '#5496ff');
 
 }
 

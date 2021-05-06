@@ -1113,12 +1113,21 @@ video, canvas, #interaction, #add-mark, #interaction svg, .overlay{
 #video-controls div.progress-bar div{
   width: 0;
   height:16px;
-  background-color: #5496ff;
+  background-color: #808080;//#5496ff;
   display: inline-block;
   border-radius: 2px;
   float:left;
   margin-bottom:2px;
 }
+
+#video-controls div.progress-bar svg{
+  circle{
+    fill:#404040;
+    stroke:#fff;
+    stroke-width: 2;
+  }
+}
+
 
 video::-webkit-media-controls {
   display:none !important;
