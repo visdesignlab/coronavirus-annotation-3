@@ -354,13 +354,20 @@ div{
 }
 
 .overlay{
-  background-color: #F8F8F8;
-  opacity: .6;
+  background-color: rgba($color: #F8F8F8, $alpha: .7) ;
+  //opacity: .6;
+  text-anchor: middle;
+  color:#fff;
+
+  span{
+    background-color: #404040;
+  }
 
   svg{
     width:100%;
     height:100%;
   }
+
 }
 
 .structure-wrap{

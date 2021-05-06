@@ -31,8 +31,8 @@ export async function phaseSelected(whichOne, data) {
 
     let wrapperData = d3.select(whichOne.parentNode).data().map(m=> {
       let otherDat = m.data.filter(f=> f.id != data.id);
-      let newDat = [data, otherDat[0]]
-      m.data = newDat
+      let newDat = [data, otherDat[0]];
+      m.data = newDat;
       return m;
     });
 
@@ -831,6 +831,8 @@ export function videoUpdates(data, annoType) {
     let timeOb = timeRangeSingleton.getInstance();
     let currentDuration = timeOb.currentRange();
 
+   
+
     if(video.currentTime < currentDuration[1]){
 
       const timeRange = [video.currentTime < .5 ? 0 : Math.floor(video.currentTime - .2), video.currentTime + .2];
@@ -901,43 +903,39 @@ export function videoUpdates(data, annoType) {
         
         let test = timeRangeSingleton.getInstance();
         let sel = test.currentSeg();
-        let sections = d3.selectAll('.section-group').data();
-        let idArray = sections.map(m=> m.sections[0].id);
-        let goBackIndex = idArray.indexOf(sel) > 0 ? (idArray.indexOf(sel) - 1) : (idArray.indexOf(sel).length - 1);
-        let goForwardIndex = idArray.indexOf(sel) < (idArray.length - 1) ? (idArray.indexOf(sel) + 1) : 0;
+        let back = +sel === 1 ? +segData.length : +sel - 1;
+        let next = sel === segData.length ? 1 : sel + 1;
+        console.log('back', back, next);
 
-        return [sections[goBackIndex], sections[idArray.indexOf(sel)], sections[goForwardIndex]];
+        return [segData[back - 1], segData[sel - 1], segData[next - 1]];
         
       }).join('g').classed('nav', true);
 
+      let span = navGs.selectAll('span').data(d=> [d]).join('span');//.attr('height', 20).attr('width', d=> (d.name.length * 12)+10);
+
       navGs.selectAll('text.nav-label').data((d, i)=> {
-       
         d.index = i;
-        return [d]}).join('text').classed('nav-label', true).text((d)=> {
+        return [d]})
+        .join('text')
+        .classed('nav-label', true)
+        .text((d)=> {
         if(d.index === 0){
-        
-          return `Go back to ${d.sections[0].name}`;
+          return `Go back to ${d.name}`;
         }else if(d.index  === 1){
-         
-          return `Replay`;
+          return `Replay ${d.name}`;
         }else{
-        
-          return `Go to ${d.sections[0].name}`;
+          return `Go to ${d.name}`;
         }
       });
       let dims = getRightDimension();
 
-      navGs.attr('transform', (d, i)=> `translate(${(i * (dims.width / 3))+40},${(dims.height / 2)})`);
+      navGs.attr('transform', (d, i)=> `translate(${(i * (dims.width / 3))+180},${(dims.height / 2)})`);
 
       navGs.on('click', (target, d)=> {
-        
         let selG = d3.selectAll('.section-group').filter(f=> {
           return f.id === d.id;
         });
-   
-
-        //phaseSelected();
-      })
+      });
 
     }
   };
