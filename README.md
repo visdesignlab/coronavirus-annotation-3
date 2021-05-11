@@ -16,7 +16,7 @@ Tool for crowdsourcing information on the coronavirus life cycle from an expert 
 
 ## Deployment on SCI server
 1. `cd coronavirus-annotation-2`
-2. `sudo systemctl restart app`
+2. `sudo systemctl restart app3`
 3. `npm install`
 4. `npm run build`
 5. `sudo systemctl restart nginx`
