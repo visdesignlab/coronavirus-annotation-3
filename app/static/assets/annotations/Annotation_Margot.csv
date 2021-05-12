@@ -1,6 +1,4 @@
 video_time,reference_tag,annotation_type,text_description,ref,url
-"time to appear in video. This can be a single point or range. If this is a range, please use ""-""  ",,type of annotation,identifying description on the purpose of the annotation (if it is an event the type of event would be here),reference or citation for a paper/literature,to link to main source
-,,,,,
 1:27-1:32,,citation,"Numbers of viral proteins: 100 S proteins, 20 E pentamers (100 proteins), 1000 M dimers (2000 proteins), 1000 N proteins","Yinon M Bar-On, Avi Flamholz, Rob Phillips, Ron Milo. Science Forum: SARS-CoV-2 (COVID-19) by the numbers. eLife 2020;9:e57309 DOI: 10.7554/eLife.57309",https://elifesciences.org/articles/57309
 1:27-1:32,,structure,S protein model: PDB 6VSB; M protein dimer and E protein pentamers were downloaded from Feig lab repository,,"https://www.rcsb.org/structure/6VSB
 

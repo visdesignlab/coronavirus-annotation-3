@@ -14,6 +14,7 @@ import { renderTimeline } from './annotationDashboard/timeline';
 import { structureSelected } from './annotationDashboard/imageDataUtil';
 import { timeObj, timeRangeSingleton } from './annotationDashboard/videoTimeSingleton';
 import { structureSingleton } from './annotationDashboard/structureSingleton';
+import { annotationSingleton } from './annotationDashboard/annotationSingleton';
 
 const {
   renderUser, addCommentButton, toggleSort, renderIssueButton, addInfoBlurb,
@@ -67,7 +68,6 @@ export function renderSelected(selectedId){
   let progressRect = selectedGroup.append('rect').attr('width', 5).attr('height', 3).classed('progress', true);
   progressRect.attr('transform', 'translate(0, 21)');
 }
-
 export function renderTimeSections(segmentData){
   
   let groups = Array.from(new Set(segData.map(m=> m.group))).map(m=> {

@@ -63,7 +63,7 @@ export const structureDictionary = {
 }
 
 export const getColorIndicesForCoord = (x, y, width) => {
-  const red = y * (width * 4) + (x * 4);
+  const red = Math.round(y * (width * 4) + (x * 4));
   return [red, red + 1, red + 2, red + 3];
 };
 
@@ -103,7 +103,7 @@ export async function loadPngForFrame() {
   const pullFrame = (Math.floor((video.currentTime) * 30));
   let timeOb = timeRangeSingleton.getInstance();
   let currentPNGS = timeOb.currentFrames();
-  // console.log('currrrr', currentPNGS)
+ 
   const pathImg = `../static/assets/stills/${currentPNGS}/flat`;
   // The path to the image that we want to add
   const imgPath = `${pathImg + (check(pullFrame))}.png`;
@@ -261,9 +261,9 @@ export function makeNewImageData() {
 }
 
 export function getCoordColor(coord) {
-  const colorIndices = getColorIndicesForCoord(Math.round(coord[0]), (coord[1]), currentImageData.width);
+  
+  const colorIndices = getColorIndicesForCoord(Math.round(coord[0]), Math.round(coord[1]), currentImageData.width);
   const [redIndex, greenIndex, blueIndex, alphaIndex] = colorIndices;
-
   const redForCoord = currentImageData.data[redIndex];
   const greenForCoord = currentImageData.data[greenIndex];
   const blueForCoord = currentImageData.data[blueIndex];
@@ -271,6 +271,8 @@ export function getCoordColor(coord) {
   const new_rgb = `rgba(${redForCoord},${greenForCoord},${blueForCoord}, 1.0)`;
 
   console.log('coord color', new_rgb);
+
+  d3.select('body').style('background-color', `${new_rgb}`);
 
   const snip = colorChecker([redForCoord, greenForCoord, blueForCoord, alphaForCoord]);
 

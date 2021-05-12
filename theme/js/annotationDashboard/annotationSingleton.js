@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import { formatAnnotationTime } from '../dataManager';
 import { timeRangeSingleton } from './videoTimeSingleton';
 /**
  * Create an example of a JavaScript Singleton.
@@ -12,11 +13,12 @@ import { timeRangeSingleton } from './videoTimeSingleton';
  
 
 
- export let structureSingleton = (function () {
+
+ export let annotationSingleton = (function () {
     let objInstance; //private variable
     async function create() { //private function to create methods and properties
         
-        let _allStruct = d3.groups(await d3.csv('../static/assets/structures/stuctured_structure_data.csv'), d=> d.Hierarchy).map(m => {
+        let _allStruct = d3.groups(await d3.csv('../static/assets/stuctured_structure_data.csv'), d=> d.Hierarchy).map(m => {
             m[1].map(v => {
                 var value = v.Time;
                 var json = JSON.parse("[" + value + "]");
@@ -55,5 +57,3 @@ import { timeRangeSingleton } from './videoTimeSingleton';
         }
     };
 })();
-
-//let obj1 = obj.getInstance();

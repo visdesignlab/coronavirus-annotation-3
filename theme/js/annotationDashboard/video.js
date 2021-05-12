@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { annotationData, dataKeeper, formatAnnotationTime, formatTime, getRightDimension, segData } from '../dataManager';
+import { annotationData, formatAnnotationTime, formatTime, getRightDimension, segData } from '../dataManager';
 import { addCommentButton, goBackButton } from './topbar';
 import {
   clearCanvas, colorDictionary, drawFrameOnPause, endDrawTime, getCoordColor, loadPngForFrame, makeNewImageData, parseArray, structureSelected, structureSelectedToggle, toggleQueue,
@@ -85,6 +85,8 @@ export async function phaseSelected(whichOne, data) {
     m.index = i;
     return m;
   });
+
+  
 
   annotationData.push(anno);
  
@@ -425,7 +427,7 @@ export function togglePlay() {
 export async function mouseMoveVideo(coord, video) {
 
     if(!video.playing && (structureSelected.selected === false && video.currentTime <= endDrawTime)){
-      
+   
     const snip = getCoordColor(coord);
 
     if (snip != currentColorCodes[currentColorCodes.length - 1] && !video.playing && snip != 'black' && snip != 'unknown') {
@@ -905,7 +907,7 @@ export function videoUpdates(data, annoType) {
         let sel = test.currentSeg();
         let back = +sel === 1 ? +segData.length : +sel - 1;
         let next = sel === segData.length ? 1 : sel + 1;
-        console.log('back', back, next);
+       
 
         return [segData[back - 1], segData[sel - 1], segData[next - 1]];
         
