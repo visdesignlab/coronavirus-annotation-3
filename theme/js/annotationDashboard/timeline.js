@@ -132,15 +132,12 @@ function renderEventsOnProgress(){
 
 export async function renderTimeline(commentData) {
 
-  // let rangeOb = timeRangeSingleton.getInstance();
-  // let currentRange = rangeOb.currentRange();
-
   renderEventsOnProgress();
 
- // let offsetX = 68;
-
   let test = await structureSingleton.getInstance();
-  let structureData = test.currentStructures();
+  let structureData = await test.currentStructures();
+
+  console.log(structureData);
  
   let dim = getRightDimension();
   let rangeOb = timeRangeSingleton.getInstance();
@@ -244,8 +241,6 @@ export async function renderTimeline(commentData) {
     }
   });
 
-  console.log(annoGroup.node().getBoundingClientRect().height)
-
   /**
    * Render structures
    */
@@ -285,8 +280,9 @@ export async function renderTimeline(commentData) {
 
   let timeRangeOb = timeRangeSingleton.getInstance();
   let current = timeRangeOb.currentRange();
+
   let durRects = structures.selectAll('rect.dur').data(d=> {
-    return d.Time.filter(f=> overlap(f[0], current[0], f[1], current[1])).map(m=>{
+    return d.time.filter(f=> overlap(f[0], current[0], f[1], current[1])).map(m=>{
       return {range: m, color: d.Hex};
     });
   }).join('rect').classed('dur', true);

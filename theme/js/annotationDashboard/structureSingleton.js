@@ -15,24 +15,35 @@ import { timeRangeSingleton } from './videoTimeSingleton';
  export let structureSingleton = (function () {
     let objInstance; //private variable
     async function create() { //private function to create methods and properties
-        
-        let _allStruct = d3.groups(await d3.csv('../static/assets/structures/stuctured_structure_data.csv'), d=> d.Hierarchy).map(m => {
+        let timeOb = timeRangeSingleton.getInstance();
+        let seg = timeOb.currentSeg();
+        console.log('currentSeg', seg)
+        let _allStruct = d3.groups(await d3.csv(`../static/assets/structures/stuctured_structures_seg${seg}.csv`), d=> d.hierarchy).map(m => {
             m[1].map(v => {
-                var value = v.Time;
+                var value = v.time;
                 var json = JSON.parse("[" + value + "]");
-                v.Time = json;
+                v.time = json;
                 return v;
             });
             return m;
         });
     
-        let currentStructures = function(){
+        let currentStructures = async function(){
             let timeRangeS = timeRangeSingleton.getInstance();
             let currentRange = timeRangeS.currentRange();
-           
+            let seg = timeRangeS.currentSeg();
+            _allStruct = d3.groups(await d3.csv(`../static/assets/structures/stuctured_structures_seg${seg}.csv`), d=> d.hierarchy).map(m => {
+                m[1].map(v => {
+                    var value = v.time;
+                    var json = JSON.parse("[" + value + "]");
+                    v.time = json;
+                    return v;
+                });
+                return m;
+            });
             let test = [..._allStruct].map(m=> {
                 let vals = m[1].filter(f=> {
-                    let testTime = f.Time.filter(t=> {
+                    let testTime = f.time.filter(t=> {
                         return overlap(currentRange[0], currentRange[1], t[0], t[1]);
                     });
                     return testTime.length > 0;
