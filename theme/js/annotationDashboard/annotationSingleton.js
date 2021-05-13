@@ -14,35 +14,25 @@ import { timeRangeSingleton } from './videoTimeSingleton';
  export let annotationSingleton = (function () {
     let objInstance; //private variable
     async function create() { //private function to create methods and properties
-        
-        let _allStruct = d3.groups(await d3.csv('../static/assets/stuctured_structure_data.csv'), d=> d.Hierarchy).map(m => {
-            m[1].map(v => {
-                var value = v.Time;
-                var json = JSON.parse("[" + value + "]");
-                v.Time = json;
-                return v;
-            });
+        let timeRangeOb = timeRangeSingleton.getInstance();
+        let _anno = formatAnnotationTime(await d3.csv(`../static/assets/annotations/${timeRangeOb.currentAnno()}`)).map((m, i) => {
+            m.index = i;
             return m;
-        });
-    
-        let currentStructures = function(){
-            let timeRangeS = timeRangeSingleton.getInstance();
-            let currentRange = timeRangeS.currentRange();
-           
-            let test = [..._allStruct].map(m=> {
-                let vals = m[1].filter(f=> {
-                    let testTime = f.Time.filter(t=> {
-                        return overlap(currentRange[0], currentRange[1], t[0], t[1]);
-                    });
-                    return testTime.length > 0;
-                });
-                m[1] = vals;
+          });
+
+        let changeAnnotations = async function(){
+            _anno = formatAnnotationTime(await d3.csv(`../static/assets/annotations/${timeRangeOb.currentAnno()}`)).map((m, i) => {
+                m.index = i;
                 return m;
-            });
-            return test;
+              });
+        }
+    
+        let currentAnnotations = function(){
+           return _anno;
         }
         return{
-            currentStructures : currentStructures,
+            currentAnnotations : currentAnnotations,
+            changeAnnotations : changeAnnotations,
         }
     }
     return {

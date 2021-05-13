@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
-import { annotationData, dataKeeper, formatTime, getRightDimension, overlap } from '../dataManager';
+import { formatTime, getRightDimension, overlap } from '../dataManager';
 import { updateAnnotationSidebar } from './annotationBar';
+import { annotationSingleton } from './annotationSingleton';
 import { formatCommentData } from './commentBar';
 import { commentSingleton } from './commentDataSingleton';
 import { colorDictionary, structureSelected } from './imageDataUtil';
@@ -13,10 +14,8 @@ const offsetX = 68;
 export function hoverEmphasis(d, type){
   if(type === "comment"){
     d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').filter(f=> f.key === d.key).classed('hover-em', true);
-    
   }else{
     let filtered = d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').filter(f=> {
-     
       return f.key === d.key});
    
     filtered.classed('hover-em', true);
@@ -25,47 +24,32 @@ export function hoverEmphasis(d, type){
 }
 
 export function colorTimeline(snip){
-
+ 
   let video = document.getElementById('video');
   d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
   d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
 
-  if(snip != null){
-    if(snip === "orange"){
-      let structure = (snip === "orange" && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
-      let color = colorDictionary[snip].code;
-      let comm = d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').filter(c=> {
-        let rep = c.replyKeeper.filter(r=> r.comment.toUpperCase().includes(structure));
-        return c.comment.toUpperCase().includes(structure) || rep.length > 0;
-      });
-      comm.classed('struct-present', true).select('rect').style('fill', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
+  if(snip != "unknowm"){
   
-      d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').filter(a => {
-        return a.associated_structures.toUpperCase().includes(structure);
-      }).classed('struct-present', true).select('rect').style('fill', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
-  
-  
-    }else{
-  
-      colorDictionary[snip].other_names.map(f=> {
+      snip.alias.split(',').map(f=> {
         let name = f.toUpperCase();
-        let color = colorDictionary[snip].code;
+        
         let comm = d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').filter(c=> {
           let rep = c.replyKeeper.filter(r=> r.comment.toUpperCase().includes(name));
           return c.comment.toUpperCase().includes(name) || rep.length > 0;
         });
-        comm.classed('struct-present', true).select('rect').style('fill', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
+        comm.classed('struct-present', true).select('rect').style('fill', `#${snip.hex}`);
     
         d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').filter(a => {
           return a.associated_structures.toUpperCase().includes(name);
-        }).classed('struct-present', true).select('rect').style('fill', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
+      }).classed('struct-present', true).select('rect').style('fill', `#${snip.hex}`);
     
       });
   
     }
   }
 
-}
+//}
 
 function structureTooltip(coord, d, type) {
   let dim = getRightDimension();
@@ -111,15 +95,16 @@ function structureTooltip(coord, d, type) {
   }
 }
 
-function renderEventsOnProgress(){
+async function renderEventsOnProgress(){
   let dim = getRightDimension();
   let rangeOb = timeRangeSingleton.getInstance();
 
   const xScale = d3.scaleLinear().domain(rangeOb.currentRange()).range([0, (dim.width - (offsetX + 5))]).clamp(true);
-  
-  let annoEvents = annotationData[annotationData.length-1].filter(f=> f.annotation_type === "event");
 
-  console.log(annoEvents);
+  let annoOb = await annotationSingleton.getInstance();
+  let annotations = annoOb.currentAnnotations();
+  
+  let annoEvents = annotations.filter(f=> f.annotation_type === "event");
 
   let eventSVG = d3.select('.progress-bar').selectAll('svg').data([annoEvents]).join('svg');
   eventSVG.attr('width', dim.width).attr('height', 16).style('position', 'absolute').style('top', '37px').style('left', offsetX)
@@ -137,8 +122,9 @@ export async function renderTimeline(commentData) {
   let test = await structureSingleton.getInstance();
   let structureData = await test.currentStructures();
 
-  console.log(structureData);
- 
+  let annoOb = await annotationSingleton.getInstance();
+  let annotations = annoOb.currentAnnotations();
+
   let dim = getRightDimension();
   let rangeOb = timeRangeSingleton.getInstance();
 
@@ -148,7 +134,7 @@ export async function renderTimeline(commentData) {
   let comms = formatCommentData(commentData);
   const binScale = d3.scaleLinear().range([.1, 1]).domain([0, comms.map(m=> Math.max(m.replyKeeper.length))]);
   
-  let masterData = [{comments: {data: comms, label: "comments"}, annotations: {data:annotationData[annotationData.length - 1], label: "annotations"}}];
+  let masterData = [{comments: {data: comms, label: "comments"}, annotations: {data:annotations, label: "annotations"}}];
 
   const timelineWrap = div.select('.timeline-wrap');
   timelineWrap.style('position', 'relative');

@@ -6,8 +6,8 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { structureSelected } from './imageDataUtil';
 import { hoverEmphasis } from './timeline';
-import { annotationData } from '../dataManager';
 import { playButtonChange, togglePlay } from './video';
+import { annotationSingleton } from './annotationSingleton';
 
 library.add(faCheck, fas, far, fab);
 dom.i2svg();
@@ -15,8 +15,10 @@ dom.watch();
 
 export const colorArray = ['#2E86C1', '#2ECC71', '#F1C40F', '#F10F42', 'black'];
 
-export function annoTypes() {
-  const data = annotationData[annotationData.length - 1];
+export async function annoTypes() {
+  let annoOb = await annotationSingleton.getInstance();
+  let data = annoOb.currentAnnotations();
+
   return Array.from(new Set(data.map((m) => m.annotation_type))).map((m, i) => ({ type: m, color: colorArray[i] }));
 }
 

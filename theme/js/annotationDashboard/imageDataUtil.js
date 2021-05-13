@@ -165,16 +165,6 @@ export function colorChecker(code, hover){
     return true;
   }
 
-  //console.log('color checker in struct dict', colorStructDict, code);
-
-  // let test = colorStructDict.reduce((c)=>{
-  //   console.log(code);
-  // });
-
-  // let first =  colorStructDict.filter(f=> f.rgb[0] === code[0]);
-
-
-
     // if(code[0] === 254 && code[1] === 0 && code[2] && 190){
     //   return 'hot pink'
     // }else if(code[0] === 240 && code[1] === 226 && code[2] && 254){

@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { annotationData, formatAnnotationTime, formatTime, getRightDimension, segData } from '../dataManager';
+import { formatTime, getRightDimension, segData } from '../dataManager';
 import { addCommentButton, goBackButton } from './topbar';
 import {
   clearCanvas, colorDictionary, drawFrameOnPause, endDrawTime, getCoordColor, loadPngForFrame, makeNewImageData, parseArray, structureSelected, structureSelectedToggle, toggleQueue,
@@ -16,6 +16,7 @@ import { renderSelected, renderTimeSections } from '..';
 import { commentSingleton } from './commentDataSingleton';
 import { structureSingleton } from './structureSingleton';
 import { color } from 'd3';
+import { annotationSingleton } from './annotationSingleton';
 
 export let currentColorCodes = null;
 
@@ -76,6 +77,8 @@ export async function phaseSelected(whichOne, data) {
 
   let timeRangeOb = timeRangeSingleton.getInstance();
 
+  console.log('data in phase change', data);
+
   timeRangeOb.changeRange(data);
   let current = timeRangeOb.currentRange();
 
@@ -84,19 +87,15 @@ export async function phaseSelected(whichOne, data) {
   renderSelected(data.id);
   initializeVideo();
 
-  const anno = formatAnnotationTime(await d3.csv(`../static/assets/annotations/${timeRangeOb.currentAnno()}`)).map((m, i) => {
-    m.index = i;
-    return m;
-  });
+  let annoOb = await annotationSingleton.getInstance();
+  await annoOb.changeAnnotations();
 
-  
-
-  annotationData.push(anno);
+  console.log('CURRRR', annoOb.currentAnnotations());
  
   /**
    * Filter Annotations and render them
    */
-  let filteredAnnotations = annotationData[annotationData.length-1].filter((f, i)=>{
+  let filteredAnnotations = annoOb.currentAnnotations().filter((f, i)=>{
     let start = f.seconds[0];
     let end = f.seconds[1];
     return end >= current[0] && current[1] >= start
@@ -317,7 +316,7 @@ export async function formatVidPlayer() {
 Update format time, highlight bars
 */
 export async function updateTimeElapsed(timeRange) {
-  console.log("update time elapsed")
+
   d3.select('.progress-bar-fill').style('width', `${scaleVideoTime(document.getElementById('video').currentTime)}px`);
   const timeArray = formatTime([Math.round(document.getElementById('video').currentTime)]);
 
@@ -335,7 +334,7 @@ export async function updateTimeElapsed(timeRange) {
 }
 
 async function progressClicked(mouse) {
-  console.log('progress clicked')
+  
   const video = document.getElementById('video');
   video.currentTime = Math.round(scaleVideoTime(mouse.offsetX, true));
 
@@ -437,18 +436,19 @@ export async function mouseMoveVideo(coord, video) {
 
     if(!video.playing && (structureSelected.selected === false && video.currentTime <= endDrawTime)){
    
-    const snip = getCoordColor(coord);
-      //console.log('snip', snip);
-    if (snip != 'unknown' && snip.structure_name != currentColorCodes && !video.playing && snip.color != 'black') {
-      //if (snip != currentColorCodes[currentColorCodes.length - 1] && !video.playing && snip != 'black' && snip != 'unknown') {
+      const snip = getCoordColor(coord);
+      
+      if (snip != 'unknown' && snip.structure_name != currentColorCodes && !video.playing && snip.color != 'black') {
+       
 
-      currentColorCodes = snip.structure_name;
-      parseArray(snip);
-      const structFromDict = snip.structure_name.toUpperCase();//(snip === 'orange' && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
-     
-      const structureData = annotationData[annotationData.length - 1].filter((f) => {
-       // console.log('f', f.associated_structures.split(', ').map((m) => m.toUpperCase()), structFromDict)
-        return f.associated_structures.split(', ').map((m) => m.toUpperCase()).indexOf(structFromDict) > -1});
+        currentColorCodes = snip.structure_name;
+        parseArray(snip);
+        const structFromDict = snip.structure_name.toUpperCase();//(snip === 'orange' && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
+        let annoOb = await annotationSingleton.getInstance();
+
+        const structureData = annoOb.currentAnnotations().filter((f) => {
+        // console.log('f', f.associated_structures.split(', ').map((m) => m.toUpperCase()), structFromDict)
+          return f.associated_structures.split(', ').map((m) => m.toUpperCase()).indexOf(structFromDict) > -1});
 
        // console.log('structuredataaaa',structureData)
 
@@ -497,7 +497,7 @@ export function unselectStructure(commentData, video){
 export async function mouseClickVideo(coord, video) {
 
   let commentOb = commentSingleton.getInstance();
-  //const commentData = { ...dataKeeper[dataKeeper.length - 1] };
+
   const commentData = { ...commentOb.currentData() };
 
   if (video.playing) {
@@ -570,7 +570,7 @@ export async function mouseClickVideo(coord, video) {
     }
   }
 }
-export function updateWithSelectedStructure(snip, commentData){
+export async function updateWithSelectedStructure(snip, commentData){
   
   parseArray(snip);
 
@@ -595,8 +595,9 @@ export function updateWithSelectedStructure(snip, commentData){
       return test.length > 0 || reply.length > 0 || tags.length > 0;
     }
   });
+  let annoOb = await annotationSingleton.getInstance();
 
-  const structureAnnotations = annotationData[annotationData.length - 1].filter((f) => {
+  const structureAnnotations = annoOb.currentAnnotations().filter((f) => {
     let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
     if(snip === "orange"){
       let structsAnno = f.associated_structures.split(', ').filter((m) => {
@@ -612,7 +613,7 @@ export function updateWithSelectedStructure(snip, commentData){
     }
   });
 
-  let otherAnno = annotationData[annotationData.length - 1].filter((f) => {
+  let otherAnno = annoOb.currentAnnotations().filter((f) => {
     let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
     if(snip === "orange"){
       let structsAnno = f.associated_structures.split(', ').filter((m) => {
@@ -674,27 +675,28 @@ export function structureTooltip(structureData, coord, snip, hoverBool) {
   const nestReplies = formatCommentData( commentData );
   //let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
   let structureComments = nestReplies.filter((f) => {
-    // if(snip  === 'orange'){
-    //   let reply = f.replyKeeper.filter(r=> {
-    //     return r.comment.toUpperCase().includes(snip.structure_name.toUpperCase());
-    //   });
-    //   return f.comment.toUpperCase().includes(structure.toUpperCase()) || reply.length > 0;
-    // }else{
 
-
-    /* ADD THIS BACK IN
-      let tags = f.tags.split(',').filter(m=> {
-        return snip.map(on=> on.toUpperCase()).indexOf(m.toUpperCase()) > -1;
-      });
-      let test = colorDictionary[snip].other_names.filter(n=> f.comment.toUpperCase().includes(n.toUpperCase()));
-        let reply = f.replyKeeper.filter(r=> {
-          let rTest = colorDictionary[snip].other_names.filter(n=> r.comment.toUpperCase().includes(n.toUpperCase()));
-          return rTest.length > 0;
+    let tags = ()=>{
+      if(f.tags === "none"){
+        return 0;
+      }else{
+        console.log('tags',f.tags);
+        let testTags = f.tags.split(',').filter(t=> {
+          snip.alias.includes(t);
         });
-      return test.length > 0 || reply.length > 0 || tags.length > 0;
-   // }
+        return testTags.length;
+      }
+    }
+   
+   let test = snip.alias.split(',').filter(n=>{
+    return f.comment.toUpperCase().includes(n.toUpperCase())});
 
-   */
+  let reply = f.replyKeeper.filter(r=> {
+    let rTest = snip.alias.split(',').filter(n=> r.comment.toUpperCase().includes(n.toUpperCase()));
+    return rTest.length > 0;
+  });
+  
+   return tags() > 0 || test.length > 0 || reply.length > 0;
   });
 
   //let structure = (snip === "orange" && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
@@ -722,7 +724,7 @@ export function structureTooltip(structureData, coord, snip, hoverBool) {
     d3.select('.tooltip')
       .style('position', 'absolute')
       .style('opacity', 1)
-      .html(`<h4>${structure}</h4>
+      .html(`<h4>${snip.structure_name}</h4>
     `)
       .style('left', `${coord[0]}px`)
       .style('top', `${coord[1]}px`);
@@ -798,7 +800,7 @@ export async function renderDoodles(commentsInTimeframe, div) {
 }
 export function videoUpdates(data, annoType) {
 
-  console.log('video updates');
+
   const svgTest = d3.select('#interaction').select('svg');
   const svg = svgTest.empty() ? d3.select('#interaction').append('svg') : svgTest;
   svg.attr('id', 'vid-svg');
@@ -864,8 +866,8 @@ export function videoUpdates(data, annoType) {
         let s = d3.scaleLinear().domain(currentDuration).range([0, last]);
         return s(video.currentTime)
       });
-    
-      const filteredAnnotations = annotationData[annotationData.length - 1]
+      let annoOb = await annotationSingleton.getInstance();
+      const filteredAnnotations = annoOb.currentAnnotations()
         .filter((f) => f.seconds[0] <= timeRange[0] && f.seconds[0] <= timeRange[1]) || (f.seconds[1] <= timeRange[1] && f.seconds[1] >= timeRange[0]);
 
       /**

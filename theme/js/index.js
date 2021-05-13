@@ -19,7 +19,7 @@ import { annotationSingleton } from './annotationDashboard/annotationSingleton';
 const {
   renderUser, addCommentButton, toggleSort, renderIssueButton, addInfoBlurb,
 } = require('./annotationDashboard/topbar');
-const { formatAnnotationTime, annotationData, segData } = require('./dataManager');
+const { formatAnnotationTime, segData } = require('./dataManager');
 const { checkUser, loadConfig, fbConfig, loadFirebaseApp } = require('./firebaseUtil');
 
 loadConfig();
@@ -147,14 +147,17 @@ async function init() {
     return m;
   });
 
-  annotationData.push(anno);
+  let annoOb = await annotationSingleton.getInstance();
+  let annotations = await annoOb.currentAnnotations();
+  console.log('anoooo',annotations)
+
 
   loadFirebaseApp();
 
   await checkUser([renderUser], [updateCommentSidebar, renderTimeline]);
 
   renderIssueButton(d3.select('#top-bar').select('#user'));
-  updateAnnotationSidebar(anno, null, null);
+  updateAnnotationSidebar(annotations, null, null);
 
   formatVidPlayer().then(()=> {
     d3.select('#loader').remove();

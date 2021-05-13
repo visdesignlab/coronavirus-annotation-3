@@ -1,12 +1,6 @@
 video_time,reference_tag,annotation_type,text_description,ref,url
-"time to appear in video. This can be a single point or range. If this is a range, please use ""-""  ",,type of annotation,identifying description on the purpose of the annotation (if it is an event the type of event would be here),reference or citation for a paper/literature,to link to main source
-4:28-4:37,,structure,"The double membrane vesicles range between 150-300nm 
-in diameter and contain RNA filaments
-The distance between paired membranesis about 4.5nm.","Klein, S., Cortese, M., Winter, S. L., Wachsmuth-Melm, 
-M., Neufeldt, C. J., Cerikan, B., Stanifer, M. L., Boulant, 
-S., Bartenschlager, R., & Chlanda, P. (2020). 
-SARS-CoV-2 structure and replication characterized by 
-in situ cryo-electron tomography. Nature communications, 
+4:28-4:37,,structure,"The double membrane vesicles range between 150-300nm in diameter and contain RNA filaments The distance between paired membranesis about 4.5nm.","Klein, S., Cortese, M., Winter, S. L., Wachsmuth-Melm, M., Neufeldt, C. J., Cerikan, B., Stanifer, M. L., Boulant, 
+S., Bartenschlager, R., & Chlanda, P. (2020). SARS-CoV-2 structure and replication characterized by in situ cryo-electron tomography. Nature communications, 
 11(1), 5885. https://doi.org/10.1038/s41467-020-19619-7
 
 Wolff, G., Limpens, R., Zevenhoven-Dobbe, J. C., 
