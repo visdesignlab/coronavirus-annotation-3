@@ -77,7 +77,11 @@ export function renderTimeSections(segmentData){
   let sectionGroups = segSVG.selectAll('g.section-group').data(groups).join('g').classed('section-group', true);
  
   let subSegs = sectionGroups.selectAll('g.sections').data(d => d.data).join('g').classed('sections', true);
-  subSegs.attr('transform', (d, i) => `translate(0, ${(i * 28)})`);
+  subSegs.attr('transform', (d, i) => {
+    console.log('d',d, i)
+    let stepX = d.group === 4 ? (i * 28) : 14;
+
+    return `translate(0, ${(stepX)})`});
 
   let sectionRects = subSegs.selectAll('rect.section-rect').data(d => [d]).join('rect').classed('section-rect', true);
   sectionRects
@@ -137,21 +141,10 @@ if(navigator.userAgent.match(/Android/i)
 init();
 
 async function init() {
-  // const anno = formatAnnotationTime(await d3.csv('../static/assets/annotations/annotation_3.csv')).map((m, i) => {
-  //   m.index = i;
-  //   return m;
-  // });
-
-  const anno = formatAnnotationTime(await d3.csv(`../static/assets/annotations/${timeRangeOb.currentAnno()}`)).map((m, i) => {
-    m.index = i;
-    return m;
-  });
 
   let annoOb = await annotationSingleton.getInstance();
   let annotations = await annoOb.currentAnnotations();
-  console.log('anoooo',annotations)
-
-
+ 
   loadFirebaseApp();
 
   await checkUser([renderUser], [updateCommentSidebar, renderTimeline]);

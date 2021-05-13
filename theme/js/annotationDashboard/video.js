@@ -31,53 +31,17 @@ export async function phaseSelected(whichOne, data) {
   d3.select('.overlay').remove();
   d3.selectAll('.sections').classed('selected', false);
 
-  if(data.group === 4){
 
-    let wrapperData = d3.select(whichOne.parentNode).data().map(m=> {
-      let otherDat = m.data.filter(f=> f.id != data.id);
-      let newDat = [data, otherDat[0]];
-      m.data = newDat;
-      return m;
-    });
+  d3.select(whichOne).classed('selected', true);
 
-  let pGroup = d3.select(whichOne.parentNode);
-  let subSegs = pGroup.selectAll('g.sections').data(wrapperData[0].data).join('g').classed('sections', true);
-  subSegs.attr('transform', (d, i) => `translate(0, ${(i * 28)})`);
+  let structOb = await structureSingleton.getInstance();
+  
+  colorStructDict = structOb.currentColorStruct(video.currentTime);
+  
 
-  let sectionRects = subSegs.selectAll('rect.section-rect').data(d => [d]).join('rect').classed('section-rect', true);
-  sectionRects
-  .attr('width', (d)=> {
-    if( d.name === 'Additional Info'){
-      return 150;
-    }else{
-      return 350;
-    }
-  }).attr('height', 20);//.attr('fill', 'red');
 
-  let secLabels = subSegs.selectAll('text.label').data(d=> [d]).join('text').classed('label', true).text(d=> d.name);
-  secLabels.attr('transform', (d, i)=> {
-    if(d.group === 1){
-      return `translate(100, 15)`
-    }else{
-      return `translate(10, 15)`
-    }
-  });
-
-  const pathGen = d3.line().curve(d3.curveNatural);
-
-  let secPaths = subSegs.append('path').attr('d', pathGen([[0, 20], [350, 20]])).join('path').attr('stroke', 'black');
-
-    //pGroup.selectAll('')
-  }else{
-
-    d3.select(whichOne).classed('selected', true);
-
-  }
  
-
   let timeRangeOb = timeRangeSingleton.getInstance();
-
-
 
   timeRangeOb.changeRange(data);
   let current = timeRangeOb.currentRange();
@@ -437,7 +401,7 @@ export function togglePlay() {
     clearCanvas();
 
     if(structureSelected.selected){
-      structureSelectedToggle(null, null, null);
+      structureSelectedToggle(null, null);
       clearRightSidebar();
       renderCommentDisplayStructure();
       const commentData = formatCommentData({...commentOb.currentData()});
@@ -462,10 +426,10 @@ export async function mouseMoveVideo(coord, video) {
         let annoOb = await annotationSingleton.getInstance();
 
         const structureData = annoOb.currentAnnotations().filter((f) => {
-        // console.log('f', f.associated_structures.split(', ').map((m) => m.toUpperCase()), structFromDict)
+       
           return f.associated_structures.split(', ').map((m) => m.toUpperCase()).indexOf(structFromDict) > -1});
 
-       // console.log('structuredataaaa',structureData)
+   
 
       structureTooltip(structureData, coord, snip, true);
       
@@ -499,7 +463,7 @@ export function unselectStructure(commentData, video){
   clearRightSidebar();
   drawFrameOnPause(video);
 
-  structureSelectedToggle(null, null, null);
+  structureSelectedToggle(null, null);
   colorTimeline(null);
 
   let tool = d3.select('.tooltip');
@@ -512,7 +476,6 @@ export function unselectStructure(commentData, video){
 export async function mouseClickVideo(coord, video) {
 
   let commentOb = commentSingleton.getInstance();
-
   const commentData = { ...commentOb.currentData() };
 
   if (video.playing) {
@@ -530,7 +493,9 @@ export async function mouseClickVideo(coord, video) {
      */
     const snip = getCoordColor(coord);
 
-    if (snip === 'black' || snip === 'unknown') {
+    console.log('snip for click',snip)
+
+    if (snip === 'unkown') {
     
       d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
       d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
@@ -545,7 +510,7 @@ export async function mouseClickVideo(coord, video) {
      unselectStructure(commentData, video);
      d3.select('.x-out').remove();
 
-    }else if(snip === structureSelected.color){
+    }else if(snip.structure_name === structureSelected.structure){
     
         unselectStructure(commentData, video);
         d3.select('.x-out').remove();
@@ -559,9 +524,9 @@ export async function mouseClickVideo(coord, video) {
          cancelLogin();
       }
     
-      let structure = (snip === 'orange' && video.currentTime > 16) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
       
-      structureSelectedToggle(structure, coord, snip);
+      
+      structureSelectedToggle(coord, snip);
       colorTimeline(snip);
       let structureAnnotations = updateWithSelectedStructure(snip, commentData);
       structureTooltip(structureAnnotations, coord, snip, false);
@@ -695,7 +660,7 @@ export function structureTooltip(structureData, coord, snip, hoverBool) {
       if(f.tags === "none"){
         return 0;
       }else{
-        console.log('tags',f.tags);
+        
         let testTags = f.tags.split(',').filter(t=> {
           snip.alias.includes(t);
         });
@@ -717,7 +682,7 @@ export function structureTooltip(structureData, coord, snip, hoverBool) {
   //let structure = (snip === "orange" && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
 
   if (hoverBool) {
-    console.log('snip in hover', snip);
+
 
     const question = structureData.filter((f) => f.has_unkown === 'TRUE').length + structureComments.filter((f) => f.comment.includes('?')).length;
     const refs = structureData.filter((f) => f.url != '').length + structureComments.filter((f) => f.comment.includes('http')).length;
