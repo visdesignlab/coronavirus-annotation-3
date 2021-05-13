@@ -1,0 +1,12 @@
+hierarchy,rgb,structure_name,hex,color,time,alias,short_name
+virus,"[191,239,69]",NSP 12,6499c4,lime green,"[375,422],[420,436]",,NSP 12
+virus,"[249,190,212]",NSP 13,4e9ba3,dusty rose,"[375,422],[420,436]",,NSP 13
+virus,"[255,251,20]",NSP 14,9edfe6,light yellow,"[375,390],[393,411]",,NSP 14
+virus,"[221,190,255]",NSP 8,dcc5ed,lavender,"[375,422]",,NSP 8
+virus,"[255,0,254]",NSP 16,3a599c,magenta,"[375,390]",,NSP 16
+virus,"[154,99,36]",NSP 10,243761,brown,"[383,390]",,NSP 10
+virus,"[128,128,0]",NSP 7,513680,camo green,"[383,391]",,NSP 7
+virus,"[251,250,33]",TRS,fff700,yellow,"[415,436]",,TRS
+virus,"[75,1,1]",leader sequence,cc0000,red,"[416,436]",,leader sequence
+virus,"[255,255,255]",negative sub-genomic RNA ,fed8b1,white,"[399,436]",,(-) RNA
+virus,"[242,128,14]",Positive genomic RNA,ff6700,orange,"[392,436]",,(+) RNA

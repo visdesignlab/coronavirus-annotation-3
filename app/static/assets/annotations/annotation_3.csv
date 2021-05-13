@@ -18,4 +18,4 @@ video_time,key,associated_structures,has_unkown,annotation_type,text_description
 01:00-01:10,16,s protein,TRUE,structure,S protein prefusion structure is from PDB 6VSB (residues 816-1273). S protein pre-hairpin intermediate model was created and provided by Jason McLellan. The animated transition is speculative.,,https://www.rcsb.org/structure/6VSB,
 01:10-01:18,17,s protein,FALSE,event,S proteins transition to the post-fusion state.,,,
 01:10-01:18,18,s protein,TRUE,structure,S protein postfusion structure is PDB 6M3W with missing residues modeled in using the pre-hairpin intermediate structure as a guide. The animated transition is speculative.,,https://www.rcsb.org/structure/6m3w,
-01:18-01:25,19,membrane,FALSE,event,"Membrane fusion between the host cell membrane and the viral membrane occurs, and the viral RNA is deposited into the cell.",,,
+01:18-01:25,19,"cell membrane, viral membrane",FALSE,event,"Membrane fusion between the host cell membrane and the viral membrane occurs, and the viral RNA is deposited into the cell.",,,

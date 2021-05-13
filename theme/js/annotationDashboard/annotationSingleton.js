@@ -11,9 +11,6 @@ import { timeRangeSingleton } from './videoTimeSingleton';
     return end1 >= start2 && end2 >= start1
  }
  
-
-
-
  export let annotationSingleton = (function () {
     let objInstance; //private variable
     async function create() { //private function to create methods and properties

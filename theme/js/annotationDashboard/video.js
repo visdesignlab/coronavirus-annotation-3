@@ -14,9 +14,12 @@ import { cancelLogin, getStorage, userLoggedIn } from '../firebaseUtil';
 import { timeRangeSingleton } from './videoTimeSingleton';
 import { renderSelected, renderTimeSections } from '..';
 import { commentSingleton } from './commentDataSingleton';
+import { structureSingleton } from './structureSingleton';
+import { color } from 'd3';
 
-export const currentColorCodes = [];
+export let currentColorCodes = null;
 
+export let colorStructDict;
 let canPlay;
 
 const canvas = document.getElementById('canvas');
@@ -216,7 +219,7 @@ function addMouseEvents2Video(){
 
   d3.select('#interaction')
   .on('click', (event) => mouseClickVideo(d3.pointer(event), video))
-  .on('mousemove', (event) => {
+  .on('mousemove', async (event) => {
     toggleQueue(false);
     mouseMoveVideo(d3.pointer(event), video);
   });
@@ -314,7 +317,7 @@ export async function formatVidPlayer() {
 Update format time, highlight bars
 */
 export async function updateTimeElapsed(timeRange) {
-
+  console.log("update time elapsed")
   d3.select('.progress-bar-fill').style('width', `${scaleVideoTime(document.getElementById('video').currentTime)}px`);
   const timeArray = formatTime([Math.round(document.getElementById('video').currentTime)]);
 
@@ -331,10 +334,16 @@ export async function updateTimeElapsed(timeRange) {
   }
 }
 
-function progressClicked(mouse) {
- 
+async function progressClicked(mouse) {
+  console.log('progress clicked')
   const video = document.getElementById('video');
   video.currentTime = Math.round(scaleVideoTime(mouse.offsetX, true));
+
+  let structOb = await structureSingleton.getInstance();
+  
+  colorStructDict = structOb.currentColorStruct(video.currentTime);
+
+  console.log('structDict', colorStructDict)
 
   let commentOb = commentSingleton.getInstance();
 
@@ -429,15 +438,19 @@ export async function mouseMoveVideo(coord, video) {
     if(!video.playing && (structureSelected.selected === false && video.currentTime <= endDrawTime)){
    
     const snip = getCoordColor(coord);
+      //console.log('snip', snip);
+    if (snip != 'unknown' && snip.structure_name != currentColorCodes && !video.playing && snip.color != 'black') {
+      //if (snip != currentColorCodes[currentColorCodes.length - 1] && !video.playing && snip != 'black' && snip != 'unknown') {
 
-    if (snip != currentColorCodes[currentColorCodes.length - 1] && !video.playing && snip != 'black' && snip != 'unknown') {
-
-      currentColorCodes.push(snip);
+      currentColorCodes = snip.structure_name;
       parseArray(snip);
-      const structFromDict = (snip === 'orange' && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
+      const structFromDict = snip.structure_name.toUpperCase();//(snip === 'orange' && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
      
       const structureData = annotationData[annotationData.length - 1].filter((f) => {
+       // console.log('f', f.associated_structures.split(', ').map((m) => m.toUpperCase()), structFromDict)
         return f.associated_structures.split(', ').map((m) => m.toUpperCase()).indexOf(structFromDict) > -1});
+
+       // console.log('structuredataaaa',structureData)
 
       structureTooltip(structureData, coord, snip, true);
       
@@ -659,16 +672,19 @@ export function structureTooltip(structureData, coord, snip, hoverBool) {
   const commentData = { ...commentOb.currentData() };
 
   const nestReplies = formatCommentData( commentData );
-  let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
+  //let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
   let structureComments = nestReplies.filter((f) => {
-    if(snip  === 'orange'){
-      let reply = f.replyKeeper.filter(r=> {
-        return r.comment.toUpperCase().includes(structure.toUpperCase());
-      });
-      return f.comment.toUpperCase().includes(structure.toUpperCase()) || reply.length > 0;
-    }else{
+    // if(snip  === 'orange'){
+    //   let reply = f.replyKeeper.filter(r=> {
+    //     return r.comment.toUpperCase().includes(snip.structure_name.toUpperCase());
+    //   });
+    //   return f.comment.toUpperCase().includes(structure.toUpperCase()) || reply.length > 0;
+    // }else{
+
+
+    /* ADD THIS BACK IN
       let tags = f.tags.split(',').filter(m=> {
-        return colorDictionary[snip].other_names.map(on=> on.toUpperCase()).indexOf(m.toUpperCase()) > -1;
+        return snip.map(on=> on.toUpperCase()).indexOf(m.toUpperCase()) > -1;
       });
       let test = colorDictionary[snip].other_names.filter(n=> f.comment.toUpperCase().includes(n.toUpperCase()));
         let reply = f.replyKeeper.filter(r=> {
@@ -676,19 +692,23 @@ export function structureTooltip(structureData, coord, snip, hoverBool) {
           return rTest.length > 0;
         });
       return test.length > 0 || reply.length > 0 || tags.length > 0;
-    }
+   // }
+
+   */
   });
 
   //let structure = (snip === "orange" && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
 
   if (hoverBool) {
+    console.log('snip in hover', snip);
+
     const question = structureData.filter((f) => f.has_unkown === 'TRUE').length + structureComments.filter((f) => f.comment.includes('?')).length;
     const refs = structureData.filter((f) => f.url != '').length + structureComments.filter((f) => f.comment.includes('http')).length;
 
     d3.select('.tooltip')
       .style('position', 'absolute')
       .style('opacity', 1)
-      .html(`<h4>${structure}</h4>
+      .html(`<h4>${snip.structure_name}</h4>
       <span class="badge badge-pill bg-dark">${structureData.length}</span> annotations for this structure. <br>
       <span class="badge badge-pill bg-dark">${structureComments.length}</span> comments for this structure. <br>
       <span class="badge badge-pill bg-danger">${question}</span> Questions. <br>
@@ -777,6 +797,8 @@ export async function renderDoodles(commentsInTimeframe, div) {
 
 }
 export function videoUpdates(data, annoType) {
+
+  console.log('video updates');
   const svgTest = d3.select('#interaction').select('svg');
   const svg = svgTest.empty() ? d3.select('#interaction').append('svg') : svgTest;
   svg.attr('id', 'vid-svg');
@@ -832,8 +854,6 @@ export function videoUpdates(data, annoType) {
 
     let timeOb = timeRangeSingleton.getInstance();
     let currentDuration = timeOb.currentRange();
-
-   
 
     if(video.currentTime < currentDuration[1]){
 

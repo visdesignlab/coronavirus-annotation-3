@@ -1,0 +1,12 @@
+hierarchy,rgb,structure_name,color,hex,time,alias,short_name
+cell,"[255,172,0]",TMPRSS2,orange,FF8000,"[19,85]",,TMPRSS2
+cell,"[0,255,255]",furin,cyan,00FFFF,"[19,85]",,Furin
+cell,"[255,0,255]",ACE2,magenta,FF00FF,"[19,85]",,ACE2
+cell,"[0,0,255]",cell membrane,blue,0000FF,"[19,85]",,Membrane
+virus,"[0,255,0]",spike protein,green,00FF00,"[0,18],[21,85]",s protein,Spike
+virus,"[255,255,0]",membrane protein,yellow,FFFF00,"[0,18],[21,28],[30,85]",m protein,M Protein
+virus,"[255,0,0]",envelope protein,red,FF0000,"[0,18],[21,28]",e protein,E Protein
+virus,"[138,138,138]",nucleocapsid protein,gray,808080,"[10,15]",n protein,N Protein
+virus,"[255,185,0]",viral genome,orange,FF8000,"[10,15]",,Genome
+virus,"[255,255,255]",virus membrane,white,FFFFFF,"[0,18],[21,28],[30,85]",,Membrane
+virus,"[213,213,213]",sugars,gray,808080,"[0,18],[21,85]",,Sugars

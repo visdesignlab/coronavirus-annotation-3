@@ -1,0 +1,15 @@
+hierarchy,rgb,structure_name,hex,color,time,alias,short_name
+cell,"[206,206,206]",double membrane vesicle,,gray,"[248,277]",,double membrane vesicle
+virus,"[255,128,0]",Positive genomic RNA,ff6700,orange,"[248,360]",,(+) RNA
+virus,"[191,239,69]",RTC,32CD32,lime green,"[292,294]",,RTC
+virus,"[218,257,253]",NSP 8,dcc5ed,lavender,"[363,374]",,NSP 8
+virus,"[254,0,126]",Leader Sequence,ff007f,Hot pink,"[305,360]",,Leader Sequence
+virus,"[255,255,255]",negative sub-genomic RNA ,fed8b1,White,"[286,294],[342,362]",,(-) RNA 
+virus,"[37,231,136]",transcription regulartory sequence,fff700,mint green,"[324,335]",,TRS
+virus,"[191,239,69]",NSP 12,6499c4,Lime green,"[363,374]",,NSP 12
+virus,"[128,128,0]",NSP 7,513680,camo green,"[363,374]",,NSP 7
+virus,"[221,190,255]",NSP 8,dcc5ed,lavender,"[363,374]",,NSP 8
+virus,"[128,128,128]",Nucleocapsid,808080,darker gray,"[282,360]",,Nucleocapsid
+virus,"[23,244,0]",Spike Protein,7FFF00,green,"[282,360]",,S Protein
+virus,"[255,1,0]",Envelope Protein,ff0000,red,"[282,360]",,E Protein
+virus,"[254,255,0]",Membrane Protein,ffff00,yellow,"[282,360]",,M Protein

@@ -9,15 +9,13 @@ import { timeRangeSingleton } from './videoTimeSingleton';
     // """Does the range (start1, end1) overlap with (start2, end2)?"""
     return end1 >= start2 && end2 >= start1
  }
- 
-
 
  export let structureSingleton = (function () {
     let objInstance; //private variable
     async function create() { //private function to create methods and properties
         let timeOb = timeRangeSingleton.getInstance();
         let seg = timeOb.currentSeg();
-        console.log('currentSeg', seg)
+        
         let _allStruct = d3.groups(await d3.csv(`../static/assets/structures/stuctured_structures_seg${seg}.csv`), d=> d.hierarchy).map(m => {
             m[1].map(v => {
                 var value = v.time;
@@ -27,8 +25,26 @@ import { timeRangeSingleton } from './videoTimeSingleton';
             });
             return m;
         });
+        let _flatStruct  =  _allStruct.flatMap(f=> {
+            return f[1].map(m =>{
+                m.rgb = JSON.parse("[" + m.rgb + "]")[0];
+                return m;
+            });
+        });
+       // let _currentHover = _allStruct
+
+       let currentColorStruct = function(currentTime){
+           console.log('does flat struct exist',_flatStruct)
+        return _flatStruct.filter(f=> {
+                let test = f.time.filter(t=> currentTime <= t[1] && currentTime >= t[0]);
+                console.log(test, currentTime)
+                return test.length > 0;
+            });
+
+       }
     
         let currentStructures = async function(){
+            console.log('firing');
             let timeRangeS = timeRangeSingleton.getInstance();
             let currentRange = timeRangeS.currentRange();
             let seg = timeRangeS.currentSeg();
@@ -41,6 +57,14 @@ import { timeRangeSingleton } from './videoTimeSingleton';
                 });
                 return m;
             });
+
+            _flatStruct  =  _allStruct.flatMap(f=> {
+                return f[1].map(m =>{
+                    m.rgb = JSON.parse("[" + m.rgb + "]")[0];
+                    return m;
+                });
+            });
+            
             let test = [..._allStruct].map(m=> {
                 let vals = m[1].filter(f=> {
                     let testTime = f.time.filter(t=> {
@@ -55,6 +79,7 @@ import { timeRangeSingleton } from './videoTimeSingleton';
         }
         return{
             currentStructures : currentStructures,
+            currentColorStruct : currentColorStruct,
         }
     }
     return {
@@ -66,5 +91,3 @@ import { timeRangeSingleton } from './videoTimeSingleton';
         }
     };
 })();
-
-//let obj1 = obj.getInstance();
