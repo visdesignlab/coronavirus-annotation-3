@@ -56,9 +56,7 @@ import { timeRangeSingleton } from './videoTimeSingleton';
      
         return _flatStruct.filter(f=> {
                 let test = f.time.filter(t=> {
-                    console.log('is this reaching', t, currentTime, currentTime <= t[1] && currentTime >= t[0]);
                     return currentTime <= t[1] && currentTime >= t[0]});
-                console.log('text firing', test);
                 return test.length > 0;
             });
        }

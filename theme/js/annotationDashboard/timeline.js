@@ -30,7 +30,7 @@ export function colorTimeline(snip){
   d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
 
   if(snip != "unknowm"){
-  
+      console.log('snipppp',snip)
       snip.alias.split(',').map(f=> {
         let name = f.toUpperCase();
         

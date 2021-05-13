@@ -13,13 +13,14 @@ export const structureSelected = {
   annotations: null,
   comments: null,
   coord: null,
-  color: null
+  color: null,
+  data: null
 };
 
-export function structureSelectedToggle(datum, coords, color) {
-  structureSelected.structure = datum;
+export function structureSelectedToggle(coords, selectedData) {
+  structureSelected.structure = selectedData.structure_name;
 
-  if (datum === null) {
+  if (selectedData === null) {
     structureSelected.annotations = null;
     structureSelected.comments = null;
     structureSelected.selected = false;
@@ -29,7 +30,8 @@ export function structureSelectedToggle(datum, coords, color) {
   } else {
     structureSelected.selected = true;
     structureSelected.coord = coords;
-    structureSelected.color = color;
+    structureSelected.color = selectedData.color;
+    structureSelected.data = selectedData;
     d3.selectAll('.memo').classed('disabled', true);
   }
 }
@@ -100,8 +102,6 @@ export async function loadPngForFrame() {
 
   let structOb = await structureSingleton.getInstance();
   colorStructCurrent = await structOb.currentColorStruct(video.currentTime);
-
-  console.log('color struct current is firing', colorStructCurrent)
 
   let currentPNGS = timeOb.currentFrames();
  

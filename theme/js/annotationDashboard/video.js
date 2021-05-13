@@ -15,7 +15,6 @@ import { timeRangeSingleton } from './videoTimeSingleton';
 import { renderSelected, renderTimeSections } from '..';
 import { commentSingleton } from './commentDataSingleton';
 import { structureSingleton } from './structureSingleton';
-import { color } from 'd3';
 import { annotationSingleton } from './annotationSingleton';
 
 export let currentColorCodes = null;
@@ -39,7 +38,6 @@ export async function phaseSelected(whichOne, data) {
   let current = timeRangeOb.currentRange();
 
   let structOb = await structureSingleton.getInstance();
-  let currentStructs = await structOb.currentStructures();
 
   video.currentTime = current[0];
 
@@ -49,10 +47,7 @@ export async function phaseSelected(whichOne, data) {
   let annoOb = await annotationSingleton.getInstance();
   await annoOb.changeAnnotations();
 
- 
-  colorStructDict = structOb.currentColorStruct(video.currentTime);
-
-  console.log('currenttttttstruct',structOb.currentColorStruct(video.currentTime), video.currentTime);
+  colorStructDict = await structOb.currentColorStruct(video.currentTime);
  
   /**
    * Filter Annotations and render them
@@ -73,8 +68,6 @@ export async function phaseSelected(whichOne, data) {
    * Filter Annotations and render them
    */
 
-
-
   const commentData = formatCommentData({...commentOb.currentData()});
 
     let filteredComments = commentData.filter((f, i)=>{
@@ -92,7 +85,6 @@ export async function phaseSelected(whichOne, data) {
 
 
 }
-
 function resizeVideoElements() {
 
   const video = document.getElementById('video');
@@ -113,7 +105,6 @@ function resizeVideoElements() {
   d3.select('.progress-bar').node().style['margin-left'] = '66px';
 
 }
-
 function initializeVideo() {
   //const videoDuration = Math.round(document.getElementById('video').duration);
   const timeRangeOb = timeRangeSingleton.getInstance();//[0,20];
@@ -285,7 +276,6 @@ export async function formatVidPlayer() {
     if(d3.select('#show-push').select('input').node().checked){
       renderPushpinMarks(commentsInTimeframe, svg);
     }
-    
   });
 }
 /*
@@ -314,8 +304,8 @@ async function progressClicked(mouse) {
   const video = document.getElementById('video');
   video.currentTime = Math.round(scaleVideoTime(mouse.offsetX, true));
 
-  let structOb = await structureSingleton.getInstance();
-  colorStructDict = structOb.currentColorStruct(video.currentTime);
+  // let structOb = await structureSingleton.getInstance();
+  // colorStructDict = await structOb.currentColorStruct(video.currentTime);
 
   let commentOb = commentSingleton.getInstance();
 
@@ -413,8 +403,6 @@ export async function mouseMoveVideo(coord, video) {
       const snip = getCoordColor(coord);
       
       if (snip != 'unknown' && snip.structure_name != currentColorCodes && !video.playing && snip.color != 'black') {
-       
-
         currentColorCodes = snip.structure_name;
         parseArray(snip);
         const structFromDict = snip.structure_name.toUpperCase();//(snip === 'orange' && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
@@ -434,7 +422,7 @@ export async function mouseMoveVideo(coord, video) {
         colorTimeline(snip);
       }
 
-    } else if (snip === 'black') {
+    } else if (snip === 'unknown') {
 
       if(!structureSelected.selected){
         d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
@@ -489,7 +477,7 @@ export async function mouseClickVideo(coord, video) {
     const snip = getCoordColor(coord);
 
     if (snip === 'unkown') {
-    
+    console.log('snip is unknown on click', snip)
       d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
       d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
 
@@ -561,35 +549,35 @@ export async function updateWithSelectedStructure(snip, commentData){
   let annoOb = await annotationSingleton.getInstance();
 
   const structureAnnotations = annoOb.currentAnnotations().filter((f) => {
-    let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
-    if(snip === "orange"){
+    // let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
+    // if(snip === "orange"){
+    //   let structsAnno = f.associated_structures.split(', ').filter((m) => {
+    //     return structure.toUpperCase() === m.toUpperCase();
+    //   });
+    //   return structsAnno.length > 0;
+    // }else{
       let structsAnno = f.associated_structures.split(', ').filter((m) => {
-        return structure.toUpperCase() === m.toUpperCase();
-      });
-      return structsAnno.length > 0;
-    }else{
-      let structsAnno = f.associated_structures.split(', ').filter((m) => {
-        let otherNames = colorDictionary[snip].other_names.map(on=> on.toUpperCase()).indexOf(m.toUpperCase());
+        let otherNames = snip.alias.split(',').map(on=> on.toUpperCase()).indexOf(m.toUpperCase());
         return otherNames > -1;
       });
       return structsAnno.length > 0;
-    }
+   // }
   });
 
   let otherAnno = annoOb.currentAnnotations().filter((f) => {
-    let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
-    if(snip === "orange"){
+   // let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
+    // if(snip === "orange"){
+    //   let structsAnno = f.associated_structures.split(', ').filter((m) => {
+    //     return structure.toUpperCase() === m.toUpperCase();
+    //   });
+    //   return structsAnno.length === 0;
+    // }else{
       let structsAnno = f.associated_structures.split(', ').filter((m) => {
-        return structure.toUpperCase() === m.toUpperCase();
-      });
-      return structsAnno.length === 0;
-    }else{
-      let structsAnno = f.associated_structures.split(', ').filter((m) => {
-        let otherNames = colorDictionary[snip].other_names.map(on=> on.toUpperCase()).indexOf(m.toUpperCase());
+        let otherNames = snip.alias.split(',').map(on=> on.toUpperCase()).indexOf(m.toUpperCase());
         return otherNames > -1;
       });
       return structsAnno.length === 0;
-    }
+   // }
     
   });
 
