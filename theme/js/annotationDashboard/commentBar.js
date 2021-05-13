@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import { annotationData, dataKeeper, formatTime, formatVideoTime, getRightDimension } from '../dataManager';
 import { checkDatabase, getDB, getStorage, userLoggedIn, userLogin } from '../firebaseUtil';
 import { updateAnnotationSidebar } from './annotationBar';
+import { commentSingleton } from './commentDataSingleton';
 import { structureSelected, doodleKeeper, structureSelectedToggle, structureDictionary } from './imageDataUtil';
 import { hoverEmphasis } from './timeline';
 import { goBackButton } from './topbar';
@@ -26,7 +27,7 @@ export function clearRightSidebar() {
   d3.select('#comment-wrap').selectAll('*').remove();
 }
 
-export function updateCommentSidebar(dbRef) {
+export function updateCommentSidebar() {
  
   renderCommentDisplayStructure();
 
@@ -36,8 +37,11 @@ export function updateCommentSidebar(dbRef) {
   let timeRangeOb = timeRangeSingleton.getInstance();
   let range = timeRangeOb.currentRange();
 
-  const nestReplies = formatCommentData(Object.assign({}, dbRef)).filter(f=> {
-    return (f.videoTime >= range[0] && f.videoTime <= range[1]);
+  let commentOb = commentSingleton.getInstance();
+  const commentData = formatCommentData({...commentOb.currentData()});
+
+  const nestReplies = commentData.filter(f=>{
+    return f.videoTime <= range[1] && f.videoTime >= range[0];
   });
 
   drawCommentBoxes(nestReplies, wrap);
@@ -96,7 +100,9 @@ function replyInputBox(d, n) {
 }
 
 export function formatCommentData(dbRef) {
- 
+
+ if(dbRef.comments){
+
   const dataAnno = Object.entries(dbRef.comments)
     .map((m) => {
       const value = m[1];
@@ -113,6 +119,11 @@ export function formatCommentData(dbRef) {
   const nestReplies = data.map((d, i, n) => recurse(d, replyData, 0));
 
   return nestReplies;
+
+ }else{
+   return dbRef
+ }
+
 
 }
 
@@ -956,7 +967,7 @@ export function formatToComment(div, startingTags) {
         const fdb = getDB();
         const refCom = fdb.ref(commentType);
         refCom.push(dataPush);
-        checkDatabase([updateCommentSidebar]);
+        checkDatabase([]);
         d3.select('#add-mark').remove();
 
         if(structureSelected.selected){
@@ -974,7 +985,7 @@ export function formatToComment(div, startingTags) {
 
       clearRightSidebar();
       renderCommentDisplayStructure();
-      checkDatabase([updateCommentSidebar]);
+      checkDatabase([]);
       updateAnnotationSidebar(annotationData[annotationData.length - 1]);
     } else {
       window.alert('Please add a comment first');

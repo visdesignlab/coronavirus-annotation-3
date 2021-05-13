@@ -281,9 +281,8 @@ export function getCoordColor(coord) {
     return filterDict;
   });
 
-  d3.select('body').style('background-color', `${new_rgb}`);
+  //d3.select('body').style('background-color', `${new_rgb}`);
 
-  // const snip = colorChecker([redForCoord, greenForCoord, blueForCoord, alphaForCoord]);
-  // //return snip;
+
   return filterDict[0] ? filterDict[0] : 'unknown';
 }

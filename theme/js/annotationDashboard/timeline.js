@@ -132,6 +132,8 @@ export async function renderTimeline(commentData) {
   const div = d3.select('#main');
 
   let comms = formatCommentData(commentData);
+
+  console.log('commms in render timeline',comms)
   const binScale = d3.scaleLinear().range([.1, 1]).domain([0, comms.map(m=> Math.max(m.replyKeeper.length))]);
   
   let masterData = [{comments: {data: comms, label: "comments"}, annotations: {data:annotations, label: "annotations"}}];

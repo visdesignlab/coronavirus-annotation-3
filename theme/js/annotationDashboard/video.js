@@ -77,7 +77,7 @@ export async function phaseSelected(whichOne, data) {
 
   let timeRangeOb = timeRangeSingleton.getInstance();
 
-  console.log('data in phase change', data);
+
 
   timeRangeOb.changeRange(data);
   let current = timeRangeOb.currentRange();
@@ -90,7 +90,7 @@ export async function phaseSelected(whichOne, data) {
   let annoOb = await annotationSingleton.getInstance();
   await annoOb.changeAnnotations();
 
-  console.log('CURRRR', annoOb.currentAnnotations());
+
  
   /**
    * Filter Annotations and render them
@@ -106,13 +106,27 @@ export async function phaseSelected(whichOne, data) {
    * Filter Comments and render them
    */
   let commentOb = commentSingleton.getInstance();
-  updateCommentSidebar(commentOb.currentData());
+
+    /**
+   * Filter Annotations and render them
+   */
+
+
+
+  const commentData = formatCommentData({...commentOb.currentData()});
+
+    let filteredComments = commentData.filter((f, i)=>{
+      return f.time >= current[0] && current[1] >= f.time
+    });
+
+ 
+  updateCommentSidebar(filteredComments);
 
   /**
    * Render Timeline
    */
 
-  renderTimeline(commentOb.currentData());
+  renderTimeline(filteredComments);
 
 
 }
@@ -426,7 +440,8 @@ export function togglePlay() {
       structureSelectedToggle(null, null, null);
       clearRightSidebar();
       renderCommentDisplayStructure();
-      updateCommentSidebar({ ...commentOb.currentData() });
+      const commentData = formatCommentData({...commentOb.currentData()});
+      updateCommentSidebar(commentData);
       addCommentButton();
     }
   }
