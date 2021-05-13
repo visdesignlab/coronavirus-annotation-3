@@ -1,8 +1,11 @@
 export const endDrawTime = 505;
 import * as d3 from 'd3';
 import { getRightDimension } from '../dataManager';
+import { structureSingleton } from './structureSingleton';
 import { colorStructDict } from './video';
 import { timeRangeSingleton } from './videoTimeSingleton';
+
+let colorStructCurrent;
 
 export const structureSelected = {
   selected: false,
@@ -72,15 +75,6 @@ export const currentImageData = {};
 
 const canvas = document.getElementById('canvas');
 
-// function check(pull) {
-//   if (pull < 10) {
-//     return `0${pull}`;
-//   }else if (pull < 100) {
-//     return `${pull}`;
-//   }
-//   return pull;
-// }
-
 function check(pull) {
   if (pull < 10) {
     return `0000${pull}`;
@@ -103,6 +97,12 @@ export async function loadPngForFrame() {
   const video = document.getElementById('video');
   const pullFrame = (Math.floor((video.currentTime) * 30));
   let timeOb = timeRangeSingleton.getInstance();
+
+  let structOb = await structureSingleton.getInstance();
+  colorStructCurrent = await structOb.currentColorStruct(video.currentTime);
+
+  console.log('color struct current is firing', colorStructCurrent)
+
   let currentPNGS = timeOb.currentFrames();
  
   const pathImg = `../static/assets/stills/${currentPNGS}/flat`;
@@ -275,7 +275,8 @@ export function getCoordColor(coord) {
   const alphaForCoord = currentImageData.data[alphaIndex];
   const new_rgb = `rgba(${redForCoord},${greenForCoord},${blueForCoord}, 1.0)`;
 
-  let filterDict = colorStructDict;
+  let filterDict = colorStructCurrent;
+ 
   [redForCoord, greenForCoord, blueForCoord].map((m, i)=>{
     filterDict = filterDict.filter(f=> f.rgb[i] === m);
     return filterDict;

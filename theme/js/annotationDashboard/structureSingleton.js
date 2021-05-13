@@ -31,20 +31,39 @@ import { timeRangeSingleton } from './videoTimeSingleton';
                 return m;
             });
         });
-       // let _currentHover = _allStruct
 
-       let currentColorStruct = function(currentTime){
-           console.log('does flat struct exist',_flatStruct)
+       let currentColorStruct = async function(currentTime){
+
+        let timeRangeS = timeRangeSingleton.getInstance();
+        let seg = timeRangeS.currentSeg();
+
+        _allStruct = d3.groups(await d3.csv(`../static/assets/structures/stuctured_structures_seg${seg}.csv`), d=> d.hierarchy).map(m => {
+            m[1].map(v => {
+                var value = v.time;
+                var json = JSON.parse("[" + value + "]");
+                v.time = json;
+                return v;
+            });
+            return m;
+        });
+
+        _flatStruct  =  _allStruct.flatMap(f=> {
+            return f[1].map(m =>{
+                m.rgb = JSON.parse("[" + m.rgb + "]")[0];
+                return m;
+            });
+        });
+     
         return _flatStruct.filter(f=> {
-                let test = f.time.filter(t=> currentTime <= t[1] && currentTime >= t[0]);
-                console.log(test, currentTime)
+                let test = f.time.filter(t=> {
+                    console.log('is this reaching', t, currentTime, currentTime <= t[1] && currentTime >= t[0]);
+                    return currentTime <= t[1] && currentTime >= t[0]});
+                console.log('text firing', test);
                 return test.length > 0;
             });
-
        }
     
         let currentStructures = async function(){
-            console.log('firing');
             let timeRangeS = timeRangeSingleton.getInstance();
             let currentRange = timeRangeS.currentRange();
             let seg = timeRangeS.currentSeg();

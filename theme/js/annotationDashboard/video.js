@@ -31,20 +31,15 @@ export async function phaseSelected(whichOne, data) {
   d3.select('.overlay').remove();
   d3.selectAll('.sections').classed('selected', false);
 
-
   d3.select(whichOne).classed('selected', true);
-
-  let structOb = await structureSingleton.getInstance();
   
-  colorStructDict = structOb.currentColorStruct(video.currentTime);
-  
-
-
- 
   let timeRangeOb = timeRangeSingleton.getInstance();
 
   timeRangeOb.changeRange(data);
   let current = timeRangeOb.currentRange();
+
+  let structOb = await structureSingleton.getInstance();
+  let currentStructs = await structOb.currentStructures();
 
   video.currentTime = current[0];
 
@@ -54,7 +49,10 @@ export async function phaseSelected(whichOne, data) {
   let annoOb = await annotationSingleton.getInstance();
   await annoOb.changeAnnotations();
 
+ 
+  colorStructDict = structOb.currentColorStruct(video.currentTime);
 
+  console.log('currenttttttstruct',structOb.currentColorStruct(video.currentTime), video.currentTime);
  
   /**
    * Filter Annotations and render them
@@ -317,10 +315,7 @@ async function progressClicked(mouse) {
   video.currentTime = Math.round(scaleVideoTime(mouse.offsetX, true));
 
   let structOb = await structureSingleton.getInstance();
-  
   colorStructDict = structOb.currentColorStruct(video.currentTime);
-
-  console.log('structDict', colorStructDict)
 
   let commentOb = commentSingleton.getInstance();
 
@@ -493,8 +488,6 @@ export async function mouseClickVideo(coord, video) {
      */
     const snip = getCoordColor(coord);
 
-    console.log('snip for click',snip)
-
     if (snip === 'unkown') {
     
       d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
@@ -524,8 +517,6 @@ export async function mouseClickVideo(coord, video) {
          cancelLogin();
       }
     
-      
-      
       structureSelectedToggle(coord, snip);
       colorTimeline(snip);
       let structureAnnotations = updateWithSelectedStructure(snip, commentData);
@@ -555,25 +546,17 @@ export async function updateWithSelectedStructure(snip, commentData){
   parseArray(snip);
 
   const nestReplies = formatCommentData({ ...commentData });
-  let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
-
+ 
   structureSelected.comments = nestReplies.filter((f) => {
-    if(snip  === 'orange'){
-      let reply = f.replyKeeper.filter(r=> {
-        return r.comment.toUpperCase().includes(structure.toUpperCase());
-      });
-      return f.comment.toUpperCase().includes(structure.toUpperCase()) || reply.length > 0;
-    }else{
       let tags = f.tags.split(',').filter(m=> {
-        return colorDictionary[snip].other_names.map(on=> on.toUpperCase()).indexOf(m.toUpperCase()) > -1;
+        return snip.alias.split(',').map(on=> on.toUpperCase()).indexOf(m.toUpperCase()) > -1;
       });
-      let test = colorDictionary[snip].other_names.filter(n=> f.comment.toUpperCase().includes(n.toUpperCase()));
+      let test = snip.alias.split(',').filter(n=> f.comment.toUpperCase().includes(n.toUpperCase()));
         let reply = f.replyKeeper.filter(r=> {
-          let rTest = colorDictionary[snip].other_names.filter(n=> r.comment.toUpperCase().includes(n.toUpperCase()));
+          let rTest = snip.alias.split(',').filter(n=> r.comment.toUpperCase().includes(n.toUpperCase()));
           return rTest.length > 0;
         });
       return test.length > 0 || reply.length > 0 || tags.length > 0;
-    }
   });
   let annoOb = await annotationSingleton.getInstance();
 

@@ -8,7 +8,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { updateAnnotationSidebar } from './annotationDashboard/annotationBar';
-import { formatVidPlayer, phaseSelected, videoUpdates } from './annotationDashboard/video';
+import { colorStructDict, formatVidPlayer, phaseSelected, videoUpdates } from './annotationDashboard/video';
 import { updateCommentSidebar } from './annotationDashboard/commentBar';
 import { renderTimeline } from './annotationDashboard/timeline';
 import { structureSelected } from './annotationDashboard/imageDataUtil';
@@ -144,7 +144,7 @@ async function init() {
 
   let annoOb = await annotationSingleton.getInstance();
   let annotations = await annoOb.currentAnnotations();
- 
+  
   loadFirebaseApp();
 
   await checkUser([renderUser], [updateCommentSidebar, renderTimeline]);
