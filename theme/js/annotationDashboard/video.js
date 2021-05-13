@@ -536,6 +536,7 @@ export async function updateWithSelectedStructure(snip, commentData){
   const nestReplies = formatCommentData({ ...commentData });
  
   structureSelected.comments = nestReplies.filter((f) => {
+    console.log('snip in nest reply', snip)
       let tags = f.tags.split(',').filter(m=> {
         return snip.alias.split(',').map(on=> on.toUpperCase()).indexOf(m.toUpperCase()) > -1;
       });
@@ -549,36 +550,19 @@ export async function updateWithSelectedStructure(snip, commentData){
   let annoOb = await annotationSingleton.getInstance();
 
   const structureAnnotations = annoOb.currentAnnotations().filter((f) => {
-    // let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
-    // if(snip === "orange"){
-    //   let structsAnno = f.associated_structures.split(', ').filter((m) => {
-    //     return structure.toUpperCase() === m.toUpperCase();
-    //   });
-    //   return structsAnno.length > 0;
-    // }else{
       let structsAnno = f.associated_structures.split(', ').filter((m) => {
         let otherNames = snip.alias.split(',').map(on=> on.toUpperCase()).indexOf(m.toUpperCase());
         return otherNames > -1;
       });
       return structsAnno.length > 0;
-   // }
   });
 
   let otherAnno = annoOb.currentAnnotations().filter((f) => {
-   // let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
-    // if(snip === "orange"){
-    //   let structsAnno = f.associated_structures.split(', ').filter((m) => {
-    //     return structure.toUpperCase() === m.toUpperCase();
-    //   });
-    //   return structsAnno.length === 0;
-    // }else{
       let structsAnno = f.associated_structures.split(', ').filter((m) => {
         let otherNames = snip.alias.split(',').map(on=> on.toUpperCase()).indexOf(m.toUpperCase());
         return otherNames > -1;
       });
       return structsAnno.length === 0;
-   // }
-    
   });
 
   structureSelected.annotations = structureAnnotations.filter((f) => f.has_unkown === 'TRUE').concat(structureAnnotations.filter((f) => f.has_unkown === 'FALSE'));
@@ -606,8 +590,9 @@ export async function updateWithSelectedStructure(snip, commentData){
   unknowns.classed('unknown', true);
 
   // MIGHT BE REPEATING WORK - ALREADY HAVE UPDATE COMMENT SIDEBAR ABOVE
+
+  console.log(structureSelected.comments, selectedComWrap);
   drawCommentBoxes(structureSelected.comments, selectedComWrap);
-  //drawCommentBoxes(nestReplies, genComWrap);
   genComWrap.selectAll('.memo').style('opacity', 0.3);
 
   d3.select('#left-sidebar').select('#annotation-wrap').node().scrollTop = 0;

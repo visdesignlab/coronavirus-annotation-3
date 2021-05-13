@@ -18,9 +18,10 @@ export const structureSelected = {
 };
 
 export function structureSelectedToggle(coords, selectedData) {
-  structureSelected.structure = selectedData.structure_name;
+  
 
   if (selectedData === null) {
+    structureSelected.structure = null;
     structureSelected.annotations = null;
     structureSelected.comments = null;
     structureSelected.selected = false;
@@ -28,6 +29,7 @@ export function structureSelectedToggle(coords, selectedData) {
     structureSelected.color = null;
     d3.selectAll('.memo').classed('disabled', false);
   } else {
+    structureSelected.structure = selectedData.structure_name;
     structureSelected.selected = true;
     structureSelected.coord = coords;
     structureSelected.color = selectedData.color;

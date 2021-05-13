@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
-import { annotationData, dataKeeper, formatTime, formatVideoTime, getRightDimension } from '../dataManager';
+import { json } from 'd3';
+import { annotationData, currentUser, dataKeeper, formatTime, formatVideoTime, getRightDimension } from '../dataManager';
 import { checkDatabase, getDB, getStorage, userLoggedIn, userLogin } from '../firebaseUtil';
 import { updateAnnotationSidebar } from './annotationBar';
 import { commentSingleton } from './commentDataSingleton';
@@ -154,16 +155,43 @@ function updateTags(node, tagWrap, tagArray) {
 
 function upvoteIcon(div, db) {
   // UPVOTE
-  //div.selectAll('.upvote-span').remove();
   const upVote = div.selectAll('.upvote-span').data((d) => [d]).join('span').classed('upvote-span', true);
   upVote.selectAll('.upvote').data((d) => [d]).join('i').classed('upvote fas fa-thumbs-up fa-sm', true);
   upVote.selectAll('.up-text').data((d) => [d]).join('text').classed('up-text', true)
-    .text((d) => `: ${d.upvote} `);
+  .text((d) => {
+    let test = d.upvote.split(',').filter(f => f != "");
+    console.log('test',test)
+    return `: ${test.length} `});
+  console.log('current user',currentUser[currentUser.length - 1])
 
-  upVote.on('click', (event, d) => {
-    const newUp = ++d.upvote;
-    db.ref(`comments/${d.key}/upvote`).set(`${newUp}`);
-  });
+  if(currentUser.length > 0){
+    upVote.on('click', (event, d) => {
+      let idArray = d.upvote.split(',').filter(f => f != "");
+      let id = currentUser[currentUser.length - 1].uid;
+      console.log(idArray.includes(id), id, idArray);
+
+      let newArr = idArray.includes(id) ? idArray.filter(f=> f != id) : idArray.push(currentUser[currentUser.length - 1].uid);
+
+      console.log('afterrrrr',newArr);
+     
+      let test = ()=>{
+        if(newArr.length === 0){
+          return "";
+        }else{
+          return newArr.reduce((string, c, i)=>{
+            return string + `,${c}`;
+          });
+        }
+
+      }
+       
+      console.log(test());
+      db.ref(`comments/${d.key}/upvote`).set(`${test()}`);
+    });
+  }else{
+    upVote.classed('deactivite', true);
+  }
+
 }
 
 function downvoteIcon(div, db) {
@@ -171,11 +199,24 @@ function downvoteIcon(div, db) {
   const downvote = div.selectAll('.downvote-span').data((d) => [d]).join('span').classed('downvote-span', true);
   downvote.selectAll('.downvote').data((d) => [d]).join('i').classed('downvote fas fa-thumbs-down fa-sm', true);
   downvote.selectAll('.down-text').data((d) => [d]).join('text').classed('down-text', true)
-    .text((d) => `: ${d.downvote}`);
+    .text((d) => {
+      let test = d.downvote.split(',').filter(f => f != "");
+      return `: ${test.length} `});
 
   downvote.on('click', (event, d) => {
-    const newDown = ++d.downvote;
-    db.ref(`comments/${d.key}/downvote`).set(`${newDown}`);
+    let idArray = d.downvote.split(',').filter(f => f != "");
+    let id = currentUser[currentUser.length - 1].uid;
+    idArray.indexOf(id) > -1 ? idArray.filter(f=> f != id) : idArray.push(id);
+   
+    let test = idArray.reduce((string, c, i)=>{
+      if(i < idArray.length){
+        return string + `${c},`
+      }else{
+        return string + `${c}`
+      }
+    });
+    console.log(test);
+    db.ref(`comments/${d.key}/downvote`).set(`${test}`);
   });
 }
 
