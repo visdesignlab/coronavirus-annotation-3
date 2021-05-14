@@ -883,7 +883,7 @@ export function videoUpdates(data, annoType) {
           return f.id === d.id;
         });
         console.log(selG);
-        phaseSelected(selG, d);
+        phaseSelected(selG.node(), d);
       });
       let dims = getRightDimension();
 
