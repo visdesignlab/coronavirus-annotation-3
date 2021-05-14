@@ -169,12 +169,11 @@ function upvoteIcon(div, db) {
       let idArray = d.upvote.split(',').filter(f => f != "");
       let id = currentUser[currentUser.length - 1].uid;
       console.log(idArray.includes(id), id, idArray);
-
-      let newArr = idArray.includes(id) ? idArray.filter(f=> f != id) : idArray.push(currentUser[currentUser.length - 1].uid);
-
-      console.log('afterrrrr',newArr);
      
       let test = ()=>{
+
+        let newArr = idArray.includes(id) ? idArray.filter(f=> f != id) : idArray.push(currentUser[currentUser.length - 1].uid);
+
         if(newArr.length === 0){
           return "";
         }else{

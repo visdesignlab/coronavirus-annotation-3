@@ -304,9 +304,6 @@ async function progressClicked(mouse) {
   const video = document.getElementById('video');
   video.currentTime = Math.round(scaleVideoTime(mouse.offsetX, true));
 
-  // let structOb = await structureSingleton.getInstance();
-  // colorStructDict = await structOb.currentColorStruct(video.currentTime);
-
   let commentOb = commentSingleton.getInstance();
 
   if(structureSelected.selected){
@@ -341,7 +338,7 @@ function scaleVideoTime(currentTime, invert) {
  
   let videoTImeOb = timeRangeSingleton.getInstance();
   let duration = videoTImeOb.currentRange();
-  const scale = d3.scaleLinear().range([0, video.videoWidth]).domain([duration[0], duration[1]]);
+  const scale = d3.scaleLinear().range([0, (video.videoWidth - 52)]).domain([duration[0], (duration[1]+1)]).clamp(true);
 
   return invert ? scale.invert(currentTime) : scale(currentTime);
 }
@@ -477,7 +474,7 @@ export async function mouseClickVideo(coord, video) {
     const snip = getCoordColor(coord);
 
     if (snip === 'unkown') {
-    console.log('snip is unknown on click', snip)
+   
       d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
       d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
 
@@ -536,7 +533,7 @@ export async function updateWithSelectedStructure(snip, commentData){
   const nestReplies = formatCommentData({ ...commentData });
  
   structureSelected.comments = nestReplies.filter((f) => {
-    console.log('snip in nest reply', snip)
+   
       let tags = f.tags.split(',').filter(m=> {
         return snip.alias.split(',').map(on=> on.toUpperCase()).indexOf(m.toUpperCase()) > -1;
       });
@@ -590,8 +587,6 @@ export async function updateWithSelectedStructure(snip, commentData){
   unknowns.classed('unknown', true);
 
   // MIGHT BE REPEATING WORK - ALREADY HAVE UPDATE COMMENT SIDEBAR ABOVE
-
-  console.log(structureSelected.comments, selectedComWrap);
   drawCommentBoxes(structureSelected.comments, selectedComWrap);
   genComWrap.selectAll('.memo').style('opacity', 0.3);
 
