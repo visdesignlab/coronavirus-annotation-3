@@ -40,6 +40,7 @@ export async function phaseSelected(whichOne, data) {
   let structOb = await structureSingleton.getInstance();
 
   video.currentTime = current[0];
+  d3.select('.progress-bar-fill').attr('width', 0);
 
   renderSelected(data.id);
   initializeVideo();
@@ -577,7 +578,6 @@ export async function updateWithSelectedStructure(snip, commentData){
   // NEED TO CLEAR THIS UP - LOOKS LIKE YOU ARE REPEATING WORK IN UPDATE COMMENT SIDEBAR AND DRAW COMMETN BOXES
 
   updateAnnotationSidebar(otherAnno, structureSelected.annotations, false);
-
   renderStructureKnowns(topCommentWrap);
 
   const stackedData = structureSelected.annotations.filter((f) => f.has_unkown == 'TRUE').concat(structureSelected.annotations.filter((f) => f.has_unkown == 'FALSE'));
@@ -595,18 +595,15 @@ export async function updateWithSelectedStructure(snip, commentData){
   d3.select('#right-sidebar').select('#comment-wrap').style('margin-top', '200px');
   
   //MAKE THESE SCROLL TO TOP.
-
   return structureAnnotations;
 }
 export function structureTooltip(structureData, coord, snip, hoverBool) {
   let commentOb = commentSingleton.getInstance();
 
   const commentData = { ...commentOb.currentData() };
-
   const nestReplies = formatCommentData( commentData );
-  //let structure = (snip === "orange" && video.currentTime > 15) ? colorDictionary[snip].structure[1] : colorDictionary[snip].structure[0];
-  let structureComments = nestReplies.filter((f) => {
 
+  let structureComments = nestReplies.filter((f) => {
     let tags = ()=>{
       if(f.tags === "none"){
         return 0;
@@ -633,7 +630,6 @@ export function structureTooltip(structureData, coord, snip, hoverBool) {
   //let structure = (snip === "orange" && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
 
   if (hoverBool) {
-
 
     const question = structureData.filter((f) => f.has_unkown === 'TRUE').length + structureComments.filter((f) => f.comment.includes('?')).length;
     const refs = structureData.filter((f) => f.url != '').length + structureComments.filter((f) => f.comment.includes('http')).length;
@@ -700,7 +696,6 @@ export function renderPushpinMarks(commentsInTimeframe, svg) {
     .attr('fill-opacity', .9)
     .style('border-radius', '4px')
 
-
   const annotationText = annotationGroup.selectAll('text').data((d) => [d]).join('text')
     .text((d) => d.displayName)
     .classed('annotation-label', true)
@@ -731,13 +726,11 @@ export async function renderDoodles(commentsInTimeframe, div) {
 }
 export function videoUpdates(data, annoType) {
 
-
   const svgTest = d3.select('#interaction').select('svg');
   const svg = svgTest.empty() ? d3.select('#interaction').append('svg') : svgTest;
   svg.attr('id', 'vid-svg');
 
   const video = document.querySelector('video');
-
   const interDIV = d3.select('#interaction');
 
   d3.select('#show-doodle').select('input').on('click', (event, d) => {
@@ -858,15 +851,23 @@ export function videoUpdates(data, annoType) {
         
         let test = timeRangeSingleton.getInstance();
         let sel = test.currentSeg();
-        let back = +sel === 1 ? +segData.length : +sel - 1;
-        let next = sel === segData.length ? 1 : sel + 1;
+        console.log('sel', sel)
+        let back = +sel === 1 ? null : segData[(+sel - 2)];
+        let next = sel === segData.length ? null : segData[sel];
        
-
-        return [segData[back - 1], segData[sel - 1], segData[next - 1]];
+        console.log(back, next);
+        return [back, segData[sel - 1], next].filter((f,i)=>{
+          if(f != null && i === 0) f.addTag = 'Go Back';
+          if(f != null && i === 1) f.addTag = 'Replay';
+          if(f != null && i === 2) f.addTag = 'Go to';
+          return f != null;
+        });
         
       }).join('g').classed('nav', true);
 
-      let span = navGs.selectAll('span').data(d=> [d]).join('span');//.attr('height', 20).attr('width', d=> (d.name.length * 12)+10);
+      // let rect = navGs.selectAll('rect').data(d=> [d]).join('rect').attr('height', 20).attr('width', d=> {
+      //   console.log(d.name, d.name.length, d.addTag, d.addTag.length)
+      //   return (d.name.length + d.addTag.length)*10});
 
       navGs.selectAll('text.nav-label').data((d, i)=> {
         d.index = i;
@@ -874,23 +875,21 @@ export function videoUpdates(data, annoType) {
         .join('text')
         .classed('nav-label', true)
         .text((d)=> {
-        if(d.index === 0){
-          return `Go back to ${d.name}`;
-        }else if(d.index  === 1){
-          return `Replay ${d.name}`;
-        }else{
-          return `Go to ${d.name}`;
-        }
+          return `${d.addTag} ${d.name}`;
       });
-      let dims = getRightDimension();
 
-      navGs.attr('transform', (d, i)=> `translate(${(i * (dims.width / 3))+180},${(dims.height / 2)})`);
-
-      navGs.on('click', (target, d)=> {
+       navGs.on('click', (target, d)=> {
         let selG = d3.selectAll('.section-group').filter(f=> {
           return f.id === d.id;
         });
+        console.log(selG);
+        phaseSelected(selG, d);
       });
+      let dims = getRightDimension();
+
+      navGs.attr('transform', (d, i, n)=> `translate(${(i * (dims.width / n.length))+180},${(dims.height / 2)})`);
+
+     
 
     }
   };

@@ -353,6 +353,11 @@ div{
   }
 }
 
+.nav-label{
+  cursor: pointer;
+  font-weight: 500;
+}
+
 .overlay{
   background-color: rgba($color: #F8F8F8, $alpha: .7) ;
   //opacity: .6;

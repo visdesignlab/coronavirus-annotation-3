@@ -8,12 +8,8 @@ export const smallerDimension = {width: 730, height: 405, margin: 70};
 
 export function overlap(start1, start2, end1, end2){
   return (end1 >= start2 && end2 >= start1)
-  //end1 >= start2 and end2 >= start1
-  //return !(end[0] < start[1] || end[1] < start[0]);
 }
-   // """Does the range (start1, end1) overlap with (start2, end2)?"""
-    
-
+  
 export function getRightDimension(){
   if(window.innerWidth < 1330){
     return smallerDimension;
@@ -28,7 +24,7 @@ export let segData = [
   //section 1 (entry): frames 1-2600
   {class:'sec-one', stills:'sec1_2600', group: 1, name: 'Entry', id : 1, frames:[1, 2600], range:[0,86], annotations: 'annotation_3.csv', structure_data:'stuctured_structure_data.csv'},
   //section 2 (early translation): frames 2601-8035
-  {class: 'sec-two', stills:'sec2_8035', group: 2, name: 'Early Translation', id : 2, frames:[2601, 8035], range:[87,267], annotations: 'Annotation_Margot.csv', structure_data:'stuctured_structures_seg2.csv'},
+  {class: 'sec-two', stills:'sec2_8035', group: 2, name: 'Early Translation', id : 2, frames:[2601, 8035], range:[90,267], annotations: 'Annotation_Margot.csv', structure_data:'stuctured_structures_seg2.csv'},
     // section 3 (transcription overview): frames 8036-11245
   {class: 'sec-three', stills:'sec3_11245', group: 3, name: 'Transcription Overview', id : 3, frames:[8036, 11245], range:[268,374], annotations: 'Annotation_Ann.csv', structure_data:'stuctured_structure_data.csv'},
   // section 4 (transcription, hypothesis 1): frames 11246 - 13106
