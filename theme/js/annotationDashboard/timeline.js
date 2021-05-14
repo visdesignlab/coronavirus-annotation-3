@@ -10,6 +10,7 @@ import {playButtonChange, togglePlay, unselectStructure} from './video';
 import { timeRangeSingleton } from './videoTimeSingleton';
 
 const offsetX = 68;
+let hoverStruct = false;
 
 export function hoverEmphasis(d, type){
   if(type === "comment"){
@@ -285,6 +286,28 @@ export async function renderTimeline(commentData) {
   durRects.attr('transform', d=> `translate(${(3 + xScale(d.range[0]))}, -5)`);
   durRects.attr('fill', d=> {
     return `#${d.hex}`}).style('opacity', 0.5);
+
+  durRects.on('mouseover', async (target, d)=> {
+    
+    if(hoverStruct === false){
+      hoverStruct = true;
+      let time = document.getElementById('video').currentTime;
+      let structOb = await structureSingleton.getInstance();
+      let currentStruct = await structOb.currentColorStruct(time);
+      console.log(currentStruct)
+      let test = currentStruct.filter(f=> f.structure_name === d.data.structure_name);
+      console.log('test', test);
+      if(test.length > 0 && document.getElementById('video').paused){
+        console.log('color the pixels');
+      }
+    }
+   
+  });
+
+  durRects.on('mouseout', (target, d)=> {
+    
+    hoverStruct = false;
+  });
 
 }
 

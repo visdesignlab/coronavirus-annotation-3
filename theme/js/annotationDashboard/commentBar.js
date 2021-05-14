@@ -39,8 +39,11 @@ export function updateCommentSidebar() {
   let range = timeRangeOb.currentRange();
 
   let commentOb = commentSingleton.getInstance();
-  const commentData = formatCommentData({...commentOb.currentData()});
 
+  let comments = commentOb.currentData();
+  console.log('comments in update',comments.comments);
+  const commentData = formatCommentData({...comments});
+console.log('comemnt data',commentData)
   const nestReplies = commentData.filter(f=>{
     return f.videoTime <= range[1] && f.videoTime >= range[0];
   });
@@ -101,15 +104,29 @@ function replyInputBox(d, n) {
 }
 
 export function formatCommentData(dbRef) {
-
+console.log('does dbf have comments', dbRef)
  if(dbRef.comments){
+ 
+  let commentOb = commentSingleton.getInstance();
+  let comments = commentOb.currentData();
 
-  const dataAnno = Object.entries(dbRef.comments)
+ // console.log('dbREf',dbRef, comments);
+
+  const dataAnno = Object.entries(comments.comments)
     .map((m) => {
       const value = m[1];
       value.key = m[0];
       return value;
     });
+
+    console.log(dataAnno)
+
+    // const dataAnno = Object.entries(dbRef.comments)
+    // .map((m) => {
+    //   const value = m[1];
+    //   value.key = m[0];
+    //   return value;
+    // });
 
   const unresolved = dataAnno.filter((f) => f.resolved === false);
 
@@ -159,6 +176,9 @@ function upvoteIcon(div, db) {
   upVote.selectAll('.upvote').data((d) => [d]).join('i').classed('upvote fas fa-thumbs-up fa-sm', true);
   upVote.selectAll('.up-text').data((d) => [d]).join('text').classed('up-text', true)
   .text((d) => {
+    console.log('before split',d.upvote)
+    console.log('split',d.upvote.split(','));
+
     let test = d.upvote.split(',').filter(f => f != "");
     console.log('test',test)
     return `: ${test.length} `});
@@ -558,12 +578,18 @@ export function renderStructureKnowns(topCommentWrap) {
 }
 
 export function defaultTemplate(div, tagArray) {
-  let time = formatTime(document.getElementById('video').currentTime);
+  let time = ()=>{
+    let secs = document.getElementById('video').currentTime;
+    let mins = secs > 60 ? Math.round(secs/60) : 0;
+    let newSecs = secs > 60 ? secs % min : secs;
+
+    return {minutes: mins, seconds: newSecs}
+  }//formatTime(document.getElementById('video').currentTime);
 
   const inputDiv = div.select('.template-wrap');
 
   const templatehtml = `
-    <h6>Add a comment @ ${time.minutes} : ${time.seconds}</h6>
+    <h6>Add a comment @ ${time().minutes} : ${time().seconds}</h6>
     <p>Add a comment to the video. If this is about a structure, please add the structure name as a tag.</p> 
     `;
 
@@ -612,8 +638,10 @@ export function addTagFunctionality(inputDiv, tagArray) {
       }
     }
   });
-
-  const array = ({ ...dataKeeper[dataKeeper.length - 1] }).comments;
+  let comOb = commentSingleton.getInstance();
+  let commentData = comOb.currentData();
+  console.log('commentss',commentData);
+  const array = ({ ...commentData }).comments;
   const test = Object.entries(array).map((m) => m[1]).flatMap((m) => {
     m.tags.split(',')});
   autocomplete(node, Array.from(new Set(test)));
@@ -901,9 +929,7 @@ export function renderCommentDisplayStructure() {
   const gen = genTest.empty() ? wrap.append('div').classed('general-comm-wrap', true) : genTest;
 
   wrap.node().scrollTop -= 100;
-  // d3.select('#right-sidebar').node().scrollTop -= 50;
-  // top.node().scrollTop = 0;
-  // d3.select('#wrapper').scrollTop -= 50;
+  
 }
 
 export function formatComment2Send(user, currentTime, mark, tag, coords, replyTo, quote, text) {
@@ -922,8 +948,8 @@ export function formatComment2Send(user, currentTime, mark, tag, coords, replyTo
     posTop: coords != null ? coords[1] : null,
     posLeft: coords != null ? coords[0] : null,
 
-    upvote: 0,
-    downvote: 0,
+    upvote: "",
+    downvote: "",
 
     replies: replyTo === null ? 'null' : replyTo,
     quotes: quote === null ? 'null' : quote,

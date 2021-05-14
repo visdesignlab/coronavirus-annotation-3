@@ -3,7 +3,7 @@ cell,"[169,154,89]",SEC 61,ffffbd,brownish,"[119,156]",SEC 61,SEC 61
 cell,"[1,0,255]",endoplasmic reticulum,cccccc,blue,"[87,268]",endoplasmic reticulum,endoplasmic reticulum
 virus,"[191,191,191],[204,204,204]",n protein,a6a6a6,gray,"[87,118]",n protein,n protein
 virus,"[255,191,1]",genomic RNA,ff6700,orange,"[87,219],[251,268]",genomic RNA,genomic RNA
-virus,"[255,255,1]",unknown yellow,,yellow,"[87,92] ",unknown yellow,unknown yellow
+virus,"[255,255,1]",unknown yellow,,yellow,"[87,92]",unknown yellow,unknown yellow
 cell,"[2,250,1]",translation initian complex,,green,"[94,101]",translation initian complex,translation initian complex
 cell,"[174,0,231]",ribosome,4b92a7,purple,"[93,118],[121,156],[171,189],[196,403]",ribosome,Ribosome
 virus,"[118,255,203]",NSP 1,9693cd,light mint,"[97,118],[122,150]","NSP 1,nsp1",NSP 1
