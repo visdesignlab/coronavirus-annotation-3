@@ -255,7 +255,7 @@ export async function renderTimeline(commentData) {
     }
   });
   let structures = structureGroups.selectAll('g.structures').data(d => d[1]).join('g').classed('structures', true);
-  let structText = structures.selectAll('.label').data(d=> [d]).join('text').classed('label', true).text(d=> d.Short);
+  let structText = structures.selectAll('.label').data(d=> [d]).join('text').classed('label', true).text(d=> d.short_name);
 
   structures.attr('transform', (d, i)=> `translate(0, ${11+(i*21)})`);
 
@@ -270,7 +270,7 @@ export async function renderTimeline(commentData) {
 
   let durRects = structures.selectAll('rect.dur').data(d=> {
     return d.time.filter(f=> overlap(f[0], current[0], f[1], current[1])).map(m=>{
-      return {range: m, color: d.Hex};
+      return {range: m, hex: d.hex, data: d};
     });
   }).join('rect').classed('dur', true);
 
@@ -279,11 +279,12 @@ export async function renderTimeline(commentData) {
   }).attr('height', 10);
 
   durRects.filter(f=> {
-    return f.color === "FFFFFF";
+    return f.hex === "FFFFFF";
   }).style('stroke-width', 1).style('stroke', 'black');
 
   durRects.attr('transform', d=> `translate(${(3 + xScale(d.range[0]))}, -5)`);
-  durRects.attr('fill', d=> `#${d.color}`).style('opacity', 0.5);
+  durRects.attr('fill', d=> {
+    return `#${d.hex}`}).style('opacity', 0.5);
 
 }
 
