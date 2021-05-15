@@ -4,7 +4,7 @@ import { updateAnnotationSidebar } from './annotationBar';
 import { annotationSingleton } from './annotationSingleton';
 import { formatCommentData } from './commentBar';
 import { commentSingleton } from './commentDataSingleton';
-import { colorDictionary, structureSelected } from './imageDataUtil';
+import { colorDictionary, parseArray, structureSelected } from './imageDataUtil';
 import { structureSingleton } from './structureSingleton';
 import {playButtonChange, togglePlay, unselectStructure} from './video';
 import { timeRangeSingleton } from './videoTimeSingleton';
@@ -294,11 +294,12 @@ export async function renderTimeline(commentData) {
       let time = document.getElementById('video').currentTime;
       let structOb = await structureSingleton.getInstance();
       let currentStruct = await structOb.currentColorStruct(time);
-      console.log(currentStruct)
       let test = currentStruct.filter(f=> f.structure_name === d.data.structure_name);
-      console.log('test', test);
+
+     
       if(test.length > 0 && document.getElementById('video').paused){
-        console.log('color the pixels');
+       
+        parseArray(test[0]);
       }
     }
    
@@ -307,6 +308,8 @@ export async function renderTimeline(commentData) {
   durRects.on('mouseout', (target, d)=> {
     
     hoverStruct = false;
+
+
   });
 
 }

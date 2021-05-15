@@ -851,11 +851,10 @@ export function videoUpdates(data, annoType) {
         
         let test = timeRangeSingleton.getInstance();
         let sel = test.currentSeg();
-        console.log('sel', sel)
+        
         let back = +sel === 1 ? null : segData[(+sel - 2)];
         let next = sel === segData.length ? null : segData[sel];
        
-        console.log(back, next);
         return [back, segData[sel - 1], next].filter((f,i)=>{
           if(f != null && i === 0) f.addTag = 'Go Back';
           if(f != null && i === 1) f.addTag = 'Replay';
@@ -864,10 +863,6 @@ export function videoUpdates(data, annoType) {
         });
         
       }).join('g').classed('nav', true);
-
-      // let rect = navGs.selectAll('rect').data(d=> [d]).join('rect').attr('height', 20).attr('width', d=> {
-      //   console.log(d.name, d.name.length, d.addTag, d.addTag.length)
-      //   return (d.name.length + d.addTag.length)*10});
 
       navGs.selectAll('text.nav-label').data((d, i)=> {
         d.index = i;
@@ -882,7 +877,7 @@ export function videoUpdates(data, annoType) {
         let selG = d3.selectAll('.section-group').filter(f=> {
           return f.id === d.id;
         });
-        console.log(selG);
+      
         phaseSelected(selG.node(), d);
       });
       let dims = getRightDimension();

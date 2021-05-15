@@ -236,7 +236,7 @@ export function parseArray(hoverStruct) {
 
   const newData = { ...currentImageData };
   newData.data = Uint8ClampedArray.from([...currentImageData.data]);
-
+ 
   if(hoverStruct != "unknown"){
 
       for (let i = 0; i < newData.data.length; i += 4) {
