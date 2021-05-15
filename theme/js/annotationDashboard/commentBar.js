@@ -41,9 +41,9 @@ export function updateCommentSidebar() {
   let commentOb = commentSingleton.getInstance();
 
   let comments = commentOb.currentData();
-  console.log('comments in update',comments.comments);
+ 
   const commentData = formatCommentData({...comments});
-console.log('comemnt data',commentData)
+
   const nestReplies = commentData.filter(f=>{
     return f.videoTime <= range[1] && f.videoTime >= range[0];
   });

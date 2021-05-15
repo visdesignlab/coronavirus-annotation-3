@@ -4,9 +4,9 @@ import { updateAnnotationSidebar } from './annotationBar';
 import { annotationSingleton } from './annotationSingleton';
 import { formatCommentData } from './commentBar';
 import { commentSingleton } from './commentDataSingleton';
-import { colorDictionary, parseArray, structureSelected } from './imageDataUtil';
+import { colorDictionary, makeNewImageData, parseArray, structureSelected } from './imageDataUtil';
 import { structureSingleton } from './structureSingleton';
-import {playButtonChange, togglePlay, unselectStructure} from './video';
+import {playButtonChange, togglePlay, unselectStructure, updateTimeElapsed} from './video';
 import { timeRangeSingleton } from './videoTimeSingleton';
 
 const offsetX = 68;
@@ -296,9 +296,7 @@ export async function renderTimeline(commentData) {
       let currentStruct = await structOb.currentColorStruct(time);
       let test = currentStruct.filter(f=> f.structure_name === d.data.structure_name);
 
-     
       if(test.length > 0 && document.getElementById('video').paused){
-       
         parseArray(test[0]);
       }
     }
@@ -306,10 +304,15 @@ export async function renderTimeline(commentData) {
   });
 
   durRects.on('mouseout', (target, d)=> {
-    
     hoverStruct = false;
+    makeNewImageData();
+  });
 
-
+  durRects.on('click', (event, d)=> {
+    console.log('d clicked', d.data.time[0]);
+    //updateTimeElapsed(d.data.time[0])
+    
+    document.getElementById('video').currentTime = parseFloat(d.data.time[0]);
   });
 
 }

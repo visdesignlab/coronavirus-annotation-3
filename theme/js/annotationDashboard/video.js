@@ -627,8 +627,6 @@ export function structureTooltip(structureData, coord, snip, hoverBool) {
    return tags() > 0 || test.length > 0 || reply.length > 0;
   });
 
-  //let structure = (snip === "orange" && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
-
   if (hoverBool) {
 
     const question = structureData.filter((f) => f.has_unkown === 'TRUE').length + structureComments.filter((f) => f.comment.includes('?')).length;
