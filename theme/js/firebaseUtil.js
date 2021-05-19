@@ -178,8 +178,6 @@ export async function checkUser(callbackArray, callbackArrayNoArgs) {
         addCommentButton();
       }
      
-
-
       callbackArray.forEach((fun) => {
         fun(user);
       });

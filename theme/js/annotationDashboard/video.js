@@ -474,7 +474,9 @@ export async function mouseClickVideo(coord, video) {
      */
     const snip = getCoordColor(coord);
 
-    if (snip === 'unkown') {
+    console.log('snip on mouse click', snip)
+
+    if (snip === 'unknown') {
    
       d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
       d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');

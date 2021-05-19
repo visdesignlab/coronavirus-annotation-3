@@ -104,13 +104,13 @@ function replyInputBox(d, n) {
 }
 
 export function formatCommentData(dbRef) {
-console.log('does dbf have comments', dbRef)
+
  if(dbRef.comments){
  
   let commentOb = commentSingleton.getInstance();
   let comments = commentOb.currentData();
 
- // console.log('dbREf',dbRef, comments);
+ 
 
   const dataAnno = Object.entries(comments.comments)
     .map((m) => {
@@ -118,8 +118,6 @@ console.log('does dbf have comments', dbRef)
       value.key = m[0];
       return value;
     });
-
-    console.log(dataAnno)
 
     // const dataAnno = Object.entries(dbRef.comments)
     // .map((m) => {
@@ -176,19 +174,16 @@ function upvoteIcon(div, db) {
   upVote.selectAll('.upvote').data((d) => [d]).join('i').classed('upvote fas fa-thumbs-up fa-sm', true);
   upVote.selectAll('.up-text').data((d) => [d]).join('text').classed('up-text', true)
   .text((d) => {
-    console.log('before split',d.upvote)
-    console.log('split',d.upvote.split(','));
-
+ 
     let test = d.upvote.split(',').filter(f => f != "");
-    console.log('test',test)
+   
     return `: ${test.length} `});
-  console.log('current user',currentUser[currentUser.length - 1])
 
   if(currentUser.length > 0){
     upVote.on('click', (event, d) => {
       let idArray = d.upvote.split(',').filter(f => f != "");
       let id = currentUser[currentUser.length - 1].uid;
-      console.log(idArray.includes(id), id, idArray);
+    
      
       let test = ()=>{
 
@@ -204,7 +199,6 @@ function upvoteIcon(div, db) {
 
       }
        
-      console.log(test());
       db.ref(`comments/${d.key}/upvote`).set(`${test()}`);
     });
   }else{
@@ -234,7 +228,7 @@ function downvoteIcon(div, db) {
         return string + `${c}`
       }
     });
-    console.log(test);
+  
     db.ref(`comments/${d.key}/downvote`).set(`${test}`);
   });
 }
@@ -362,7 +356,6 @@ export function drawCommentBoxes(nestedData, wrap) {
           || event.target.tagName.toLowerCase() === 'a'
           || event.target.tagName.toLowerCase() === 'svg') {
 
-            console.log(event.target)
      
     } else {
       if(document.getElementById('video').playing){
@@ -568,7 +561,9 @@ export function renderStructureKnowns(topCommentWrap) {
   } else {
     infoButton.text('Log in to comment on this')
       .on('click', (event, d) => {
-        d3.select('#right-sidebar').select('#sign-in-wrap').append('div').attr('id', 'sign-in-container');
+        let testSign = d3.select('#right-sidebar').select('#sign-in-wrap');
+        let signIn = testSign.empty() ? d3.select('#right-sidebar').append('div').attr('id', 'sign-in-wrap') : testSign;
+        signIn.append('div').attr('id', 'sign-in-container');
         d3.select('#comment-wrap').style('margin-top', '150px');
         d3.select('#right-sidebar').select('.found-info').remove();
         userLogin();

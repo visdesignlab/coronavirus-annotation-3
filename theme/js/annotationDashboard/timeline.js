@@ -31,7 +31,8 @@ export function colorTimeline(snip){
   d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
 
   if(snip != "unknowm" && snip != null){
-      console.log('snipppp',snip)
+
+    console.log('snip in color timeline', snip)
       snip.alias.split(',').map(f=> {
         let name = f.toUpperCase();
         
@@ -147,7 +148,10 @@ export async function renderTimeline(commentData) {
   timeSVG.style('left', `-10px`);
   timeSVG.style('top', `0px`);
 
-  const commentGroup = timeSVG.selectAll('g.comm-group').data(d=> [d.comments]).join('g').classed('comm-group', true);
+  const commentGroup = timeSVG.selectAll('g.comm-group').data(d=> {
+    let data = d.comments.data.filter(f=> f.videoTime >= rangeOb.currentRange()[0] && f.videoTime <= rangeOb.currentRange()[1]);
+    console.log('data', data)
+    return [{data:data, label:"comments"}]}).join('g').classed('comm-group', true);
   commentGroup.attr('transform', `translate(${offsetX}, 4)`)
   commentGroup.selectAll('text').data(d => [d.label]).join('text')
   .text(d=> d)
@@ -309,9 +313,7 @@ export async function renderTimeline(commentData) {
   });
 
   durRects.on('click', (event, d)=> {
-    console.log('d clicked', d.data.time[0]);
     //updateTimeElapsed(d.data.time[0])
-    
     document.getElementById('video').currentTime = parseFloat(d.data.time[0]);
   });
 
