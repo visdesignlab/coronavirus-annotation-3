@@ -39,7 +39,6 @@ export function toggleSortRef(event) {
   }
 }
 
-
 export function renderIssueButton(wrap) {
   const bugLink = wrap.append('a');
   bugLink.attr('href', 'https://github.com/visdesignlab/coronavirus-annotation-2/issues');
@@ -106,6 +105,7 @@ export function goBackButton() {
 
      }else{
       cancelLogin();
+      addCommentButton();
      }
      d3.select('#right-sidebar').select('#sign-in-wrap').selectAll('*').remove();
      d3.select('#comment-wrap').style('margin-top', '0px');

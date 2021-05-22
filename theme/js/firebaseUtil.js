@@ -90,6 +90,7 @@ export function loadFirebaseUI(callbackType){
     const ui = firebaseui.auth.AuthUI.getInstance();
     console.log('ui exists', ui);
     if(callbackType === 'sign-in'){
+      console.log('ui type??', callbackType)
       ui.start('#sign-in-wrap', uiConfig);
     }
   } else {
@@ -135,6 +136,7 @@ function loginSuccess(user) {
 
 export function cancelLogin(){
  d3.select('#sign-in-wrap').selectAll('*').remove();
+ document.getElementById('sign-in-wrap').removeAttribute('lang');
 }
 
 export function signOut(){
