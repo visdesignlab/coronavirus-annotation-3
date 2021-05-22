@@ -119,9 +119,9 @@ export async function updateAnnotationSidebar(data, stackedData, mouseoverBool) 
   }else{
     d3.select('#left-sidebar').select('.top').select('.comment-header').text(`Annotations:`)
   }
-  
+
   let innerAnnoDiv = mouseoverBool ? annoWrap : annoWrap.select('.gen-anno-wrap');
-  console.log('datain anna',data)
+
   const annoDiv = innerAnnoDiv.selectAll('div.anno').data(data).join('div')
     .classed('anno', true);
 

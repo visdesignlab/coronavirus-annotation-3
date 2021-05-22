@@ -635,7 +635,7 @@ export function addTagFunctionality(inputDiv, tagArray) {
   });
   let comOb = commentSingleton.getInstance();
   let commentData = comOb.currentData();
-  console.log('commentss',commentData);
+
   const array = ({ ...commentData }).comments;
   const test = Object.entries(array).map((m) => m[1]).flatMap((m) => {
     m.tags.split(',')});

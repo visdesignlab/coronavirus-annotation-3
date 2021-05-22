@@ -18,7 +18,7 @@ export const structureSelected = {
 };
 
 export function structureSelectedToggle(coords, selectedData) {
-  
+ 
   if (selectedData === null) {
     structureSelected.structure = null;
     structureSelected.annotations = null;

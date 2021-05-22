@@ -188,7 +188,11 @@ function addMouseEvents2Video(){
   .on('click', (event) => mouseClickVideo(d3.pointer(event), video))
   .on('mousemove', async (event) => {
     toggleQueue(false);
-    mouseMoveVideo(d3.pointer(event), video);
+    let structOb = timeRangeSingleton.getInstance();
+        
+        if(structOb.currentSeg() != 3){
+          mouseMoveVideo(d3.pointer(event), video);
+        }
   });
 
   d3.select('#interaction')
@@ -201,8 +205,12 @@ function addMouseEvents2Video(){
         tool.style('opacity', 0);
         tool.style('top', '-100px');
         tool.style('left', '-100px');
-        clearCanvas();
-        drawFrameOnPause(video);
+        clearCanvas(); 
+        let structOb = timeRangeSingleton.getInstance();
+       
+        if(structOb.currentSeg() != 3){
+          drawFrameOnPause(video);
+        }
         toggleQueue(true);
       }
     });
@@ -370,7 +378,11 @@ export function togglePlay() {
     video.pause();
     d3.selectAll('.anno').classed('de-em', false);
     d3.selectAll('.memo').classed('de-em', false);
-    drawFrameOnPause(video);
+    let structOb = timeRangeSingleton.getInstance();
+  
+    if(structOb.currentSeg() != 3){
+      drawFrameOnPause(video);
+    }
 
   } else {
 
@@ -460,7 +472,12 @@ export async function mouseClickVideo(coord, video) {
   const commentData = { ...commentOb.currentData() };
 
   if (video.playing) {
-    structureSelectedToggle(null);
+    let test = timeRangeSingleton.getInstance();
+    
+    if(test.currentSeg() != 3){
+      structureSelectedToggle(null);
+    }
+    
    
     playButtonChange().then(()=> togglePlay());
     d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
@@ -473,8 +490,6 @@ export async function mouseClickVideo(coord, video) {
      * VIDEO PAUSED - CLICKED NOT ON STRUCTURE
      */
     const snip = getCoordColor(coord);
-
-    console.log('snip on mouse click', snip)
 
     if (snip === 'unknown') {
    

@@ -32,7 +32,6 @@ export function colorTimeline(snip){
 
   if(snip != "unknowm" && snip != null){
 
-    console.log('snip in color timeline', snip)
       snip.alias.split(',').map(f=> {
         let name = f.toUpperCase();
         
@@ -150,7 +149,7 @@ export async function renderTimeline(commentData) {
 
   const commentGroup = timeSVG.selectAll('g.comm-group').data(d=> {
     let data = d.comments.data.filter(f=> f.videoTime >= rangeOb.currentRange()[0] && f.videoTime <= rangeOb.currentRange()[1]);
-    console.log('data', data)
+ 
     return [{data:data, label:"comments"}]}).join('g').classed('comm-group', true);
   commentGroup.attr('transform', `translate(${offsetX}, 4)`)
   commentGroup.selectAll('text').data(d => [d.label]).join('text')

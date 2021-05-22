@@ -34,7 +34,7 @@ export let segData = [
 ];
 
 export function formatTime(timeInSeconds) {
-  console.log(timeInSeconds, new Date(timeInSeconds[0]));
+  
   const result = timeInSeconds.length === 1 ? [new Date(timeInSeconds * 1000).toISOString().substr(11, 8)] : [new Date(timeInSeconds[0] * 1000).toISOString().substr(11, 8), new Date(timeInSeconds[1] * 1000).toISOString().substr(11, 8)];
   return result.map((m, i)=> {
     return {
