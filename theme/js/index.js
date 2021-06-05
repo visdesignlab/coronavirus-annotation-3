@@ -147,6 +147,8 @@ async function init() {
   
   loadFirebaseApp();
 
+  window.resizeTo(1330, 900);
+
   await checkUser([renderUser], [updateCommentSidebar, renderTimeline]);
 
   renderIssueButton(d3.select('#top-bar').select('#user'));
