@@ -19,7 +19,7 @@ import { annotationSingleton } from './annotationDashboard/annotationSingleton';
 const {
   renderUser, addCommentButton, toggleSort, renderIssueButton, addInfoBlurb,
 } = require('./annotationDashboard/topbar');
-const { formatAnnotationTime, segData } = require('./dataManager');
+const { formatAnnotationTime, segData, getRightDimension } = require('./dataManager');
 const { checkUser, loadConfig, fbConfig, loadFirebaseApp } = require('./firebaseUtil');
 
 loadConfig();
@@ -48,18 +48,27 @@ renderTimeSections(segData);
 
 export function renderSelected(selectedId){
 
+  
+
   let sectionGroups = d3.select('#video-nav').select('svg').selectAll('.sections');
 
   sectionGroups.selectAll('.progress-underlay').remove();
   sectionGroups.selectAll('.progress').remove();
 
-  let selectedGroup = sectionGroups.filter((f)=> f.id === selectedId).classed('selected', true);
+  let dims = getRightDimension();
+  let selectedGroup = sectionGroups.filter((f)=> f.id === selectedId).classed('selected', true)
+  let sizeW = dims.width + 200;
 
-  let progressRectUnderlay = selectedGroup.append('rect').attr('width', (d)=> {
+  let numSecGroups = d3.select('#video-nav').select('svg').selectAll('.section-group').size();
+
+  console.log('window witdthhh', (window.innerWidth * .8), 'div', document.getElementById('video-nav').getBoundingClientRect().width)
+
+  let progressRectUnderlay = selectedGroup.append('rect').attr('width', (d, i, n)=> {
     if( d.name === 'Additional Info'){
       return 250;
     }else{
-      return 350;
+      console.log('width', sizeW, n.length, (sizeW/ n.length));
+      return sizeW / numSecGroups;
     }
   }).attr('height', 3).classed('progress-underlay', true);
 
@@ -75,10 +84,13 @@ export function renderTimeSections(segmentData){
 
   let segSVG = d3.select('#video-nav').append('svg').classed('section-svg', true);
   let sectionGroups = segSVG.selectAll('g.section-group').data(groups).join('g').classed('section-group', true);
+
+  let dims = getRightDimension();
+  let sizeW = dims.width + 200;
+  let numSecGroups = d3.select('#video-nav').select('svg').selectAll('.section-group').size();
  
   let subSegs = sectionGroups.selectAll('g.sections').data(d => d.data).join('g').classed('sections', true);
   subSegs.attr('transform', (d, i) => {
-    console.log('d',d, i)
     let stepX = d.group === 4 ? (i * 28) : 14;
 
     return `translate(0, ${(stepX)})`});
@@ -89,7 +101,7 @@ export function renderTimeSections(segmentData){
     if( d.name === 'Additional Info'){
       return 150;
     }else{
-      return 350;
+      return (sizeW / numSecGroups);
     }
   }).attr('height', 20);//.attr('fill', 'red');
 
@@ -107,7 +119,6 @@ export function renderTimeSections(segmentData){
   }).style("stroke-dasharray", ("3, 3"));
 
   subSegs.on('click', function (event, d){
-  
     phaseSelected(this, d);
   });
 
@@ -115,8 +126,8 @@ export function renderTimeSections(segmentData){
   renderSelected(selectedId);
 
   sectionGroups.attr('transform', (d, i)=> {
-
-      return `translate(${(i * 354)},0)`;
+      let step = sizeW / numSecGroups;
+      return `translate(${(i * step)},0)`;
    
     });
 }
