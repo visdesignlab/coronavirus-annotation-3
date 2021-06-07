@@ -21,6 +21,7 @@ export let currentColorCodes = null;
 
 export let colorStructDict;
 let canPlay;
+let pixelsHighlighted;
 
 const canvas = document.getElementById('canvas');
 canvas.setAttribute('pointer-events', 'none');
@@ -375,6 +376,10 @@ export function togglePlay() {
  
   if (video.playing) {
 
+
+    console.log('toggle play video is playing', structureSelected);
+
+
     video.pause();
     d3.selectAll('.anno').classed('de-em', false);
     d3.selectAll('.memo').classed('de-em', false);
@@ -385,6 +390,8 @@ export function togglePlay() {
     }
 
   } else {
+
+    console.log('toggle play video not playing', structureSelected);
 
     video.play();
 
@@ -411,7 +418,7 @@ export async function mouseMoveVideo(coord, video) {
     if(!video.playing && (structureSelected.selected === false && video.currentTime <= endDrawTime)){
    
       const snip = getCoordColor(coord);
-      
+
       if (snip != 'unknown' && snip.structure_name != currentColorCodes && !video.playing && snip.color != 'black') {
         currentColorCodes = snip.structure_name;
         parseArray(snip);
@@ -421,8 +428,6 @@ export async function mouseMoveVideo(coord, video) {
         const structureData = annoOb.currentAnnotations().filter((f) => {
        
           return f.associated_structures.split(', ').map((m) => m.toUpperCase()).indexOf(structFromDict) > -1});
-
-   
 
       structureTooltip(structureData, coord, snip, true);
       
@@ -445,7 +450,10 @@ export async function mouseMoveVideo(coord, video) {
   
         makeNewImageData();
       
+      }else{
+        console.log('structure not selected', structureSelected);
       }
+      
     }
   }
 }
@@ -475,7 +483,7 @@ export async function mouseClickVideo(coord, video) {
     let test = timeRangeSingleton.getInstance();
     
     if(test.currentSeg() != 3){
-      structureSelectedToggle(null);
+      structureSelectedToggle(null, null);
     }
     
    
@@ -491,7 +499,11 @@ export async function mouseClickVideo(coord, video) {
      */
     const snip = getCoordColor(coord);
 
+    console.log('snipp', snip);
+
     if (snip === 'unknown') {
+
+
    
       d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
       d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
@@ -503,12 +515,14 @@ export async function mouseClickVideo(coord, video) {
         playButtonChange().then(()=> togglePlay());
       }
       
-     unselectStructure(commentData, video);
+   // unselectStructure(commentData, video);
+   console.log('structure selected toggle - unknown', structureSelected);
+   structureSelectedToggle(null, null);
      d3.select('.x-out').remove();
 
     }else if(snip.structure_name === structureSelected.structure){
-    
-        unselectStructure(commentData, video);
+      structureSelectedToggle(null, null);
+        //unselectStructure(commentData, video);
         d3.select('.x-out').remove();
 
     } else {

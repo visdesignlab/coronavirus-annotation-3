@@ -149,7 +149,6 @@ export async function renderTimeline(commentData) {
 
   const commentGroup = timeSVG.selectAll('g.comm-group').data(d=> {
     let data = d.comments.data.filter(f=> f.videoTime >= rangeOb.currentRange()[0] && f.videoTime <= rangeOb.currentRange()[1]);
- 
     return [{data:data, label:"comments"}]}).join('g').classed('comm-group', true);
   commentGroup.attr('transform', `translate(${offsetX}, 4)`)
   commentGroup.selectAll('text').data(d => [d.label]).join('text')
@@ -312,7 +311,6 @@ export async function renderTimeline(commentData) {
   });
 
   durRects.on('click', (event, d)=> {
-    //updateTimeElapsed(d.data.time[0])
     document.getElementById('video').currentTime = parseFloat(d.data.time[0]);
   });
 

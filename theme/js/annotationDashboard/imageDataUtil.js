@@ -275,14 +275,14 @@ export function getCoordColor(coord) {
   const blueForCoord = currentImageData.data[blueIndex];
   const alphaForCoord = currentImageData.data[alphaIndex];
   const new_rgb = `rgba(${redForCoord},${greenForCoord},${blueForCoord}, 1.0)`;
-
+  console.log('new_rgb', new_rgb);
   let filterDict = colorStructCurrent;
  
   [redForCoord, greenForCoord, blueForCoord].map((m, i)=>{
     filterDict = filterDict.filter(f=> f.rgb[i] === m);
     return filterDict;
   });
-
+  console.log('filterfff',filterDict)
   //d3.select('body').style('background-color', `${new_rgb}`);
 
 

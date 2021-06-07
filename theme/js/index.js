@@ -61,13 +61,10 @@ export function renderSelected(selectedId){
 
   let numSecGroups = d3.select('#video-nav').select('svg').selectAll('.section-group').size();
 
-  console.log('window witdthhh', (window.innerWidth * .8), 'div', document.getElementById('video-nav').getBoundingClientRect().width)
-
   let progressRectUnderlay = selectedGroup.append('rect').attr('width', (d, i, n)=> {
     if( d.name === 'Additional Info'){
       return 250;
     }else{
-      console.log('width', sizeW, n.length, (sizeW/ n.length));
       return sizeW / numSecGroups;
     }
   }).attr('height', 3).classed('progress-underlay', true);
