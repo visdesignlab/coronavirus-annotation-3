@@ -178,9 +178,12 @@ function upvoteIcon(div, db) {
     let test = d.upvote.split(',').filter(f => f != "");
    
     return `: ${test.length} `});
+    console.log('current user',currentUser)
 
   if(currentUser.length > 0){
+
     upVote.on('click', (event, d) => {
+      console.log('upvote', d);
       let idArray = d.upvote.split(',').filter(f => f != "");
       let id = currentUser[currentUser.length - 1].uid;
     
@@ -216,21 +219,25 @@ function downvoteIcon(div, db) {
       let test = d.downvote.split(',').filter(f => f != "");
       return `: ${test.length} `});
 
-  downvote.on('click', (event, d) => {
-    let idArray = d.downvote.split(',').filter(f => f != "");
-    let id = currentUser[currentUser.length - 1].uid;
-    idArray.indexOf(id) > -1 ? idArray.filter(f=> f != id) : idArray.push(id);
-   
-    let test = idArray.reduce((string, c, i)=>{
-      if(i < idArray.length){
-        return string + `${c},`
-      }else{
-        return string + `${c}`
-      }
+  if(currentUser.length > 0){
+    downvote.on('click', (event, d) => {
+      let idArray = d.downvote.split(',').filter(f => f != "");
+      let id = currentUser[currentUser.length - 1].uid;
+      idArray.indexOf(id) > -1 ? idArray.filter(f=> f != id) : idArray.push(id);
+    
+      let test = idArray.reduce((string, c, i)=>{
+        if(i < idArray.length){
+          return string + `${c},`
+        }else{
+          return string + `${c}`
+        }
+      });
+    
+      db.ref(`comments/${d.key}/downvote`).set(`${test}`);
     });
-  
-    db.ref(`comments/${d.key}/downvote`).set(`${test}`);
-  });
+  }else{
+    downvote.classed('deactivite', true);
+  }
 }
 
 function renderReplyDetails(div){
