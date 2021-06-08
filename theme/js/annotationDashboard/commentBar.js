@@ -187,22 +187,23 @@ function upvoteIcon(div, db) {
 
     upVote.on('click', (event, d) => {
       console.log('upvote', d);
+
       let idArray = d.upvote.split(',').filter(f => f != "");
       let id = currentUser[currentUser.length - 1].uid;
     
-     
       let test = ()=>{
-
-        let newArr = idArray.includes(id) ? idArray.filter(f=> f != id) : idArray.push(currentUser[currentUser.length - 1].uid);
-
-        if(newArr.length === 0){
+        if(idArray.includes(id)){
+          idArray = idArray.filter(f=> f != id)
+         }else{
+          idArray.push(id);
+         } 
+        if(idArray.length === 0){
           return "";
         }else{
-          return newArr.reduce((string, c, i)=>{
+          return idArray.reduce((string, c, i)=>{
             return string + `,${c}`;
           });
         }
-
       }
        
       db.ref(`comments/${d.key}/upvote`).set(`${test()}`);
@@ -224,19 +225,28 @@ function downvoteIcon(div, db) {
 
   if(currentUser.length > 0){
     downvote.on('click', (event, d) => {
+    
       let idArray = d.downvote.split(',').filter(f => f != "");
       let id = currentUser[currentUser.length - 1].uid;
-      idArray.indexOf(id) > -1 ? idArray.filter(f=> f != id) : idArray.push(id);
     
-      let test = idArray.reduce((string, c, i)=>{
-        if(i < idArray.length){
-          return string + `${c},`
+      let test = ()=>{
+
+        if(idArray.includes(id)){
+          idArray = idArray.filter(f=> f != id)
+         }else{
+          idArray.push(id);
+         } 
+        
+        if(idArray.length === 0){
+          return "";
         }else{
-          return string + `${c}`
+          return idArray.reduce((string, c, i)=>{
+            return string + `,${c}`;
+          });
         }
-      });
+      }
     
-      db.ref(`comments/${d.key}/downvote`).set(`${test}`);
+      db.ref(`comments/${d.key}/downvote`).set(`${test()}`);
     });
   }else{
     downvote.classed('deactivite', true);
@@ -586,7 +596,7 @@ export function defaultTemplate(div, tagArray) {
   let time = ()=>{
     let secs = document.getElementById('video').currentTime;
     let mins = secs > 60 ? Math.round(secs/60) : 0;
-    let newSecs = secs > 60 ? secs % min : secs;
+    let newSecs = secs > 60 ? secs % mins : secs;
 
     return {minutes: mins, seconds: newSecs}
   }//formatTime(document.getElementById('video').currentTime);
@@ -978,7 +988,7 @@ export function formatToComment(div, startingTags) {
   let submit = submitDiv.append('button').attr('id', 'comment-submit-button').text('Add Comment').classed('btn btn-secondary', true);
   const commentType = 'comments';
 
-  submit.on('click', (event) => {
+  submit.on('click', async (event) => {
 
     event.stopPropagation();
    
@@ -1057,7 +1067,11 @@ export function formatToComment(div, startingTags) {
       clearRightSidebar();
       renderCommentDisplayStructure();
       checkDatabase([]);
-      updateAnnotationSidebar(annotationData[annotationData.length - 1]);
+     // updateAnnotationSidebar(annotationData[annotationData.length - 1]);
+
+      let annoOb = await annotationSingleton.getInstance();
+      let annotations = await annoOb.currentAnnotations();
+      updateAnnotationSidebar(annotations, null, null);
     } else {
       window.alert('Please add a comment first');
     }
