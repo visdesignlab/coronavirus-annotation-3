@@ -104,10 +104,12 @@ export function goBackButton() {
         tool.style('left', '-100px');
 
      }else{
-      cancelLogin();
+     
       addCommentButton();
      }
-     d3.select('#right-sidebar').select('#sign-in-wrap').selectAll('*').remove();
+    //  d3.select('#right-sidebar').select('#sign-in-wrap-wrap').selectAll('*').remove();
+    //  d3.select('#right-sidebar').select('#sign-in-wrap-wrap')
+    cancelLogin();
      d3.select('#comment-wrap').style('margin-top', '0px');
      
      addCommentButton();

@@ -24,7 +24,8 @@ function removeKey(key){
 }
 
 export function clearRightSidebar() {
-  d3.select('#right-sidebar').selectAll('*').remove();
+  d3.select('#right-sidebar').select('#sign-in-wrap-wrap').selectAll('*').remove();
+  d3.select('#right-sidebar').select('.top').selectAll('*').remove();
   d3.select('#comment-wrap').selectAll('*').remove();
 }
 
@@ -53,7 +54,9 @@ export function updateCommentSidebar() {
   let time = document.getElementById('video').currentTime;
 
   if(!structureSelected.selected){
+    let signIn = d3.select('#sign-in-wrap-wrap').select('#sign-in-wrap').empty() ? d3.select('#sign-in-wrap-wrap').append('div').attr('id', 'sign-in-wrap') : d3.select('#sign-in-wrap-wrap').select('#sign-in-wrap')
     let header = d3.select('#right-sidebar').select('.top').selectAll('h6.comment-header').data(['Comments']).join('h6').classed('comment-header', true);
+    d3.select('#comment-wrap').style('margin-top', 0);
     header.text(d=> d);
     const timeRange = [time < .5 ? 0 : Math.floor(time - .2), time + .2];
     highlightCommentBoxes(timeRange);
