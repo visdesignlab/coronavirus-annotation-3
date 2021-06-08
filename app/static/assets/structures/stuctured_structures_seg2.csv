@@ -1,24 +1,24 @@
 hierarchy,rgb,structure_name,hex,color,time,alias,short_name
-cell,"[169,154,89]",SEC 61,ffffbd,brownish,"[119,156]",SEC 61,SEC 61
-cell,"[1,0,255]",endoplasmic reticulum,cccccc,blue,"[87,268]",endoplasmic reticulum,endoplasmic reticulum
-virus,"[191,191,191],[204,204,204]",n protein,a6a6a6,gray,"[87,118]",n protein,n protein
-virus,"[255,191,1]",genomic RNA,ff6700,orange,"[87,219],[251,268]",genomic RNA,genomic RNA
-virus,"[255,255,1]",unknown yellow,,yellow,"[87,92]",unknown yellow,unknown yellow
-cell,"[2,250,1]",translation initian complex,,green,"[94,101]",translation initian complex,translation initian complex
-cell,"[174,0,231]",ribosome,4b92a7,purple,"[93,118],[121,156],[171,189],[196,403]",ribosome,Ribosome
-virus,"[118,255,203]",NSP 1,9693cd,light mint,"[97,118],[122,150]","NSP 1,nsp1",NSP 1
-virus,"[65,210,199]",NSP 2,a7a6ba,teal,"[97,118],[122,148]","NSP 2,nsp2",NSP 2
-virus,"[254,0,190]",NSP 3,,hot pink,"[103,156],[212,268]","NSP 3,nsp3",NSP 3
-virus,"[191,0,1]",NSP 4,,crimson,"[87,92],[133,156],[239,268]","NSP 4,nsp4",NSP 4
-virus,"[0,0,173]",NSP 5,222222,dark blue,"[139,156],[174,206],[214,237]","NSP 5,nsp5",NSP 5
-virus,"[104,199,255]",NSP 6,,light blue,"[143,156]","NSP 6,nsp6",NSP 6
-virus,"[240,226,254]",NSP 8,dcc5ed,light pink,"[146,156],[172,237]","NSP 8,nsp8",NSP 8
-virus,"[191,191,0]",NSP 7,513680,mustard greenish yellow,"[143,156],[172,237]","NSP 7,nsp7",NSP 7
-virus,"[255,237,221]",NSP 9,1c4966,light flesh,"[172,203]","NSP 9,nsp9",NSP 9
-virus,"[215,180,117]",NSP 10,243761,tan,"[151,236]","NSP 10,nsp10",NSP 10
-virus,"[234,251,117]",NSP 12,6499c4,lime,"[211,237]","NSP 12,nsp12",NSP 12
-virus,"[250,226,236]",NSP 13,4e9ba3,light dusty rose,"[211,237]","NSP 13,nsp13",NSP 13
-virus,"[254,255,148]",NSP 14,9edfe6,light yellow,"[211,237]","NSP 14,nsp14",NSP 14
-virus,"[0,254,255]",NSP 15,,cyan,"[214,237]","NSP 15,nsp15",NSP 15
-virus,"[255,0,254]",NSP 16,3a599c,magenta,"[217,237]","NSP 16,nsp16",NSP 16
-virus,"[150,141,196]",Multiple NSP's,,slate,"[252,268]","Multiple NSP,nsps",Multiple NSP's
+cell,"[[169,154,89]]",SEC 61,ffffbd,brownish,"[119,156]",SEC 61,SEC 61
+cell,"[[1,0,255]]",endoplasmic reticulum,cccccc,blue,"[87,268]",endoplasmic reticulum,endoplasmic reticulum
+virus,"[[191,191,191],[204,204,204]]",n protein,a6a6a6,gray,"[87,118]",n protein,n protein
+virus,"[[255,191,1]]",genomic RNA,ff6700,orange,"[87,219],[251,268]",genomic RNA,genomic RNA
+virus,"[[255,255,1]]",unknown yellow,,yellow,"[87,92]",unknown yellow,unknown yellow
+cell,"[[2,250,1]]",translation initian complex,,green,"[94,101]",translation initian complex,translation initian complex
+cell,"[[174,0,231]]",ribosome,4b92a7,purple,"[93,118],[121,156],[171,189],[196,403]",ribosome,Ribosome
+virus,"[[118,255,203]]",NSP 1,9693cd,light mint,"[97,118],[122,150]","NSP 1,nsp1",NSP 1
+virus,"[[65,210,199]]",NSP 2,a7a6ba,teal,"[97,118],[122,148]","NSP 2,nsp2",NSP 2
+virus,"[[254,0,190]]",NSP 3,,hot pink,"[103,156],[212,268]","NSP 3,nsp3",NSP 3
+virus,"[[191,0,1]]",NSP 4,,crimson,"[87,92],[133,156],[239,268]","NSP 4,nsp4",NSP 4
+virus,"[[0,0,173]]",NSP 5,222222,dark blue,"[139,156],[174,206],[214,237]","NSP 5,nsp5",NSP 5
+virus,"[[104,199,255]]",NSP 6,,light blue,"[143,156]","NSP 6,nsp6",NSP 6
+virus,"[[240,226,254]]",NSP 8,dcc5ed,light pink,"[146,156],[172,237]","NSP 8,nsp8",NSP 8
+virus,"[[191,191,0]]",NSP 7,513680,mustard greenish yellow,"[143,156],[172,237]","NSP 7,nsp7",NSP 7
+virus,"[[255,237,221]]",NSP 9,1c4966,light flesh,"[172,203]","NSP 9,nsp9",NSP 9
+virus,"[[215,180,117]]",NSP 10,243761,tan,"[151,236]","NSP 10,nsp10",NSP 10
+virus,"[[234,251,117]]",NSP 12,6499c4,lime,"[211,237]","NSP 12,nsp12",NSP 12
+virus,"[[250,226,236]]",NSP 13,4e9ba3,light dusty rose,"[211,237]","NSP 13,nsp13",NSP 13
+virus,"[[254,255,148]]",NSP 14,9edfe6,light yellow,"[211,237]","NSP 14,nsp14",NSP 14
+virus,"[[0,254,255]]",NSP 15,,cyan,"[214,237]","NSP 15,nsp15",NSP 15
+virus,"[[255,0,254]]",NSP 16,3a599c,magenta,"[217,237]","NSP 16,nsp16",NSP 16
+virus,"[[150,141,196]]",Multiple NSP's,,slate,"[252,268]","Multiple NSP,nsps",Multiple NSP's

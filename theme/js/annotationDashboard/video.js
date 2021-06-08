@@ -376,10 +376,6 @@ export function togglePlay() {
  
   if (video.playing) {
 
-
-    console.log('toggle play video is playing', structureSelected);
-
-
     video.pause();
     d3.selectAll('.anno').classed('de-em', false);
     d3.selectAll('.memo').classed('de-em', false);
@@ -390,8 +386,6 @@ export function togglePlay() {
     }
 
   } else {
-
-    console.log('toggle play video not playing', structureSelected);
 
     video.play();
 
@@ -438,7 +432,8 @@ export async function mouseMoveVideo(coord, video) {
       }
 
     } else if (snip === 'unknown') {
-
+    
+      currentColorCodes = null;
       if(!structureSelected.selected){
         d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
         d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
@@ -499,8 +494,6 @@ export async function mouseClickVideo(coord, video) {
      */
     const snip = getCoordColor(coord);
 
-    console.log('snipp', snip);
-
     if (snip === 'unknown') {
 
 
@@ -516,7 +509,7 @@ export async function mouseClickVideo(coord, video) {
       }
       
    // unselectStructure(commentData, video);
-   console.log('structure selected toggle - unknown', structureSelected);
+  
    structureSelectedToggle(null, null);
      d3.select('.x-out').remove();
 

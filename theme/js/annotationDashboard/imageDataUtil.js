@@ -161,75 +161,11 @@ export async function drawFrameOnPause(video) {
 }
 
 export function colorChecker(code, hover){
-
-  if(code[0] === hover[0] && code[1] === hover[1] && code[2] === hover[2]){
-    return true;
-  }
-
-    // if(code[0] === 254 && code[1] === 0 && code[2] && 190){
-    //   return 'hot pink'
-    // }else if(code[0] === 240 && code[1] === 226 && code[2] && 254){
-    //   return 'lavender'
-    // }else if(code[0] === 169 && code[1] === 154 && code[2] === 89){
-    //   return 'dark olive'
-    // }else if(code[0] === 253 && code[1] === 225 && code[2] === 236){
-    //   return 'light peach'
-    // }else if(code[0] === 191 && code[1] === 191 && code[2] === 191){
-    //   return 'gray'
-    // }else if(code[0] === 65 && code[1] === 210 && code[2] === 197){
-    //   return 'teal'
-    // }else if(code[0] === 191 && code[1] === 0 && code[2] === 1){
-    //   return 'crimson'
-    // }else if(code[0] === 254 && code[1] === 255 && code[2] === 148){
-    //   return 'light gold'
-    // }else if(code[0] === 150 && code[1] === 141 && code[2] === 197){
-    //   return 'slate'
-    // }else if(code[0] === 255 && code[1] === 191 && code[2] === 1){
-    //   return 'goldenrod'
-    // }else if(code[0] === 254 && code[1] === 255 && code[2] === 0){
-    //   return 'yellow'
-    // }else if(code[0] === 254 && code[1] === 238 && code[2] === 221){
-    //   return 'beige'
-    // }else if(code[0] === 104 && code[1] === 199 && code[2] === 255){
-    //   return 'light blue'
-    // }else if(code[0] === 118 && code[1] === 255 && code[2] === 205){
-    //   return 'mint'
-    // }else if(code[0] === 215 && code[1] === 180 && code[2] === 117){
-    //   return 'tan'
-    // }else if(code[0] === 191 && code[1] === 191 && code[2] === 0){
-    //   return 'olive'
-    // }else if(code[0] === 0 && code[1] === 0 && code[2] === 198){
-    //   return 'dark blue'
-    // }else if(code[0] === 238 && code[1] === 250 && code[2] === 117){
-    //   return 'lime'
-    // }else if(code[0] === 174 && code[1] === 0 && code[2] === 233){
-    //   return 'purple'
-    // }else if((code[0] + code[1] + code[2]) === 0){
-    //   return 'black';
-    // }else if(code[0] < code[1] && code[1] > 196 && code[2] < code[1]){
-    //   return 'green';
-    // }else if(code[0] > 250 && code[1] > 200 && code[2] < 100){
-    //     return 'yellow';
-    // }else if(code[0] > 250 && code[1] > 250 && code[2] > 250){
-    //   return 'white';
-    // }else if((code[0] < 160 && code[0] > 50 && (Math.abs(code[0] - code[1]) < 5) ) && code[1] < 160 && code[2] < 160){
-    //   return 'dark gray';
-    // }else if(code[0] < 250 && code[0] > 185 && code[1] < 250 && code[1] > 185 && code[2] < 250 &&  code[2] > 185){
-    //   return 'light gray';
-    // }else if(code[2] < 70 && code[0] > 200 && code[2] < code[0] && code[1] < code[0] && code[1] < 80){
-    //     return 'red';
-    // }else if(code[0] > 250 && code[1] < 10 && code[2] > 250){
-    //   return 'magenta';
-    // }else if(code[2] < 70 && code[0] > 50 && code[2] < code[0] && code[1] < code[0] && code[1] > 80){
-    //   return 'orange';
-    // }else if(code[0] < 10 && code[1] > 250 && code[2] > 250){
-    //   return 'aqua';
-    // }else if(code[2] > 70 && code[0] < 100 && code[2] > code[0] && code[2] > code[1]){
-    //   return 'blue';
-    // }else{
-    //   return "unknown";
-    // }
-  }
+  let test = hover.filter(h=> {
+      return (code[0] === h[0] && code[1] === h[1] && code[2] === h[2])
+  });
+  return test.length > 0;
+}
 
 export function parseArray(hoverStruct) {
 
@@ -250,6 +186,7 @@ export function parseArray(hoverStruct) {
           newData.data[i + 3] = 150;
         } else if (colorBool) {
           newData.data[i + 3] = 0;
+          
         }
       }
     }else{
@@ -275,16 +212,17 @@ export function getCoordColor(coord) {
   const blueForCoord = currentImageData.data[blueIndex];
   const alphaForCoord = currentImageData.data[alphaIndex];
   const new_rgb = `rgba(${redForCoord},${greenForCoord},${blueForCoord}, 1.0)`;
-  console.log('new_rgb', new_rgb);
+  //('new_rgb', new_rgb);
   let filterDict = colorStructCurrent;
- 
-  [redForCoord, greenForCoord, blueForCoord].map((m, i)=>{
-    filterDict = filterDict.filter(f=> f.rgb[i] === m);
-    return filterDict;
+
+  let colorCodes = [redForCoord, greenForCoord, blueForCoord];
+
+  let filterDictTest = filterDict.filter(f=> {
+    let test = f.rgb.filter(rg=> {
+      return (rg[0] === colorCodes[0]) && (rg[1] === colorCodes[1]) && (rg[2] === colorCodes[2]);
+    })
+    return test.length > 0;
   });
-  console.log('filterfff',filterDict)
-  //d3.select('body').style('background-color', `${new_rgb}`);
 
-
-  return filterDict[0] ? filterDict[0] : 'unknown';
+  return filterDictTest.length > 0 ? filterDictTest[0] : 'unknown';
 }
