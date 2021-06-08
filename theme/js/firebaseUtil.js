@@ -135,8 +135,10 @@ function loginSuccess(user) {
 }
 
 export function cancelLogin(){
- d3.select('#sign-in-wrap').selectAll('*').remove();
- document.getElementById('sign-in-wrap').removeAttribute('lang');
+//  d3.select('#sign-in-wrap').selectAll('*').remove();
+//  document.getElementById('sign-in-wrap').removeAttribute('lang');
+d3.select('#sign-in-wrap').remove();
+d3.select('#sign-in-wrap-wrap').append('div').attr('id', 'sign-in-wrap');
 }
 
 export function signOut(){
