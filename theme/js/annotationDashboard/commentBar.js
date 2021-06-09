@@ -3,6 +3,7 @@ import { json } from 'd3';
 import { annotationData, currentUser, dataKeeper, formatTime, formatVideoTime, getRightDimension } from '../dataManager';
 import { checkDatabase, getDB, getStorage, userLoggedIn, userLogin } from '../firebaseUtil';
 import { updateAnnotationSidebar } from './annotationBar';
+import { annotationSingleton } from './annotationSingleton';
 import { commentSingleton } from './commentDataSingleton';
 import { structureSelected, doodleKeeper, structureSelectedToggle, structureDictionary } from './imageDataUtil';
 import { hoverEmphasis } from './timeline';
@@ -1066,8 +1067,9 @@ export function formatToComment(div, startingTags) {
 
       clearRightSidebar();
       renderCommentDisplayStructure();
-      checkDatabase([]);
+      //checkDatabase([]);
      // updateAnnotationSidebar(annotationData[annotationData.length - 1]);
+     checkDatabase([updateCommentSidebar]);
 
       let annoOb = await annotationSingleton.getInstance();
       let annotations = await annoOb.currentAnnotations();
