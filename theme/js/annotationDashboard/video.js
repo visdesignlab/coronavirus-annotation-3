@@ -524,7 +524,7 @@ export async function mouseClickVideo(coord, video) {
         d3.select('#sign-in-wrap').selectAll('*').remove();
          cancelLogin();
       }
-    
+      console.log('structu;re clicked', snip);
       structureSelectedToggle(coord, snip);
       colorTimeline(snip);
       let structureAnnotations = updateWithSelectedStructure(snip, commentData);
@@ -552,21 +552,44 @@ export async function mouseClickVideo(coord, video) {
 export async function updateWithSelectedStructure(snip, commentData){
   
   parseArray(snip);
+  let timeRangeOb = timeRangeSingleton.getInstance();
+  let current = timeRangeOb.currentRange();
 
   const nestReplies = formatCommentData({ ...commentData });
+  let filteredComments = nestReplies.filter((f, i)=>{
+    return f.time >= current[0] && current[1] >= f.time
+  });
+  console.log('filtedd',filteredComments);
+  
+  var stringHasAll = (s, query) => 
+  // convert the query to array of "words" & checks EVERY item is contained in the string
+  query.split(' ').every(q => new RegExp('\\b' + q + '\\b', 'i').test(s)); 
  
   structureSelected.comments = nestReplies.filter((f) => {
    
       let tags = f.tags.split(',').filter(m=> {
+        console.log('tagssss', m, f.tags, snip.alias.split(','))
         return snip.alias.split(',').map(on=> on.toUpperCase()).indexOf(m.toUpperCase()) > -1;
       });
-      let test = snip.alias.split(',').filter(n=> f.comment.toUpperCase().includes(n.toUpperCase()));
+   
+      let test = snip.alias.split(',').filter(n=> {
+        return stringHasAll(f.comment.toUpperCase(), n.toUpperCase());
+      });
+
         let reply = f.replyKeeper.filter(r=> {
-          let rTest = snip.alias.split(',').filter(n=> r.comment.toUpperCase().includes(n.toUpperCase()));
+          let rTest = snip.alias.split(',').filter(n=> {
+           
+            return stringHasAll(r.comment.toUpperCase(), n.toUpperCase())
+          });
+
           return rTest.length > 0;
         });
-      return test.length > 0 || reply.length > 0 || tags.length > 0;
+      console.log('test', test.filter(te=> te != ""), reply, tags);
+      return test.filter(te=> te != "").length > 0 || reply.length > 0 || tags.length > 0;
   });
+
+  console.log('structure selected comm', structureSelected.comments);
+
   let annoOb = await annotationSingleton.getInstance();
 
   const structureAnnotations = annoOb.currentAnnotations().filter((f) => {

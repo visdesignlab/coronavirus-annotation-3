@@ -53,7 +53,7 @@ export function updateCommentSidebar() {
   drawCommentBoxes(nestReplies, wrap);
 
   let time = document.getElementById('video').currentTime;
-
+  console.log('stucture selected???', structureSelected)
   if(!structureSelected.selected){
     let signIn = d3.select('#sign-in-wrap-wrap').select('#sign-in-wrap').empty() ? d3.select('#sign-in-wrap-wrap').append('div').attr('id', 'sign-in-wrap') : d3.select('#sign-in-wrap-wrap').select('#sign-in-wrap')
     let header = d3.select('#right-sidebar').select('.top').selectAll('h6.comment-header').data(['Comments']).join('h6').classed('comment-header', true);
@@ -62,6 +62,7 @@ export function updateCommentSidebar() {
     const timeRange = [time < .5 ? 0 : Math.floor(time - .2), time + .2];
     highlightCommentBoxes(timeRange);
   }else{
+    console.log('stucture selected', structureSelected)
     let header = d3.select('#right-sidebar').select('.top').selectAll('h6.comment-header').data([]).join('h6').classed('comment-header', true);
     header.text(d=> d);
   }
@@ -274,7 +275,7 @@ export function drawCommentBoxes(nestedData, wrap) {
   
 //  const testWrap = wrap.empty() ? d3.select('#right-sidebar').append('div') : wrap;
   const db = getDB();
-
+  console.log('draw comment buttons', nestedData);
   if(wrap.classed('selected-comm-wrap')){
     wrap.selectAll('h7').data(['Associated Comments ']).join('h7').text(d => d);
   }
@@ -773,7 +774,6 @@ export function formatDoodleCanvas() {
   oldY;
   let draw = false; 
 
-  // let interactionDiv = d3.select('#interaction');
   const interactionDiv = d3.select('#video-wrap').append('div').attr('id', 'add-mark');
   const video = document.getElementById('video');
   let dim = getRightDimension();
@@ -833,7 +833,6 @@ export function formatDoodleCanvas() {
   div.onmousemove = function (e) {
     const sideWidth = document.getElementById('right-sidebar').getBoundingClientRect();
 
-    // var mouseX = (e.pageX - sideWidth.width);
     const mouseX = (e.pageX - (sideWidth.width));
     const mouseY = (e.pageY - 55);
 
@@ -865,8 +864,8 @@ export function formatDoodleCanvas() {
 }
 
 export function formatPush() {
-  clearBoard();
 
+  clearBoard();
   const interactionDiv = d3.select('#video-wrap').append('div').attr('id', 'add-mark');
   const video = document.getElementById('video');
   let dim = getRightDimension();
@@ -1067,13 +1066,13 @@ export function formatToComment(div, startingTags) {
 
       clearRightSidebar();
       renderCommentDisplayStructure();
-      //checkDatabase([]);
-     // updateAnnotationSidebar(annotationData[annotationData.length - 1]);
-     checkDatabase([updateCommentSidebar]);
+   
+      checkDatabase([updateCommentSidebar]);
 
       let annoOb = await annotationSingleton.getInstance();
       let annotations = await annoOb.currentAnnotations();
       updateAnnotationSidebar(annotations, null, null);
+
     } else {
       window.alert('Please add a comment first');
     }
