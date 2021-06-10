@@ -568,7 +568,6 @@ export async function updateWithSelectedStructure(snip, commentData){
   structureSelected.comments = nestReplies.filter((f) => {
    
       let tags = f.tags.split(',').filter(m=> {
-        console.log('tagssss', m, f.tags, snip.alias.split(','))
         return snip.alias.split(',').map(on=> on.toUpperCase()).indexOf(m.toUpperCase()) > -1;
       });
    
@@ -584,7 +583,6 @@ export async function updateWithSelectedStructure(snip, commentData){
 
           return rTest.length > 0;
         });
-      console.log('test', test.filter(te=> te != ""), reply, tags);
       return test.filter(te=> te != "").length > 0 || reply.length > 0 || tags.length > 0;
   });
 

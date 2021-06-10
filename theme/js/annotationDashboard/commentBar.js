@@ -825,16 +825,16 @@ export function formatDoodleCanvas() {
   div.onmousedown = function (e) {
     const sideWidth = document.getElementById('right-sidebar').getBoundingClientRect();
 
-    oldX = (e.pageX - (sideWidth.width));
-    oldY = (e.pageY - 55);
+    oldX = (e.pageX - (sideWidth.width - 20));
+    oldY = (e.pageY - 110);
 
     draw = true;
   };
   div.onmousemove = function (e) {
     const sideWidth = document.getElementById('right-sidebar').getBoundingClientRect();
 
-    const mouseX = (e.pageX - (sideWidth.width));
-    const mouseY = (e.pageY - 55);
+    const mouseX = (e.pageX - (sideWidth.width - 20));
+    const mouseY = (e.pageY - 110);
 
     if (draw) {
       context.beginPath();
