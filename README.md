@@ -1,4 +1,4 @@
-# Coronavirus Annotation Tool 2.0
+# Coronavirus Annotation Tool 3.0
 Tool for crowdsourcing information on the coronavirus life cycle from an expert community.
 
 
@@ -15,7 +15,7 @@ Tool for crowdsourcing information on the coronavirus life cycle from an expert 
 2. Start bundler `npm run watch`
 
 ## Deployment on SCI server
-1. `cd coronavirus-annotation-2`
+1. `cd coronavirus-annotation-3`
 2. `sudo systemctl restart app3`
 3. `npm install`
 4. `npm run build`
