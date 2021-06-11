@@ -453,7 +453,7 @@ export async function mouseMoveVideo(coord, video) {
   }
 }
 
-export function unselectStructure(commentData, video){
+export async function unselectStructure(commentData, video){
 
   addCommentButton();
   clearRightSidebar();
@@ -468,6 +468,10 @@ export function unselectStructure(commentData, video){
   tool.style('left', '-100px');
 
   updateCommentSidebar(commentData);
+
+  let annoOb = await annotationSingleton.getInstance();
+
+   updateAnnotationSidebar(annoOb.currentAnnotations(), null, false);
 }
 export async function mouseClickVideo(coord, video) {
 
