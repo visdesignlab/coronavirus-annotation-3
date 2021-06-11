@@ -481,7 +481,6 @@ export async function mouseClickVideo(coord, video) {
       structureSelectedToggle(null, null);
     }
     
-   
     playButtonChange().then(()=> togglePlay());
     d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
     d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
@@ -506,14 +505,14 @@ export async function mouseClickVideo(coord, video) {
         playButtonChange().then(()=> togglePlay());
       }
       
-   // unselectStructure(commentData, video);
+    unselectStructure(commentData, video);
   
    structureSelectedToggle(null, null);
-     d3.select('.x-out').remove();
+    d3.select('.x-out').remove();
 
     }else if(snip.structure_name === structureSelected.structure){
       structureSelectedToggle(null, null);
-        //unselectStructure(commentData, video);
+        unselectStructure(commentData, video);
         d3.select('.x-out').remove();
 
     } else {
