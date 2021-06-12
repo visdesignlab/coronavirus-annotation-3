@@ -527,7 +527,7 @@ export async function mouseClickVideo(coord, video) {
         d3.select('#sign-in-wrap').selectAll('*').remove();
          cancelLogin();
       }
-      console.log('structu;re clicked', snip);
+     
       structureSelectedToggle(coord, snip);
       colorTimeline(snip);
       let structureAnnotations = updateWithSelectedStructure(snip, commentData);
@@ -562,7 +562,6 @@ export async function updateWithSelectedStructure(snip, commentData){
   let filteredComments = nestReplies.filter((f, i)=>{
     return f.time >= current[0] && current[1] >= f.time
   });
-  console.log('filtedd',filteredComments);
   
   var stringHasAll = (s, query) => 
   // convert the query to array of "words" & checks EVERY item is contained in the string
@@ -588,8 +587,6 @@ export async function updateWithSelectedStructure(snip, commentData){
         });
       return test.filter(te=> te != "").length > 0 || reply.length > 0 || tags.length > 0;
   });
-
-  console.log('structure selected comm', structureSelected.comments);
 
   let annoOb = await annotationSingleton.getInstance();
 

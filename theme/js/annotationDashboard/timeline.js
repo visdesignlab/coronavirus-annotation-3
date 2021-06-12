@@ -76,7 +76,7 @@ function structureTooltip(coord, d, type) {
         `)
       .style('left', `${xScale(d.videoTime)}px`)
       .style('top', '-60px');
-  } else {
+  } else if(type === 'anno') {
     
     let blurb = d.text_description.split(' ').filter((f, i)=> i < 8);
     function addS(a, stri){
@@ -93,6 +93,18 @@ function structureTooltip(coord, d, type) {
         `)
       .style('left', `${coord[0]}px`)
       .style('top', `${coord[1]}px`);
+  }else{
+    console.log('in mouseover!!!',coord, coord[0].screenX);
+    d3.select('#timeline-tooltip')
+    .style('position', 'absolute') 
+    .style('pointer-events', 'all')
+    .style('opacity', 1)
+    .html(`
+      <h5>Event:</h5>
+      ${d.text_description}
+      `)
+    .style('left', `${coord[0].clientX - 300}px`)
+    .style('top', `${(coord[0].clientY  - 400)}px`);
   }
 }
 
@@ -113,6 +125,11 @@ async function renderEventsOnProgress(){
   let groups = eventSVG.selectAll('g.events').data(annoEvents).join('g').classed('events', true);
   groups.attr('transform', d=> `translate(${xScale(d.seconds[0])},0)`);
   groups.selectAll('circle').data(d=> [d]).join('circle').attr('cx', -7).attr('cy', 7).attr('r', 7)//.attr('fill', '#5496ff');
+
+  groups.on('mouseover', (event, d)=> eventTimelineMouseover(event, d));
+  groups.on('mousout', (event, d)=> eventTimelineMouseout(event, d));
+
+
 
 }
 
@@ -331,6 +348,28 @@ export function highlightTimelineBars(timeRange) {
     .classed('current', false);
 }
 
+export function eventTimelineMouseover(event, d) {
+ // d3.select(event.target.parentNode).classed('current-hover', true);
+
+  d3.select('.progress-bar').append('div');
+  if (d) {
+
+    console.log('d in hover', d, event, event.target, event.target.getBoundingClientRect());
+
+     structureTooltip([event], d, 'null');
+  }
+}
+
+export function eventTimelineMouseout(event, d) {
+  d3.select('#progress-highlight').remove();
+  d3.select(event.target.parentNode).classed('current-hover', false);
+  const comments = d3.select('#right-sidebar').select('#comment-wrap').selectAll('.memo');
+ comments.filter((f) => f.key === d.key).classed('selected', false);
+  d3.select('#timeline-tooltip').style('opacity', 0).style('left', "-200px").style('top', "-200px");
+}
+
+
+
 export function commentBinTimelineMouseover(event, d) {
   d3.select(event.target.parentNode).classed('current-hover', true);
 
@@ -340,6 +379,7 @@ export function commentBinTimelineMouseover(event, d) {
     const comments = d3.select('#right-sidebar').select('#comment-wrap').selectAll('.memo');
     const filComm = comments.filter((f) => d.key === f.key);
     filComm.classed('selected', true);
+
     if(filComm.nodes().length > 0){
       d3.select('#right-sidebar').select('#comment-wrap').node().scrollTop = filComm.nodes()[0].offsetTop;
     }

@@ -53,7 +53,7 @@ export function updateCommentSidebar() {
   drawCommentBoxes(nestReplies, wrap);
 
   let time = document.getElementById('video').currentTime;
-  console.log('stucture selected???', structureSelected)
+  
   if(!structureSelected.selected){
     let signIn = d3.select('#sign-in-wrap-wrap').select('#sign-in-wrap').empty() ? d3.select('#sign-in-wrap-wrap').append('div').attr('id', 'sign-in-wrap') : d3.select('#sign-in-wrap-wrap').select('#sign-in-wrap')
     let header = d3.select('#right-sidebar').select('.top').selectAll('h6.comment-header').data(['Comments']).join('h6').classed('comment-header', true);
@@ -62,7 +62,7 @@ export function updateCommentSidebar() {
     const timeRange = [time < .5 ? 0 : Math.floor(time - .2), time + .2];
     highlightCommentBoxes(timeRange);
   }else{
-    console.log('stucture selected', structureSelected)
+  
     let header = d3.select('#right-sidebar').select('.top').selectAll('h6.comment-header').data([]).join('h6').classed('comment-header', true);
     header.text(d=> d);
   }
@@ -183,12 +183,10 @@ function upvoteIcon(div, db) {
     let test = d.upvote.split(',').filter(f => f != "");
    
     return `: ${test.length} `});
-    console.log('current user',currentUser)
 
   if(currentUser.length > 0){
 
     upVote.on('click', (event, d) => {
-      console.log('upvote', d);
 
       let idArray = d.upvote.split(',').filter(f => f != "");
       let id = currentUser[currentUser.length - 1].uid;
@@ -275,7 +273,7 @@ export function drawCommentBoxes(nestedData, wrap) {
   
 //  const testWrap = wrap.empty() ? d3.select('#right-sidebar').append('div') : wrap;
   const db = getDB();
-  console.log('draw comment buttons', nestedData);
+
   if(wrap.classed('selected-comm-wrap')){
     wrap.selectAll('h7').data(['Associated Comments ']).join('h7').text(d => d);
   }

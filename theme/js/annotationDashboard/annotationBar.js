@@ -121,7 +121,7 @@ export async function updateAnnotationSidebar(data, stackedData, mouseoverBool) 
   }
 
   let innerAnnoDiv = mouseoverBool ? annoWrap : annoWrap.select('.gen-anno-wrap');
-  console.log('data in annot', data);
+ 
   const annoDiv = innerAnnoDiv.selectAll('div.anno').data(data).join('div')
     .classed('anno', true);
 
