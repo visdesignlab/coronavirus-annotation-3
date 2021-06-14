@@ -49,7 +49,6 @@ export function colorTimeline(snip){
   
     }
   }
-
 //}
 
 function structureTooltip(coord, d, type) {
@@ -128,9 +127,6 @@ async function renderEventsOnProgress(){
 
   groups.on('mouseover', (event, d)=> eventTimelineMouseover(event, d));
   groups.on('mousout', (event, d)=> eventTimelineMouseout(event, d));
-
-
-
 }
 
 export async function renderTimeline(commentData) {
@@ -167,7 +163,9 @@ export async function renderTimeline(commentData) {
   const commentGroup = timeSVG.selectAll('g.comm-group').data(d=> {
     let data = d.comments.data.filter(f=> f.videoTime >= rangeOb.currentRange()[0] && f.videoTime <= rangeOb.currentRange()[1]);
     return [{data:data, label:"comments"}]}).join('g').classed('comm-group', true);
-  commentGroup.attr('transform', `translate(${offsetX}, 4)`)
+
+  commentGroup.attr('transform', `translate(${offsetX}, 4)`);
+
   commentGroup.selectAll('text').data(d => [d.label]).join('text')
   .text(d=> d)
   .style('font-size', '11px')
@@ -221,6 +219,7 @@ export async function renderTimeline(commentData) {
 
   annos.attr('transform', (d, i, n) => {
     if (i > 0) {
+      console.log('d', d, n)
       const chosen = d3.selectAll(n).data().filter((f, j) => j < i && f.seconds[1] > d.seconds[0]);
       return `translate(${xScale(d.seconds[0])} ${(7 * chosen.length)})`;
     }
@@ -355,8 +354,7 @@ export function eventTimelineMouseover(event, d) {
   if (d) {
 
     console.log('d in hover', d, event, event.target, event.target.getBoundingClientRect());
-
-     structureTooltip([event], d, 'null');
+    structureTooltip([event], d, 'null');
   }
 }
 
@@ -364,7 +362,7 @@ export function eventTimelineMouseout(event, d) {
   d3.select('#progress-highlight').remove();
   d3.select(event.target.parentNode).classed('current-hover', false);
   const comments = d3.select('#right-sidebar').select('#comment-wrap').selectAll('.memo');
- comments.filter((f) => f.key === d.key).classed('selected', false);
+  comments.filter((f) => f.key === d.key).classed('selected', false);
   d3.select('#timeline-tooltip').style('opacity', 0).style('left', "-200px").style('top', "-200px");
 }
 
