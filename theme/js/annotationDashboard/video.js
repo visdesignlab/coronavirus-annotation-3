@@ -825,10 +825,14 @@ export function videoUpdates(data, annoType) {
     if(video.currentTime < currentDuration[1]){
 
       const timeRange = [video.currentTime < .5 ? 0 : Math.floor(video.currentTime - .2), video.currentTime + .2];
-
+      //LOOK HERE//
       d3.select('#video-nav').select('.progress').attr('width', (d)=> {
-        let last = d.name === "Additional Info" ? 250 : 350;
-        let s = d3.scaleLinear().domain(currentDuration).range([0, last]);
+        //let last = d.name === "Additional Info" ? 250 : 350;
+        let dims = getRightDimension();
+        let sizeW = dims.width + 200;
+        let numSecGroups = d3.select('#video-nav').select('svg').selectAll('.section-group').size();
+        //let s = d3.scaleLinear().domain(currentDuration).range([0, last]);
+        let s = d3.scaleLinear().domain(currentDuration).range([0, (sizeW / numSecGroups)]);
         return s(video.currentTime)
       });
       let annoOb = await annotationSingleton.getInstance();

@@ -13,8 +13,6 @@ import { updateAnnotationSidebar } from './annotationBar';
 import { playButtonChange, structureTooltip, togglePlay, videoUpdates } from './video';
 
 require('regenerator-runtime/runtime');
-// require('firebase/auth');
-// require('firebase/database');
 
 export const showDoodle = false;
 export const showPush = false;
@@ -107,8 +105,7 @@ export function goBackButton() {
      
       addCommentButton();
      }
-    //  d3.select('#right-sidebar').select('#sign-in-wrap-wrap').selectAll('*').remove();
-    //  d3.select('#right-sidebar').select('#sign-in-wrap-wrap')
+ 
     cancelLogin();
      d3.select('#comment-wrap').style('margin-top', '0px');
      
