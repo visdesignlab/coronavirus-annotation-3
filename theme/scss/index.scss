@@ -221,6 +221,14 @@
     padding:10px;
   }
 
+  .event-tooltip text{
+    font-size: 10px;
+    background: red;
+    border-radius: 5px;
+    border: 2px solid blue;
+    padding: 5px
+  }
+
   .deactivite{
     opacity:.5;
     cursor: not-allowed;

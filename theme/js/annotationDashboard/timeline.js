@@ -93,7 +93,7 @@ function structureTooltip(coord, d, type) {
       .style('left', `${coord[0]}px`)
       .style('top', `${coord[1]}px`);
   }else{
-    console.log('in mouseover!!!',coord, coord[0].screenX);
+  
     d3.select('#timeline-tooltip')
     .style('position', 'absolute') 
     .style('pointer-events', 'all')
@@ -119,14 +119,14 @@ async function renderEventsOnProgress(){
   let annoEvents = annotations.filter(f=> f.annotation_type === "event");
 
   let eventSVG = d3.select('.progress-bar').selectAll('svg').data([annoEvents]).join('svg');
-  eventSVG.attr('width', dim.width).attr('height', 16).style('position', 'absolute').style('top', '37px').style('left', offsetX)
+  eventSVG.attr('width', dim.width).attr('height', 45).style('position', 'absolute').style('top', '20px').style('left', offsetX)
 
   let groups = eventSVG.selectAll('g.events').data(annoEvents).join('g').classed('events', true);
-  groups.attr('transform', d=> `translate(${xScale(d.seconds[0])},0)`);
+  groups.attr('transform', d=> `translate(${xScale(d.seconds[0])},17)`);
   groups.selectAll('circle').data(d=> [d]).join('circle').attr('cx', -7).attr('cy', 7).attr('r', 7)//.attr('fill', '#5496ff');
 
   groups.on('mouseover', (event, d)=> eventTimelineMouseover(event, d));
-  groups.on('mousout', (event, d)=> eventTimelineMouseout(event, d));
+  groups.on('mouseout', (event, d)=> eventTimelineMouseout(event, d));
 }
 
 export async function renderTimeline(commentData) {
@@ -219,7 +219,7 @@ export async function renderTimeline(commentData) {
 
   annos.attr('transform', (d, i, n) => {
     if (i > 0) {
-      console.log('d', d, n)
+      
       const chosen = d3.selectAll(n).data().filter((f, j) => j < i && f.seconds[1] > d.seconds[0]);
       return `translate(${xScale(d.seconds[0])} ${(7 * chosen.length)})`;
     }
@@ -352,18 +352,54 @@ export function eventTimelineMouseover(event, d) {
 
   d3.select('.progress-bar').append('div');
   if (d) {
-
-    console.log('d in hover', d, event, event.target, event.target.getBoundingClientRect());
+    
+    console.log('d in hover', d, event.target.parentNode);
+    let group = event.target.parentNode;
+    let tool = d3.select(group).append('g').classed('event-tooltip', true);
+    let textTest = tool.append('text').text(d=> d.text_description);
+    wrap(textTest, 200)
     structureTooltip([event], d, 'null');
   }
 }
 
+function wrap(text, width) {
+  let yStep = 0;
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+        //tspan = text.text(null).append("tspan").attr("x", 0).attr("y", (y + (yStep*10))).attr("dy", (y + yStep) + "em");
+        yStep = yStep + 1;
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+       // tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+        tspan = text.append("tspan").attr("x", 0).attr("y", (++lineNumber * 12) + y).text(word);
+      }
+    }
+  });
+}
+
 export function eventTimelineMouseout(event, d) {
   d3.select('#progress-highlight').remove();
+  console.log('is this firing');
+  d3.selectAll('g.event-tooltip').remove();
   d3.select(event.target.parentNode).classed('current-hover', false);
-  const comments = d3.select('#right-sidebar').select('#comment-wrap').selectAll('.memo');
-  comments.filter((f) => f.key === d.key).classed('selected', false);
-  d3.select('#timeline-tooltip').style('opacity', 0).style('left', "-200px").style('top', "-200px");
+  // const comments = d3.select('#right-sidebar').select('#comment-wrap').selectAll('.memo');
+  // comments.filter((f) => f.key === d.key).classed('selected', false);
+  // d3.select('#timeline-tooltip').style('opacity', 0).style('left', "-200px").style('top', "-200px");
+  let group = event.target.parentNode;
+  
 }
 
 

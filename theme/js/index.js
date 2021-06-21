@@ -48,8 +48,6 @@ renderTimeSections(segData);
 
 export function renderSelected(selectedId){
 
-  
-
   let sectionGroups = d3.select('#video-nav').select('svg').selectAll('.sections');
 
   sectionGroups.selectAll('.progress-underlay').remove();
