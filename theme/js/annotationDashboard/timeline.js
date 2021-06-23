@@ -118,8 +118,10 @@ async function renderEventsOnProgress(){
   
   let annoEvents = annotations.filter(f=> f.annotation_type === "event");
 
+  //d3.select('.progress-bar').node().style.width = `${Math.round(dimension.width - 68)}px`;
+
   let eventSVG = d3.select('.progress-bar').selectAll('svg').data([annoEvents]).join('svg');
-  eventSVG.attr('width', dim.width).attr('height', 45).style('position', 'absolute').style('top', '20px').style('left', offsetX)
+  eventSVG.attr('width', (dim.width - offsetX)).attr('height', 45).style('position', 'absolute').style('top', '20px').style('left', offsetX)
 
   let groups = eventSVG.selectAll('g.events').data(annoEvents).join('g').classed('events', true);
   groups.attr('transform', d=> `translate(${xScale(d.seconds[0])},17)`);
@@ -174,7 +176,7 @@ export async function renderTimeline(commentData) {
   .attr('transform', 'translate(-3, 10)');
   
   const comBins = commentGroup.selectAll('g.comm-bin').data(d=> d.data).join('g').classed('comm-bin', true);
-  comBins.attr('transform', (d, i) => `translate(${xScale(d.videoTime)}, 0)`);
+  comBins.attr('transform', (d, i) => `translate(${xScale(d.videoTime)+ 10}, 0)`);
   const commentBinRect = comBins.selectAll('rect').data((d) => [d]).join('rect');
   commentBinRect.attr('height', 10).attr('width', 2);
   commentBinRect.style('fill-opacity', (d, i) => binScale(d.replyKeeper.length));
@@ -211,7 +213,7 @@ export async function renderTimeline(commentData) {
   .style('text-anchor', 'end')
   .attr('transform', 'translate(-3, 6)');
 
-  annoGroup.attr('transform', `translate(${offsetX}, 28)`);
+  annoGroup.attr('transform', `translate(${offsetX + 7}, 28)`);
   
   const annos = annoGroup.selectAll('g.anno').data(d => d.data).join('g').classed('anno', true);
   const rects = annos.selectAll('rect').data((d) => [d]).join('rect');
@@ -437,12 +439,12 @@ export function commentBinTimelineMouseout(event, d) {
 
 export function timelineMouseover(event, d) {
   let dim = getRightDimension();
-  const xScale = d3.scaleLinear().domain([0, 89]).range([0, dim.width]);
+  const xScale = d3.scaleLinear().domain([0, 89]).range([0, (dim.width - offsetX)]);
   let hoverRectWidth  =  xScale(d.seconds[1]) - xScale(d.seconds[0]);
 
   let progress = d3.select('.progress-bar').append('div').attr('id', 'progress-highlight')
   .style('position', 'absolute')
-  .style('left', `${xScale(d.seconds[0])}px`).style('opacity', '.2')
+  .style('left', `${xScale(d.seconds[0])+ offsetX}px`).style('opacity', '.2')
   .style('background-color', 'orange')
   .style('border-radius', 0)
   .style('width', `${hoverRectWidth}px`);
