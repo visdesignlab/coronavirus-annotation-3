@@ -355,12 +355,21 @@ export function eventTimelineMouseover(event, d) {
   d3.select('.progress-bar').append('div');
   if (d) {
     
-    console.log('d in hover', d, event.target.parentNode);
-    let group = event.target.parentNode;
-    let tool = d3.select(group).append('g').classed('event-tooltip', true);
-    let textTest = tool.append('text').text(d=> d.text_description);
-    wrap(textTest, 200)
-    structureTooltip([event], d, 'null');
+    console.log('d in hover', d, event.target.getBoundingClientRect());
+  
+    let groupWrap = d3.select('#video-controls').append('div').classed('event-tooltip', true);
+    groupWrap.style('position', 'absolute');
+    groupWrap.style('left', `${event.target.getBoundingClientRect().x - 350}px`);
+    let textTest = groupWrap.append('text').text(d.text_description);
+
+
+
+    // let tool = d3.select(group).append('g').classed('event-tooltip', true);
+    // let rect = tool.append('rect').attr('width', 210).attr('height', 200).attr('fill', '#fff');
+    // let textTest = tool.append('text').text(d=> d.text_description);
+
+    // wrap(textTest, 200)
+    // structureTooltip([event], d, 'null');
   }
 }
 
@@ -395,11 +404,8 @@ function wrap(text, width) {
 export function eventTimelineMouseout(event, d) {
   d3.select('#progress-highlight').remove();
   console.log('is this firing');
-  d3.selectAll('g.event-tooltip').remove();
+  d3.selectAll('div.event-tooltip').remove();
   d3.select(event.target.parentNode).classed('current-hover', false);
-  // const comments = d3.select('#right-sidebar').select('#comment-wrap').selectAll('.memo');
-  // comments.filter((f) => f.key === d.key).classed('selected', false);
-  // d3.select('#timeline-tooltip').style('opacity', 0).style('left', "-200px").style('top', "-200px");
   let group = event.target.parentNode;
   
 }

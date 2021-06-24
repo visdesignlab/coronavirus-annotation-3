@@ -221,13 +221,19 @@
     padding:10px;
   }
 
-  .event-tooltip text{
-    font-size: 10px;
-    background: red;
+  .event-tooltip{
     border-radius: 5px;
-    border: 2px solid blue;
-    padding: 5px
-  }
+    padding: 5px;
+    font-size: 10px;
+    background-color:whitesmoke;
+    position: absolute;
+    z-index: 2000;
+    text{
+      font-size: 10px;
+      
+    }
+  } 
+
 
   .deactivite{
     opacity:.5;
