@@ -483,11 +483,19 @@ div{
 
 #wrapper{
   top:105px;
+  overflow-y: hidden;
 }
 #main{
   overflow-y: hidden;
   resize: horizontal;
   width:100%;
+}
+
+#left-sidebar{
+  overflow-y:hidden;
+}
+#right-sidebar{
+  overflow-y: hidden;
 }
 
 @media only screen and (max-width:1230px){
