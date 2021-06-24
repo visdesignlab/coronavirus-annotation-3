@@ -644,7 +644,7 @@ div{
     height:calc(100vh - 70px);
     padding: 1rem 0 0 0;
     width:300px;
-    overflow-y: scroll;
+    //overflow-y: scroll;
     padding: 1rem 0 0 0;
   }
 
@@ -652,7 +652,7 @@ div{
     position:sticky;
     height:calc(100vh - 70px);
     width:330px;
-    overflow-y: scroll;
+   // overflow-y: scroll;
     padding: 1rem 0 0 0;
   }
   #right-wrap{
@@ -696,14 +696,14 @@ div{
     height:calc(100vh - 70px);
     padding: 1rem 0 0 0;
     width:300px;
-    overflow-y: scroll;
+    //overflow-y: scroll;
   }
 
   #right-sidebar{
     position:sticky;
     height:calc(100vh - 70px);
     width:330px;
-    overflow-y: scroll;
+   // overflow-y: scroll;
     padding: 1rem 0 0 0;
   }
 
