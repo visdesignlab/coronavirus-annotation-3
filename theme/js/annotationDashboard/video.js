@@ -348,7 +348,8 @@ function scaleVideoTime(currentTime, invert) {
  
   let videoTImeOb = timeRangeSingleton.getInstance();
   let duration = videoTImeOb.currentRange();
-  const scale = d3.scaleLinear().range([0, (video.videoWidth - 52)]).domain([duration[0], (duration[1]+1)]).clamp(true);
+  let dim = getRightDimension();
+  const scale = d3.scaleLinear().range([0, (dim.width - 68)]).domain([duration[0], duration[1]]).clamp(true);
 
   return invert ? scale.invert(currentTime) : scale(currentTime);
 }
