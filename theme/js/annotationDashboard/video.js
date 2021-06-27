@@ -886,6 +886,9 @@ export function videoUpdates(data, annoType) {
       });
       
       let dim = getRightDimension();
+
+      const timeRange = [video.currentTime < .5 ? 0 : Math.floor(video.currentTime - .2), video.currentTime + .2];
+      updateTimeElapsed(timeRange);
      
       let overlayDiv = d3.select('#video-wrap').selectAll('div.overlay').data([segData]).join('div')
       .classed('overlay', true);
