@@ -72,9 +72,13 @@ export async function phaseSelected(whichOne, data) {
 
   const commentData = formatCommentData({...commentOb.currentData()});
 
+  //console.log('comment ob', commentData, current)
+
     let filteredComments = commentData.filter((f, i)=>{
-      return f.time >= current[0] && current[1] >= f.time
+      return f.videoTime >= current[0] && current[1] >= f.videoTime
     });
+
+   // console.log('filtered comm',filteredComments)
 
  
   updateCommentSidebar(filteredComments);

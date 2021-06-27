@@ -147,6 +147,8 @@ export async function renderTimeline(commentData) {
   const xScale = d3.scaleLinear().domain(rangeOb.currentRange()).range([0, (dim.width - (offsetX + 5))]).clamp(true);
   const div = d3.select('#main');
 
+  console.log('commentdataaaaa',commentData)
+
   let comms = formatCommentData(commentData);
 
   const binScale = d3.scaleLinear().range([.1, 1]).domain([0, comms.map(m=> Math.max(m.replyKeeper.length))]);
@@ -409,8 +411,6 @@ export function eventTimelineMouseout(event, d) {
   let group = event.target.parentNode;
   
 }
-
-
 
 export function commentBinTimelineMouseover(event, d) {
   d3.select(event.target.parentNode).classed('current-hover', true);
