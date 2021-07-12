@@ -1,197 +1,39 @@
 video_time,key,has_unknown,associated_structures,reference_tag,annotation_type,text_description,ref,url
 1:27-1:32,0,FALSE,"s proteins,e proteins,m proteins,n proteins",,citation,"Numbers of viral proteins: 100 S proteins, 20 E pentamers (100 proteins), 1000 M dimers (2000 proteins), 1000 N proteins","Yinon M Bar-On, Avi Flamholz, Rob Phillips, Ron Milo. Science Forum: SARS-CoV-2 (COVID-19) by the numbers. eLife 2020;9:e57309 DOI: 10.7554/eLife.57309",https://elifesciences.org/articles/57309
-1:27-1:32,1,FALSE,"s proteins,e proteins,m proteins,n proteins",,structure,S protein model: PDB 6VSB; M protein dimer and E protein pentamers were downloaded from Feig lab repository,,"https://www.rcsb.org/structure/6VSB
-
-https://github.com/feiglab/sars-cov-2-proteins/tree/master/Membrane
-"
-1:27-1:32,2,FALSE,"ACE2,TMPRSS2,furin,",,structure,Cell surface proteins: ACE2 model: PDB 6M17 (purple); TMPRSS2 (orange) and furin (yellow): no PDB available for the transmembrane domains ,,http://www.rcsb.org/structure/6m17
-1:27-1:46,3,TRUE,"RNA,RNP,N proteins",,citation,30kb RNA should be around 8000 nm long. There is still uncertainty regarding how much RNA is tightly bound by N proteins. This model is based on the observations by Klein & al that the genome is packaged around multiple separate RNP complexes,"Klein S, Cortese M, Winter SL, Wachsmuth-Melm
-M, Neufeldt CJ, Cerikan B, Stanifer ML, Boulant S,
-Bartenschlager R, Chlanda P. SARS-CoV-2 
-structure and replication characterized by in situ 
-cryo-electron tomography. Nat Commun. 2020 Nov 
-18;11(1):5885. doi: 10.1038/s41467-020-19619-7. ",https://www.nature.com/articles/s41467-020-19619-7
-1:27-1:46,4,FALSE,"CTD,NTD",,structure,N protein CTD (PDB: 6YI3) and NTD (PDB: 6YUN) models were arranged in octamers as described in Chen et al 2007 for SARS-CoV1. Uncertainty about the exact structure of the RNPs ,"Chun-Yuan Chen, Chung-ke Chang, 
-Yi-Wei Chang, Shih-Che Sue, Hsin-I Bai, 
-Lilianty Riang, Chwan-Deng Hsiao, and 
-Tai-huang Huang. Structure of the SARS 
-Coronavirus Nucleocapsid Protein 
-RNA-binding Dimerization Domain Suggests
- a Mechanism for Helical Packaging of Viral 
-RNA. J Mol Biol. 2007 May 11; 
-368(4): 1075–1086.","https://www.rcsb.org/structure/6YI3
-
-https://www.rcsb.org/structure/6YUN
-
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7094638/
-
-"
-1:32-1:45,5,FALSE,RNA,,Event,"Translation is intiated by a Cap-dependent
-mechanism and cellular ribosomes start synthetizing the viral polyproteins","Viral and Cellular mRNA Translation in Coronavirus-Infected 
-Cells. Nakagawa K, Lokugamage KG, Makino S. Adv Virus Res. 
-2016; 96():165-192.",https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5388242/
+1:27-1:32,1,FALSE,"s proteins,e proteins,m proteins,n proteins",,structure,S protein model: PDB 6VSB; M protein dimer and E protein pentamers were downloaded from Feig lab repository,,"https://www.rcsb.org/structure/6VSB, https://github.com/feiglab/sars-cov-2-proteins/tree/master/Membrane"
+1:27-1:32,2,FALSE,"ACE2,TMPRSS2,furin,",,structure,Cell surface proteins: ACE2 model: PDB 6M17 (purple); TMPRSS2 (orange) and furin (yellow): no PDB available for the transmembrane domains ,,"http://www.rcsb.org/structure/6m17"
+1:27-1:46,3,TRUE,"RNA,RNP,N proteins",,citation,30kb RNA should be around 8000 nm long. There is still uncertainty regarding how much RNA is tightly bound by N proteins. This model is based on the observations by Klein & al that the genome is packaged around multiple separate RNP complexes,"Klein S,Cortese M,Winter SL,Wachsmuth-Melm M,Neufeldt CJ,Cerikan B,Stanifer ML,Boulant S,Bartenschlager R, Chlanda P. SARS-CoV-2 structure and replication characterized by in situ cryo-electron tomography. Nat Commun. 2020 Nov 18;11(1):5885. doi: 10.1038/s41467-020-19619-7.","https://www.nature.com/articles/s41467-020-19619-7"
+1:27-1:46,4,FALSE,"CTD,NTD",,structure,N protein CTD (PDB: 6YI3) and NTD (PDB: 6YUN) models were arranged in octamers as described in Chen et al 2007 for SARS-CoV1. Uncertainty about the exact structure of the RNPs ,"Chun-Yuan Chen, Chung-ke Chang, Yi-Wei Chang, Shih-Che Sue, Hsin-I Bai, Lilianty Riang, Chwan-Deng Hsiao, and Tai-huang Huang. Structure of the SARS Coronavirus Nucleocapsid Protein RNA-binding Dimerization Domain Suggests a Mechanism for Helical Packaging of Viral RNA. J Mol Biol. 2007 May 11; 368(4): 1075–1086.","https://www.rcsb.org/structure/6YI3,https://www.rcsb.org/structure/6YUN,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7094638/"
+1:32-1:45,5,FALSE,RNA,,Event,"Translation is intiated by a Cap-dependent mechanism and cellular ribosomes start synthetizing the viral polyproteins","Viral and Cellular mRNA Translation in Coronavirus-Infected Cells. Nakagawa K, Lokugamage KG, Makino S. Adv Virus Res. 2016; 96():165-192.","https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5388242/"
 1:32-1:41,6,FALSE,,,structure,Translation Initiation Complex,,
 1:32-3:44,7,FALSE,ribosome,,structure,Ribosome model is from PDB 5AJ0,,https://www.rcsb.org/structure/5AJ0
-1:45-1:55,8,TRUE,nucleocapsid,,Event,"Nucleocapsid disassembly. Significant uncertainty 
-about the precise mechanism",,
+1:45-1:55,8,TRUE,nucleocapsid,,Event,"Nucleocapsid disassembly. Significant uncertainty about the precise mechanism",,
 1:38-2:30,9,FALSE,nsp1,,structure,Nsp1 is from PDB 2HSX,,https://www.rcsb.org/structure/2HSX
 1:38-2:29,10,FALSE,nsp2,,structure,Nsp2 model was downloaded from Zhang lab repository,,https://zhanglab.ccmb.med.umich.edu/COVID-19/
-1:44-2:36,11,TRUE,nsp3,,structure,"Nsp3 model is created from a series of disctinct
- structures: UB1 domain is from PDB 2IDY;
-ADPR domain is from PDB 2ACF; SUD-N-M is from 
-PDB 2W2G; SUD-C is from PDB 2KAF; UB2-PL2Pro
-is from PDB 2FE8; NAB is from PDB 2K87; the 
-unsolved regions were modeled from the predicted
-structure downloaded from Zhang lab repository. 
-The relative organization of the domains is 
-uncertain but supposedly flexible",,"https://www.rcsb.org/structure/2IDY
-https://www.rcsb.org/structure/2ACF
-https://www.rcsb.org/structure/2W2G
-https://www.rcsb.org/structure/2KAF
-https://www.rcsb.org/structure/2FE8
-https://www.rcsb.org/structure/2K87
-
-https://zhanglab.ccmb.med.umich.edu/COVID-19/"
-3:59-4:27,12,TRUE,nsp3,,structure,"Nsp3 model is created from a series of disctinct
- structures: UB1 domain is from PDB 2IDY;
-ADPR domain is from PDB 2ACF; SUD-N-M is from 
-PDB 2W2G; SUD-C is from PDB 2KAF; UB2-PL2Pro
-is from PDB 2FE8; NAB is from PDB 2K87; the 
-unsolved regions were modeled from the predicted
-structure downloaded from Zhang lab repository. 
-The relative organization of the domains is 
-uncertain but supposedly flexible",,"https://www.rcsb.org/structure/2IDY
-https://www.rcsb.org/structure/2ACF
-https://www.rcsb.org/structure/2W2G
-https://www.rcsb.org/structure/2KAF
-https://www.rcsb.org/structure/2FE8
-https://www.rcsb.org/structure/2K87
-
-https://zhanglab.ccmb.med.umich.edu/COVID-19/"
-2:11-2:24,13,FALSE,nsp3,,Event,"Polyprotein cleavage by Nsp3 protease domain 
-probably starts early during translation and prior to 
-membrane insertion. The protease domain is sufficient for 
-processing the predicted nsp1/2 and nsp2/3 sites, but the 
-downstream hydrophobic domain is required for 
-processing at the predicted nsp3/4 site
-We expect that at least some of the cleavages need to 
-occur in cis early in infection when the protein concentration
-is low.","Harcourt B.H., Jukneliene D., Kanjanahaluethai A., Bechill J.,
- Severson K.M., Smith C.M., Rota P.A., Baker S.C. 
-Identification of severe acute respiratory syndrome 
-coronavirus replicase products and characterization of 
-papain-like protease activity. Journal of Virology. 
-2004;78(24):13600–13612.",https://jvi.asm.org/content/78/24/13600
-2:18-2:36,14,FALSE,nsp4,,structure,"Nsp4 model was downloaded from Zhang lab 
-repository and the domains were rotated and moved 
-relative to one another to fit inside the membrane. 
-This assumes the presence of flexible linker regions",,https://zhanglab.ccmb.med.umich.edu/COVID-19/
-3:59-4:27,15,FALSE,nsp4,,structure,"Nsp4 model was downloaded from Zhang lab 
-repository and the domains were rotated and moved 
-relative to one another to fit inside the membrane. 
-This assumes the presence of flexible linker regions",,https://zhanglab.ccmb.med.umich.edu/COVID-19/
+1:44-2:36,11,TRUE,nsp3,,structure,"Nsp3 model is created from a series of disctinct structures: UB1 domain is from PDB 2IDY; ADPR domain is from PDB 2ACF; SUD-N-M is from PDB 2W2G; SUD-C is from PDB 2KAF; UB2-PL2Pro is from PDB 2FE8; NAB is from PDB 2K87; the unsolved regions were modeled from the predicted structure downloaded from Zhang lab repository. The relative organization of the domains is uncertain but supposedly flexible",,"https://www.rcsb.org/structure/2IDY,https://www.rcsb.org/structure/2ACF,https://www.rcsb.org/structure/2W2G,https://www.rcsb.org/structure/2KAF,https://www.rcsb.org/structure/2FE8,https://www.rcsb.org/structure/2K87,https://zhanglab.ccmb.med.umich.edu/COVID-19/"
+3:59-4:27,12,TRUE,nsp3,,structure,"Nsp3 model is created from a series of disctinct structures: UB1 domain is from PDB 2IDY; ADPR domain is from PDB 2ACF; SUD-N-M is from  PDB 2W2G; SUD-C is from PDB 2KAF; UB2-PL2Pro is from PDB 2FE8; NAB is from PDB 2K87; the  unsolved regions were modeled from the predicted structure downloaded from Zhang lab repository. The relative organization of the domains is uncertain but supposedly flexible",,"https://www.rcsb.org/structure/2IDY,https://www.rcsb.org/structure/2ACF,https://www.rcsb.org/structure/2W2G,https://www.rcsb.org/structure/2KAF,https://www.rcsb.org/structure/2FE8,https://www.rcsb.org/structure/2K87,https://zhanglab.ccmb.med.umich.edu/COVID-19/"
+2:11-2:24,13,FALSE,nsp3,,Event,"Polyprotein cleavage by Nsp3 protease domain probably starts early during translation and prior to membrane insertion. The protease domain is sufficient for processing the predicted nsp1/2 and nsp2/3 sites but the downstream hydrophobic domain is required for processing at the predicted nsp3/4 site We expect that at least some of the cleavages need to occur in cis early in infection when the protein concentration is low.","Harcourt B.H., Jukneliene D., Kanjanahaluethai A., Bechill J.,Severson K.M., Smith C.M., Rota P.A., Baker S.C. Identification of severe acute respiratory syndrome coronavirus replicase products and characterization of papain-like protease activity. Journal of Virology. 2004;78(24):13600–13612.",https://jvi.asm.org/content/78/24/13600
+2:18-2:36,14,FALSE,nsp4,,structure,"Nsp4 model was downloaded from Zhang lab repository and the domains were rotated and moved relative to one another to fit inside the membrane. This assumes the presence of flexible linker regions",,https://zhanglab.ccmb.med.umich.edu/COVID-19/
+3:59-4:27,15,FALSE,nsp4,,structure,"Nsp4 model was downloaded from Zhang lab repository and the domains were rotated and moved relative to one another to fit inside the membrane. This assumes the presence of flexible linker regions",,https://zhanglab.ccmb.med.umich.edu/COVID-19/
 2:17-3:57,16,FALSE,nsp5,,structure,Nsp5 is from PDB 6Y2E,,https://www.rcsb.org/structure/6Y2E
 2:25-2:36,17,FALSE,nsp6,,structure,Nsp6 model was downloaded from Zhang lab repository,,https://zhanglab.ccmb.med.umich.edu/COVID-19/
-2:10-2:26,18,FALSE,nsp3,,Event,"The mechanism of nsp3, 4 and 6 into the ER 
-membrane is purely speculative; it is depicted here
-as being co-translationnal and involving Sec61",,
+2:10-2:26,18,FALSE,nsp3,,Event,"The mechanism of nsp3, 4 and 6 into the ER membrane is purely speculative; it is depicted hereas being co-translationnal and involving Sec61",,,
 2:00-2:36,19,FALSE,sec61,,structure,Sec61 model is from PDB 3J7Q,,https://www.rcsb.org/structure/3J7Q
 2:27-3:57,20,FALSE,nsp7,,structure,Nsp7 model is from PDB 6YYT,,https://www.rcsb.org/structure/6YYT
 2:33-3:57,21,FALSE,nsp8,,structure,Nsp8 model is from PDB 6YYT,,https://www.rcsb.org/structure/6YYT
-2:26-2:34,22,TRUE,nsp5,,Event,"Polyprotein processing by the main protease (Nsp5) 
-is thought to happen in a co-translational manner.
-Most of the cleavages are mediated in trans by the fully 
-processed and dimeric form of Nsp5, even if at least some 
-cleavages probably need to occur in cis early in infection",The coronavirus replicase. Ziebuhr J (2005),
+2:26-2:34,22,TRUE,nsp5,,Event,"Polyprotein processing by the main protease (Nsp5) is thought to happen in a co-translational manner.Most of the cleavages are mediated in trans by the fully processed and dimeric form of Nsp5, even if at least some cleavages probably need to occur in cis early in infection","The coronavirus replicase. Ziebuhr J (2005)",,
 2:51-3:57,23,FALSE,nsp9,,structure,Nsp9 model is from PDB 6WXD,,https://www.rcsb.org/structure/6WXD
 2:51-3:57,24,FALSE,nsp10,,structure,Nsp10 model is from PDB 6W75,,https://www.rcsb.org/structure/6W75
-2:51-3:00,25,FALSE,nsp11,,note,Nsp11 structure is not solved; it is so small (13AA) that it has been omitted here,,
-2:27-3:28,26,FALSE,"ribosome,rna",,structure,"The -1 ribosomal frameshifting signals are composed of a 
-slippery sequence “UUUAAAC” followed by a “stimulatory” 
-RNA secondary structure.
-The pseudoknot structure is from PDB 6XRZ","Baranov P.V., Henderson C.M., Anderson C.B., Gesteland 
-R.F., Atkins J.F., Howard M.T. Programmed ribosomal 
-frameshifting in decoding the SARS-CoV genome. 
-Virology. 2005;332:498–510.
-",https://www.rcsb.org/structure/6XRZ
-2:50-3:28,27,FALSE,,,Event,"Frameshifting is depicted as 
-described in the preprint from Bhatt & al.","Structural basis of ribosomal frameshifting during 
-translation of the SARS-CoV-2 RNA genome
-Pramod R. Bhatt, Alain Scaiola, Gary Loughran, Marc 
-Leibundgut, Annika Kratzel, Angus McMillan, Kate M. 
-O’ Connor, Jeffrey W. Bode, Volker Thiel, John F. Atkins, 
-Nenad Ban
-bioRxiv 2020.10.26.355099; 
-doi: https://doi.org/10.1101/2020.10.26.355099
-",https://www.biorxiv.org/content/10.1101/2020.10.26.355099v1
-3:01-3:17,28,FALSE,"nsp7,nsp8,nsp9,nsp10",,Event,"Processing of the nsp7-10 polyprotein segment by the 
-main protease has been shown by Kriechel & al to 
-happen in the following order: nsp10, then nsp9 and 
-then nsp8 from nsp7
-","Krichel B., Falke S., Hilgenfeld R., Redecke L. and 
-Uetrecht C. (2020) Processing of the SARS-CoV pp1a/ab 
-nsp7-10 region. Biochem. J. 477, 1009–1019 
-10.1042/BCJ20200029",https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7078746/
+2:51-3:00,25,FALSE,nsp11,,note,Nsp11 structure is not solved; it is so small (13AA) that it has been omitted here,,,
+2:27-3:28,26,FALSE,"ribosome,rna",,structure,"The -1 ribosomal frameshifting signals are composed of a slippery sequence “UUUAAAC” followed by a “stimulatory” RNA secondary structure. The pseudoknot structure is from PDB 6XRZ","Baranov P.V., Henderson C.M., Anderson C.B., Gesteland R.F., Atkins J.F., Howard M.T. Programmed ribosomal frameshifting in decoding the SARS-CoV genome. Virology. 2005;332:498–510.",https://www.rcsb.org/structure/6XRZ
+2:50-3:28,27,FALSE,,,Event,"Frameshifting is depicted as described in the preprint from Bhatt & al.","Structural basis of ribosomal frameshifting during translation of the SARS-CoV-2 RNA genome Pramod R. Bhatt, Alain Scaiola, Gary Loughran, Marc Leibundgut, Annika Kratzel, Angus McMillan, Kate M. O’ Connor, Jeffrey W. Bode, Volker Thiel, John F. Atkins, Nenad BanbioRxiv 2020.10.26.355099; doi: https://doi.org/10.1101/2020.10.26.355099",https://www.biorxiv.org/content/10.1101/2020.10.26.355099v1
+3:01-3:17,28,FALSE,"nsp7,nsp8,nsp9,nsp10",,Event,"Processing of the nsp7-10 polyprotein segment by the main protease has been shown by Kriechel & al to happen in the following order: nsp10, then nsp9 and then nsp8 from nsp7","Krichel B., Falke S., Hilgenfeld R., Redecke L. and Uetrecht C. (2020) Processing of the SARS-CoV pp1a/ab nsp7-10 region. Biochem. J. 477, 1009–1019 10.1042/BCJ20200029",https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7078746/
 3:30-3:57,29,FALSE,nsp12,,structure,Nsp12 model is from PDB 6YYT,,https://www.rcsb.org/structure/6YYT
 3:30-3:57,30,FALSE,nsp13,,structure,Nsp13 model is from PDB 6JYT,,https://www.rcsb.org/structure/6JYT
 3:30-3:57,31,FALSE,nsp14,,structure,Nsp14 model is from PDB 5NFY,,https://www.rcsb.org/structure/5NFY
 3:30-3:57,32,FALSE,nsp15,,structure,Nsp15 model is from PDB 6W01,,https://www.rcsb.org/structure/6W01
 3:30-3:57,33,FALSE,nsp16,,structure,Nsp16 model is from PDB 6W75,,https://www.rcsb.org/structure/6W75
-3:40-3:57,34,TRUE,"nsp12,nsp13,nsp14,nsp15,nsp16",,Event,"The processing order of nsp12-16 polyprotein segment 
-by the main protease is unknown.",,
-4:00-4:10,35,TRUE,"nsp3,nsp4",,Event ,"Nsp3 and nsp4 luminal domains interact to induce membrane
-pairing; the exact nature of these interactions (nsp3-nsp3,
-nsp4-nsp4, nsp3-nsp4?) is still unclear.
-","Hagemeijer M.C., Monastyrska I., Griffith J., van der Sluijs P., 
-Voortman J., van Bergen en Henegouwen P.M. Membrane 
-rearrangements mediated by coronavirus nonstructural 
-proteins 3 and 4. Virology. 2014;458–459:125–135.",https://www.sciencedirect.com/science/article/pii/S0042682214001500
-4:11-4:27,36,TRUE,"nsp3,nsp4,nsp6",,Event,"The mechanisms of membrane curvature and double 
-membrane vesicle formation depicted here are still 
-speculative.
-In addition to nsp3 and nsp4, nsp6 is also involved.
-Some host factors might also participate.","Oudshoorn D, Rijs K, Limpens RWAL, Groen K, Koster AJ, 
-Snijder EJ, Kikkert M, Bárcena M. Expression and Cleavage 
-of Middle East Respiratory Syndrome Coronavirus nsp3-4 
-Polyprotein Induce the Formation of Double-Membrane 
-Vesicles That Mimic Those Associated with Coronaviral 
-RNA Replication. mBio. 2017 Nov 21;8(6):e01658-17. 
-doi: 10.1128/mBio.01658-17. 
-
-Wolff, G., Melia, C. E., Snijder, E. J., & Bárcena, M. 
-(2020). Double-Membrane Vesicles as Platforms for Viral 
-Replication. Trends in microbiology, 28(12), 1022–1033. 
-https://doi.org/10.1016/j.tim.2020.05.009","https://mbio.asm.org/content/8/6/e01658-17
-
-
-
-
-
-
-https://www.cell.com/trends/microbiology/fulltext/S0966-842X(20)30135-9?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0966842X20301359%3Fshowall%3Dtrue"
-4:24-4:27,37,FALSE,membrane vesicles,,structure,"The double membrane vesicles range between 150-300nm 
-in diameter and contain RNA filaments
-The distance between paired membranes has been 
-measured to be approximately 4.5nm.","Klein, S., Cortese, M., Winter, S. L., Wachsmuth-Melm, 
-M., Neufeldt, C. J., Cerikan, B., Stanifer, M. L., Boulant, 
-S., Bartenschlager, R., & Chlanda, P. (2020). 
-SARS-CoV-2 structure and replication characterized by 
-in situ cryo-electron tomography. Nature communications, 
-11(1), 5885. https://doi.org/10.1038/s41467-020-19619-7
-
-Wolff, G., Limpens, R., Zevenhoven-Dobbe, J. C., 
-Laugks, U., Zheng, S., de Jong, A., Koning, R. I., Agard, D. A., 
-Grünewald, K., Koster, A. J., Snijder, E. J., & Bárcena, M. 
-(2020). A molecular pore spans the double membrane of 
-the coronavirus replication organelle. Science 
- 369(6509), 1395–1398. https://doi.org/10.1126/science.abd3629","https://www.nature.com/articles/s41467-020-19619-7
-
-
-
-
-
-
-
-
-
-https://science.sciencemag.org/content/369/6509/1395"
+3:40-3:57,34,TRUE,"nsp12,nsp13,nsp14,nsp15,nsp16",,Event,"The processing order of nsp12-16 polyprotein segment by the main protease is unknown.",,,
+4:00-4:10,35,TRUE,"nsp3,nsp4",,Event ,"Nsp3 and nsp4 luminal domains interact to induce membrane pairing; the exact nature of these interactions (nsp3-nsp3,nsp4-nsp4, nsp3-nsp4?) is still unclear.","Hagemeijer M.C., Monastyrska I., Griffith J., van der Sluijs P.,Voortman J., van Bergen en Henegouwen P.M. Membrane rearrangements mediated by coronavirus nonstructural proteins 3 and 4. Virology. 2014;458–459:125–135.",https://www.sciencedirect.com/science/article/pii/S0042682214001500
+4:11-4:27,36,TRUE,"nsp3,nsp4,nsp6",,Event,"The mechanisms of membrane curvature and double membrane vesicle formation depicted here are still speculative.In addition to nsp3 and nsp4, nsp6 is also involved.Some host factors might also participate.","Oudshoorn D, Rijs K, Limpens RWAL, Groen K, Koster AJ, Snijder EJ, Kikkert M, Bárcena M. Expression and Cleavage of Middle East Respiratory Syndrome Coronavirus nsp3-4 Polyprotein Induce the Formation of Double-Membrane Vesicles That Mimic Those Associated with Coronaviral RNA Replication. mBio. 2017 Nov 21;8(6):e01658-17. doi: 10.1128/mBio.01658-17., Wolff, G., Melia, C. E., Snijder, E. J., & Bárcena, M. (2020). Double-Membrane Vesicles as Platforms for Viral Replication. Trends in microbiology, 28(12), 1022–1033. https://doi.org/10.1016/j.tim.2020.05.009","https://mbio.asm.org/content/8/6/e01658-17,https://www.cell.com/trends/microbiology/fulltext/S0966-842X(20)30135-9?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0966842X20301359%3Fshowall%3Dtrue"
+4:24-4:27,37,FALSE,membrane vesicles,,structure,"The double membrane vesicles range between 150-300nm in diameter and contain RNA filaments The distance between paired membranes has been measured to be approximately 4.5nm.","Klein, S., Cortese, M., Winter, S. L., Wachsmuth-Melm, M., Neufeldt, C. J., Cerikan, B., Stanifer, M. L., Boulant, S., Bartenschlager, R., & Chlanda, P. (2020). SARS-CoV-2 structure and replication characterized by in situ cryo-electron tomography. Nature communications, 11(1), 5885. https://doi.org/10.1038/s41467-020-19619-7 Wolff, G., Limpens, R., Zevenhoven-Dobbe, J. C., Laugks, U., Zheng, S., de Jong, A., Koning, R. I., Agard, D. A.,Grünewald, K., Koster, A. J., Snijder, E. J., & Bárcena, M. (2020). A molecular pore spans the double membrane of the coronavirus replication organelle. Science 369(6509), 1395–1398. https://doi.org/10.1126/science.abd3629","https://www.nature.com/articles/s41467-020-19619-7,https://science.sciencemag.org/content/369/6509/1395"

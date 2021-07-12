@@ -71,16 +71,10 @@ export async function phaseSelected(whichOne, data) {
    */
 
   const commentData = formatCommentData({...commentOb.currentData()});
-
-  //console.log('comment ob', commentData, current)
-
     let filteredComments = commentData.filter((f, i)=>{
       return f.videoTime >= current[0] && current[1] >= f.videoTime
     });
 
-   // console.log('filtered comm',filteredComments)
-
- 
   updateCommentSidebar(filteredComments);
 
   /**
@@ -457,7 +451,6 @@ export async function mouseMoveVideo(coord, video) {
     }
   }
 }
-
 export async function unselectStructure(commentData, video){
 
   addCommentButton();
@@ -827,9 +820,10 @@ export function videoUpdates(data, annoType) {
     let timeOb = timeRangeSingleton.getInstance();
     let currentDuration = timeOb.currentRange();
 
+
     if(video.currentTime < currentDuration[1]){
 
-      const timeRange = [video.currentTime < .5 ? 0 : Math.floor(video.currentTime - .2), video.currentTime + .2];
+      const timeRange = [video.currentTime < .5 ? 0 : Math.floor(video.currentTime - .1), video.currentTime + .2];
       //LOOK HERE//
       d3.select('#video-nav').select('.progress').attr('width', (d)=> {
         //let last = d.name === "Additional Info" ? 250 : 350;
@@ -842,12 +836,24 @@ export function videoUpdates(data, annoType) {
       });
       let annoOb = await annotationSingleton.getInstance();
       const filteredAnnotations = annoOb.currentAnnotations()
-        .filter((f) => f.seconds[0] <= timeRange[0] && f.seconds[0] <= timeRange[1]) || (f.seconds[1] <= timeRange[1] && f.seconds[1] >= timeRange[0]);
+        .filter((f) => {
+          return (video.currentTime >= f.seconds[0] && video.currentTime <= f.seconds[1])});
+    
+    
+      function mostRecent(){
+       // console.log('filter in most recent',filteredAnnotations);
+        let seconds = filteredAnnotations.map(m=> m.seconds);
+        console.log('s',seconds)
 
+      
+      }
+
+      mostRecent();
       /**
        * UPDATE AND HIGHLGIHT ANNOTATION BAR
        */
-      //updateAnnotationSidebar(filteredAnnotations, null, false);
+      console.log('filtered', filteredAnnotations, null, false);
+      updateAnnotationSidebar(filteredAnnotations, null, false);
       updateTimeElapsed(timeRange);
     
       if(video.playing){

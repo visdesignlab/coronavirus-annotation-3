@@ -26,11 +26,11 @@ export let segData = [
   //section 2 (early translation): frames 2601-8035
   {class: 'sec-two', stills:'sec2_8035', group: 2, name: 'Early Translation', id : 2, frames:[2601, 8035], range:[87,267], annotations: 'Annotation_Margot.csv', structure_data:'stuctured_structures_seg2.csv'},
     // section 3 (transcription overview): frames 8036-11245
-  {class: 'sec-three', stills:'sec3_11245', group: 3, name: 'Transcription Overview', id : 3, frames:[8036, 11245], range:[268,374], annotations: 'Annotation_Ann.csv', structure_data:'stuctured_structure_data.csv'},
+  {class: 'sec-three', stills:'sec3_11245', group: 3, name: 'Transcription Overview', id : 3, frames:[8036, 11245], range:[268,375], annotations: 'Annotation_Ann.csv', structure_data:'stuctured_structure_data.csv'},
   // section 4 (transcription, hypothesis 1): frames 11246 - 13106
-  {class: 'sec-four', stills:'sec4_13106', group: 4, name: 'Transcription, Hypothesis 1', id : 4, frames:[11246, 13106], range:[375,436], annotations: 'Annotation_Ann.csv', structure_data:'stuctured_structure_data.csv'},
+  {class: 'sec-four', stills:'sec4_13106', group: 4, name: 'Transcription, Hypothesis 1', id : 4, frames:[11246, 13106], range:[376,438], annotations: 'Annotation_Ann.csv', structure_data:'stuctured_structure_data.csv'},
   // section 5 (transcription, hypothesis 2): frames 13107- 15174
-  {class: 'sec-five', stills:'sec5_15174', group: 4, name: 'Transcription, Hypothesis 2', id : 5, frames:[13107, 15174], range:[437,505], annotations: 'Annotation_Ann.csv', structure_data:'stuctured_structure_data.csv'},
+  {class: 'sec-five', stills:'sec5_15174', group: 4, name: 'Transcription, Hypothesis 2', id : 5, frames:[13107, 15174], range:[439,505], annotations: 'Annotation_Ann.csv', structure_data:'stuctured_structure_data.csv'},
 ];
 
 export function formatTime(timeInSeconds) {
