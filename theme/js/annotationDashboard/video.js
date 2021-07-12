@@ -418,11 +418,19 @@ export async function mouseMoveVideo(coord, video) {
         const structFromDict = snip.structure_name.toUpperCase();//(snip === 'orange' && video.currentTime > 16) ? colorDictionary[snip].structure[1].toUpperCase() : colorDictionary[snip].structure[0].toUpperCase();
         let annoOb = await annotationSingleton.getInstance();
 
-        const structureData = annoOb.currentAnnotations().filter((f) => {
+        const structureAnnotations = annoOb.currentAnnotations().filter((f) => {
+          let structsAnno = f.associated_structures.split(',').filter((m) => {
+            let otherNames = snip.alias.split(',').map(on => on.toUpperCase()).indexOf(m.toUpperCase());
+            return otherNames > -1;
+          });
+          return structsAnno.length > 0;
+      });
+    
+        // const structureData = annoOb.currentAnnotations().filter((f) => {
        
-          return f.associated_structures.split(', ').map((m) => m.toUpperCase()).indexOf(structFromDict) > -1});
+        //   return f.associated_structures.split(', ').map((m) => m.toUpperCase()).indexOf(structFromDict) > -1});
 
-      structureTooltip(structureData, coord, snip, true);
+      structureTooltip(structureAnnotations, coord, snip, true);
       
       if(!structureSelected.selected){
         d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
@@ -529,6 +537,7 @@ export async function mouseClickVideo(coord, video) {
       structureSelectedToggle(coord, snip);
       colorTimeline(snip);
       let structureAnnotations = updateWithSelectedStructure(snip, commentData);
+      console.log('structure annot',structureAnnotations)
       structureTooltip(structureAnnotations, coord, snip, false);
       let dim = getRightDimension();
       let xTest = d3.select('#interaction').select('x-out');
@@ -589,22 +598,26 @@ export async function updateWithSelectedStructure(snip, commentData){
   let annoOb = await annotationSingleton.getInstance();
 
   const structureAnnotations = annoOb.currentAnnotations().filter((f) => {
-      let structsAnno = f.associated_structures.split(', ').filter((m) => {
-        let otherNames = snip.alias.split(',').map(on=> on.toUpperCase()).indexOf(m.toUpperCase());
+      let structsAnno = f.associated_structures.split(',').filter((m) => {
+        let otherNames = snip.alias.split(',').map(on => on.toUpperCase()).indexOf(m.toUpperCase());
         return otherNames > -1;
       });
       return structsAnno.length > 0;
   });
 
+
+
+  structureSelected.annotations = structureAnnotations;
+
   let otherAnno = annoOb.currentAnnotations().filter((f) => {
-      let structsAnno = f.associated_structures.split(', ').filter((m) => {
+      let structsAnno = f.associated_structures.split(',').filter((m) => {
         let otherNames = snip.alias.split(',').map(on=> on.toUpperCase()).indexOf(m.toUpperCase());
         return otherNames > -1;
       });
       return structsAnno.length === 0;
   });
 
-  structureSelected.annotations = structureAnnotations.filter((f) => f.has_unkown === 'TRUE').concat(structureAnnotations.filter((f) => f.has_unkown === 'FALSE'));
+  //structureSelected.annotations = structureAnnotations.filter((f) => f.has_unkown === 'TRUE').concat(structureAnnotations.filter((f) => f.has_unkown === 'FALSE'));
 
   const annoWrap = d3.select('#left-sidebar');
 
@@ -617,7 +630,6 @@ export async function updateWithSelectedStructure(snip, commentData){
   const selectedComWrap = d3.select('#comment-wrap').select('.selected-comm-wrap');
   
   // NEED TO CLEAR THIS UP - LOOKS LIKE YOU ARE REPEATING WORK IN UPDATE COMMENT SIDEBAR AND DRAW COMMETN BOXES
-
   updateAnnotationSidebar(otherAnno, structureSelected.annotations, false);
   renderStructureKnowns(topCommentWrap);
 
@@ -649,7 +661,6 @@ export function structureTooltip(structureData, coord, snip, hoverBool) {
       if(f.tags === "none"){
         return 0;
       }else{
-        
         let testTags = f.tags.split(',').filter(t=> {
           snip.alias.includes(t);
         });
@@ -852,7 +863,7 @@ export function videoUpdates(data, annoType) {
       /**
        * UPDATE AND HIGHLGIHT ANNOTATION BAR
        */
-      console.log('filtered', filteredAnnotations, null, false);
+    
       updateAnnotationSidebar(filteredAnnotations, null, false);
       updateTimeElapsed(timeRange);
     
