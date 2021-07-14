@@ -376,7 +376,7 @@ export function togglePlay() {
   if (video.playing) {
 
     video.pause();
-    d3.selectAll('.anno').classed('de-em', false);
+   // d3.selectAll('.anno').classed('de-em', false);
     d3.selectAll('.memo').classed('de-em', false);
     let structOb = timeRangeSingleton.getInstance();
   
@@ -389,7 +389,7 @@ export function togglePlay() {
     video.play();
 
     d3.select('.overlay').remove();
-    d3.selectAll('.anno').classed('de-em', true);
+    //d3.selectAll('.anno').classed('de-em', true);
 
     d3.select('.timeline-wrap').select('svg').select('.comm-group').selectAll('.comm-bin').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
     d3.select('.timeline-wrap').select('svg').select('.anno-group').selectAll('.anno').classed('struct-present', false).select('rect').style('fill', 'rgb(105, 105, 105)');
@@ -868,7 +868,7 @@ export function videoUpdates(data, annoType) {
       updateTimeElapsed(timeRange);
     
       if(video.playing){
-        d3.selectAll('.anno').classed('de-em', true);
+        //d3.selectAll('.anno').classed('de-em', true);
         d3.selectAll('.memo').classed('de-em', true);
       }
 
