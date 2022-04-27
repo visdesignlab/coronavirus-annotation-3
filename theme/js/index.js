@@ -98,12 +98,12 @@ export function renderTimeSections(segmentData){
     }else{
       return (sizeW / numSecGroups);
     }
-  }).attr('height', 20);//.attr('fill', 'red');
+  }).attr('height', 20).style('cursor', 'pointer')//.attr('fill', 'red');
 
   let secLabels = subSegs.selectAll('text.label').data(d=> [d]).join('text').classed('label', true).text(d=> d.name);
   secLabels.attr('transform', (d, i)=> {
     return `translate(10, 15)`
-  });
+  }).style('cursor', 'pointer');
 
   const pathGen = d3.line().curve(d3.curveNatural);
 

@@ -5,7 +5,7 @@ Tool for crowdsourcing information on the coronavirus life cycle from an expert 
 ## Scripts/Setup
 
 **Backend**
-1. Create a virtual env `python3 -m venv venv`
+
 2. Install dependencies `pipenv install`
 3. Run dev server  `pipenv run serve`
 4. Deploy `pipenv run deploy`
