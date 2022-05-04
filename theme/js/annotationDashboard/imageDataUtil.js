@@ -1,4 +1,4 @@
-export const endDrawTime = 505;
+export const endDrawTime = 580;
 import * as d3 from 'd3';
 import { getRightDimension } from '../dataManager';
 import { structureSingleton } from './structureSingleton';
@@ -40,6 +40,7 @@ export function structureSelectedToggle(coords, selectedData) {
 export const doodleKeeper = [];
 
 export const colorDictionary = {//(60,179,113)
+  blue2: { code: [1, 0, 207], color: 'blue', structure: ['Cell Membrane'], other_names:['Cell Membrane', 'plasma membrane'] },
   blue: { code: [0, 0, 255], color: 'blue', structure: ['Cell Membrane'], other_names:['Cell Membrane', 'plasma membrane'] },
   purple: { code: [102, 0, 204], color: 'purple', structure: ['ACE2'], other_names:['ACE2'] },
   magenta: { code: [255, 0, 255], color: 'magenta', structure: ['ACE2'], other_names:['ACE2'] },
@@ -129,7 +130,7 @@ export async function loadPngForFrame() {
     const _data = cxt.getImageData(0, 0, canvas.width, canvas.height);
 
     currentImageData.data = _data.data.map((m, i) => {
-      if ((i + 1) % 4 === 0) m = 0;
+      // if ((i + 1) % 4 === 0) m = 0;
       return m;
     });
     currentImageData.width = _data.width;
@@ -213,6 +214,7 @@ export function getCoordColor(coord) {
   const alphaForCoord = currentImageData.data[alphaIndex];
   const new_rgb = `rgba(${redForCoord},${greenForCoord},${blueForCoord}, 1.0)`;
   //('new_rgb', new_rgb);
+  console.log(new_rgb);
   let filterDict = colorStructCurrent;
 
   let colorCodes = [redForCoord, greenForCoord, blueForCoord];

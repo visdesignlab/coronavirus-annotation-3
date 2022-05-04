@@ -407,10 +407,11 @@ export function togglePlay() {
 }
 
 export async function mouseMoveVideo(coord, video) {
-
+    // console.log('END DRAW TIMEEEE',endDrawTime);
     if(!video.playing && (structureSelected.selected === false && video.currentTime <= endDrawTime)){
    
       const snip = getCoordColor(coord);
+      console.log('SNIP',snip)
 
       if (snip != 'unknown' && snip.structure_name != currentColorCodes && !video.playing && snip.color != 'black') {
         currentColorCodes = snip.structure_name;

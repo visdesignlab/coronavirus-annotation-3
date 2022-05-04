@@ -1,0 +1,5 @@
+hierarchy,rgb,structure_name,hex,color,time,alias,short_name
+cell,"[[1,0,207]]",cell membrane,blue,0000FF,"[506,580]","cell membrane,membrane",Membrane
+virus,"[[0,255,0]]",spike protein,green,00FF00,"[506,580]","s protein,spike protein,s proteins,spike proteins",Spike,
+virus,"[[250,226,11]]",membrane protein,yellow,fff700,"[451,467]","membrane protein","Membran Protein",
+virus,"[[225,226,227]]",nucleocapsid protein,gray,fff700,"[451,467]","nucleocapsid protein",Nucleocapsid,

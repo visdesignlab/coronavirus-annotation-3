@@ -31,7 +31,8 @@ export let segData = [
   {class: 'sec-four', stills:'sec4_13106', group: 4, name: 'Transcription, Hypothesis 1', id : 4, frames:[11246, 13106], range:[376,438], annotations: 'Annotation_Ann.csv', structure_data:'stuctured_structure_data.csv'},
   // section 5 (transcription, hypothesis 2): frames 13107- 15174
   {class: 'sec-five', stills:'sec5_15174', group: 4, name: 'Transcription, Hypothesis 2', id : 5, frames:[13107, 15174], range:[439,505], annotations: 'Annotation_Ann.csv', structure_data:'stuctured_structure_data.csv'},
-  {class: 'sec-six', stills: null, group: 5, name: 'ADD NAME HERE', id : 6, frames:null, range:[506,580], annotations: null, structure_data: null},
+  // section 5 (egress): frames 15175-17114
+  {class: 'sec-six', stills: 'sec6_17114', group: 5, name: 'Egress', id : 6, frames:[15175, 17114], range:[506,580], annotations: 'Annotation_Egress.csv', structure_data: 'stuctured_structures_seg6.csv'},
 ];
 
 export function formatTime(timeInSeconds) {
