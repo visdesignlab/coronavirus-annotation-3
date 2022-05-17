@@ -130,7 +130,7 @@ export async function loadPngForFrame() {
     const _data = cxt.getImageData(0, 0, canvas.width, canvas.height);
 
     currentImageData.data = _data.data.map((m, i) => {
-      // if ((i + 1) % 4 === 0) m = 0;
+      if ((i + 1) % 4 === 0) m = 0;
       return m;
     });
     currentImageData.width = _data.width;
