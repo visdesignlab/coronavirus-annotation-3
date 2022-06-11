@@ -1,0 +1,445 @@
+﻿WEBVTT
+
+
+00:00:00.000 --> 00:00:04.000
+The surface of the SARS-CoV-2 virus is studded with Spike proteins, shown in teal, 
+
+
+00:00:04.100 --> 00:00:09.500
+membrane proteins, shown in yellow, and envelope proteins, shown in red.
+
+
+00:00:10.000 --> 00:00:13.000
+In cross-section the viral RNA genome in orange 
+
+
+00:00:13.100 --> 00:00:16.000
+is wrapped around nucleocapsid proteins shown in grey.
+ 
+00:00:17.000 --> 00:00:21.000
+An individual can be infected with SARS-CoV-2 after inhaling airborne viral particles.
+
+
+00:00:21.100 --> 00:00:26.000
+These viruses can then travel into the airways, where they may encounter cells 
+
+
+00:00:26.100 --> 00:00:30.000
+of the respiratory epithelium in the trachea and lungs.
+
+
+00:00:31.100 --> 00:00:34.000
+The Spike protein recognizes a specific protein called ACE2, 
+
+
+00:00:34.100 --> 00:00:38.000
+which is shown here in purple on the cell surface. 
+
+
+00:00:38.100 --> 00:00:42.000
+The Spike protein, which is normally very dynamic and able to undergo opening, 
+
+
+00:00:42.100 --> 00:00:48.000
+closing, and bending movements, is locked into an open position after binding to ACE2.
+ 
+00:00:48.100 --> 00:00:52.000
+Another protein on the cell surface called TMPRSS2 and shown in orange, 
+
+
+00:00:52.100 --> 00:00:56.000
+can then cut the Spike protein in a specific location. 
+
+
+00:00:56.100 --> 00:00:59.000
+The cut segments of the Spike protein fall away, 
+
+
+00:00:59.100 --> 00:01:02.000
+exposing a portion of the Spike protein that was previously hidden. 
+ 
+00:01:03.100 --> 00:01:07.000
+The Spike protein is then able to undergo a series of dramatic conformational changes. 
+
+
+00:01:08.100 --> 00:01:12.000
+During the first stage, the Spike protein inserts itself into the cell membrane. 
+
+
+00:01:13.100 --> 00:01:16.000
+In the second stage, segments of the spike protein zipper back on itself, 
+
+
+00:01:16.100 --> 00:01:20.000
+forcing the membrane of the cell and viral membrane to fuse. 
+ 
+00:01:20.100 --> 00:01:24.000
+After fusion, the viral RNA is deposited into the host cell, 
+
+
+00:01:24.100 --> 00:01:27.000
+where it will direct the cell to produce more virions.
+
+
+00:01:32.100 --> 00:01:34.000
+Once the nucleocapsid is inside the cell, 
+
+
+00:01:34.100 --> 00:01:40.000
+ribosomes start translating the polyprotein precursor of the non structural viral proteins. 
+
+
+00:01:46.100 --> 00:01:49.000
+It is hypothesized that the progression of the ribosomes 
+
+
+00:01:49.100 --> 00:01:54.000
+along the viral RNA results in the disassembly of the N proteins.
+
+
+00:01:54.100 --> 00:01:58.000
+The precise timing of polyprotein processing, however, is unclear.
+
+
+00:02:09.100 --> 00:02:17.000
+Soon after nsp3’s protease domain is translated, it is thought to start cleaving nsps 1, 2 and 3. 
+
+
+00:02:23.100 --> 00:02:29.000
+Nsps 3, 4 and 6 are inserted into the ER membrane through an unknown mechanism, 
+
+
+00:02:29.100 --> 00:02:34.000
+and nsp5 processes the remaining portion of the elongating polyprotein.
+
+
+00:02:37.100 --> 00:02:41.000
+Ribosomal frameshifting is a key event during early translation. 
+
+
+00:02:41.100 --> 00:02:45.000
+It occurs at a slippery sequence located in the context of a pseudoknot structure, 
+
+
+00:02:45.100 --> 00:02:49.000
+just upstream of the first stop codon.
+
+
+00:02:51.100 --> 00:02:56.000
+If a ribosome melts the pseudoknot quickly, it progresses without frameshifting, 
+
+
+00:02:56.100 --> 00:02:59.000
+and then disassembles at the first stop codon. 
+
+
+00:03:00.100 --> 00:03:03.000
+Nsp5 then cleaves the polyprotein precursor. 
+
+
+00:03:14.100 --> 00:03:18.000
+The pseudoknot refolds before it is encountered by a closely trailing ribosome. 
+
+
+00:03:18.100 --> 00:03:23.000
+This time, the pause induced from the pseudoknot results in a minus one frameshift, 
+
+
+00:03:23.100 --> 00:03:27.000
+allowing the ribosome to progress beyond the stop codon.
+
+
+00:03:27.100 --> 00:03:34.000
+In this case, nsps 12 to 16 can be translated, and the polyprotein is processed by nsp5.
+
+
+00:03:54.100 --> 00:03:58.000
+In parallel, the ER undergoes a striking but poorly understood remodeling event. 
+
+
+00:03:58.100 --> 00:04:02.000
+Nsps 3 and 4 interact to induce membrane pairing. 
+
+
+00:04:02.100 --> 00:04:07.000
+Nsp6, which is not shown here, is also somehow involved in this process 
+
+
+00:04:07.100 --> 00:04:10.000
+that promotes membrane curvature.
+
+
+00:04:10.100 --> 00:04:14.000
+Nsps and the genomic RNA are trapped into double membrane vesicles, or DMVs, 
+
+
+00:04:14.100 --> 00:04:17.000
+that form through unclear mechanisms. 
+
+
+00:04:17.100 --> 00:04:23.000
+ER remodeling also leads to other structures of unknown function that are not depicted here.
+
+
+00:04:28.100 --> 00:04:34.000
+To propagate itself, the virus must replicate its genome and express genes encoding structural proteins. 
+
+
+00:04:34.100 --> 00:04:38.000
+Both replication and transcription are carried out inside of DMVs 
+
+
+00:04:38.100 --> 00:04:41.000
+by a single protein complex, called the RTC.
+
+
+00:04:41.100 --> 00:04:46.000
+Genes encoding structural proteins are located at the 3’ end of the genome, 
+
+
+00:04:46.100 --> 00:04:51.000
+which also encodes accessory proteins that are not depicted in this animation. 
+
+
+00:04:51.100 --> 00:04:55.000
+These genes are transcribed into a nested set of negative sub-genomic RNAs.
+
+
+00:04:55.100 --> 00:04:59.000
+They are then copied into positive RNAs that serve as templates 
+
+
+00:04:59.100 --> 00:05:02.000
+for the translation of structural proteins. 
+
+
+00:05:02.100 --> 00:05:05.000
+All of the sub-genomic RNAs share a copy of the leader sequence 
+
+
+00:05:05.100 --> 00:05:07.000
+present at the 5’ end of the genomic RNA. 
+
+
+00:05:07.100 --> 00:05:11.000
+These RNAs can contain multiple open reading frames, 
+
+
+00:05:11.100 --> 00:05:15.000
+but only the one directly following the leader sequence will be translated.
+
+
+00:05:15.100 --> 00:05:20.000
+So how does this leader, or L sequence, get added to the subgenomic RNAs? 
+
+
+00:05:20.100 --> 00:05:26.000
+This process involves a series of sequences called transcription regulatory sequences, or TRSs.  
+
+
+00:05:26.100 --> 00:05:30.000
+The TRSs are present at the junctions between each open reading frame 
+
+
+00:05:30.100 --> 00:05:33.000
+of genes encoding structural and accessory proteins, 
+
+
+00:05:33.100 --> 00:05:37.000
+as well as in the leader sequence at the 5’ end of the genomic RNA. 
+
+
+00:05:37.100 --> 00:05:41.000
+The core sequence of these TRSs are highly conserved, 
+
+
+00:05:41.100 --> 00:05:46.000
+and the leader TRS is thought to remain in close proximity to a body TRS for base pairing.
+
+
+00:05:46.100 --> 00:05:52.000
+During transcription, when the RTC reaches a body TRS and copies its core sequence, 
+
+
+00:05:52.100 --> 00:05:57.000
+it can either continue or switch to the 5’ end of the genomic RNA, 
+
+
+00:05:57.100 --> 00:06:02.000
+where the copied TRS matches with the leader TRS, leading to continuous transcription. 
+
+
+00:06:02.100 --> 00:06:08.000
+The RTC consists of nsps, but the mechanisms of replication and transcription are not fully known. 
+
+
+00:06:08.100 --> 00:06:13.000
+The next segment describes two hypotheses specifically focusing on the first step of transcription, 
+
+
+00:06:13.100 --> 00:06:16.000
+during which negative RNAs are produced. 
+
+
+00:06:16.100 --> 00:06:23.000
+In DMVs, replication and transcription are carried out by the replication-transcription complex, or RTC. 
+
+
+00:06:23.100 --> 00:06:28.000
+The core structure of the RTC consists of nsps 7, 8 and 12. 
+
+
+00:06:28.100 --> 00:06:32.000
+They assemble at the 3’ end of a template genomic RNA and initiate transcription 
+
+
+00:06:32.100 --> 00:06:37.000
+with the help of nsps 10, 13, 14 and 16. 
+
+
+00:06:37.100 --> 00:06:41.000
+It is hypothesized that transcription pauses when the RTC reaches 
+
+
+00:06:41.100 --> 00:06:46.000
+transcription-regulating sequences, or TRSs, shown here in yellow. 
+
+
+00:06:46.100 --> 00:06:49.000
+Its helicase domain can then act on the double-stranded RNA, 
+
+
+00:06:49.100 --> 00:06:53.000
+causing RTC backtracking and unwinding of the double-stranded RNA. 
+
+
+00:06:53.100 --> 00:06:56.000
+The core sequence of the TRS is highly conserved. 
+
+
+00:06:56.100 --> 00:07:02.000
+Therefore, when the copied TRS at the 3’ end of a newly synthesized RNA 
+
+
+00:07:02.100 --> 00:07:07.000
+matches with the TRS in the leader sequence at the 5’ end of a template genomic RNA, 
+
+
+00:07:07.100 --> 00:07:10.000
+transcription elongation continues. 
+
+
+00:07:10.100 --> 00:07:13.000
+In this way, all of the newly synthesized negative RNAs 
+
+
+00:07:13.100 --> 00:07:16.000
+can obtain the leader sequence at their 3’ end. 
+
+
+00:07:16.100 --> 00:07:23.000
+In DMVs, replication and transcription are carried out by a replication-transcription complex, or RTC. 
+
+
+00:07:23.100 --> 00:07:29.000
+The core structure of RTC consists of nsps 7, 8 and 12. 
+
+
+00:07:29.100 --> 00:07:34.000
+It is hypothesized that the genomic RNA first needs to be replicated in full length. 
+
+
+00:07:34.100 --> 00:07:41.000
+Nsp13 binds to the positive RNA strand in transcription regulatory sequences, or TRSs, 
+
+
+00:07:41.100 --> 00:07:43.000
+in order to keep an open bubble.
+
+
+00:07:43.100 --> 00:07:48.000
+Meanwhile, the RTC assembles at the 3’ end of the positive genomic RNA 
+
+
+00:07:48.100 --> 00:07:53.000
+and initiates transcription with the help of nsps 10, 14 and 16. 
+
+
+00:07:53.100 --> 00:07:59.000
+When the RTC reaches a TRS, it pauses and disassociates from the template RNA. 
+
+
+00:07:59.100 --> 00:08:06.000
+Then the RTC is recruited by the leader TRS at the 5’ end of the positive genomic RNA. 
+
+
+00:08:06.100 --> 00:08:09.000
+The core sequence of the TRS is highly conserved. 
+
+
+00:08:09.100 --> 00:08:15.000
+Therefore, when the copied TRS at the 3’ end of a newly synthesized RNA 
+
+
+00:08:15.100 --> 00:08:18.000
+matches with the leader TRS, transcription elongation continues. 
+
+
+00:08:18.100 --> 00:08:25.000
+In this way, all the newly synthesized negative RNAs can obtain the leader sequence at their 3’ end. 
+
+
+00:08:26.100 --> 00:08:30.000
+Over the course of hours, the cell has transformed into a viral factory, 
+
+
+00:08:30.100 --> 00:08:32.000
+and will soon release newly formed viruses.
+
+
+00:08:32.100 --> 00:08:38.000
+At the DMVs, numerous copies of genomic and sub-genomic positive RNAs have been produced.
+
+
+00:08:38.100 --> 00:08:44.000
+RNAs are thought to be released into the cytosol through pores in the DMV membrane.
+
+
+00:08:44.100 --> 00:08:50.000
+The viral genomic RNA interacts with nucleocapsid, or N proteins, which act to compact the RNA.
+
+
+00:08:50.100 --> 00:08:56.000
+Meanwhile, structural viral proteins, including matrix, envelope, and spike proteins 
+
+
+00:08:56.100 --> 00:08:58.000
+have been translated by ribosomes at the ER, 
+
+
+00:08:58.100 --> 00:09:02.000
+and transported to the ER-Golgi intermediate compartment, or ERGIC.
+
+
+00:09:02.100 --> 00:09:06.000
+At the ERGIC membrane, the RNA and N-proteins bud inward 
+
+
+00:09:06.100 --> 00:09:09.000
+with the help of matrix and envelope proteins. 
+
+
+00:09:09.100 --> 00:09:13.000
+New viruses are then thought to be transported between different membrane compartments, 
+
+
+00:09:13.100 --> 00:09:17.000
+including lysosomes and the multivesicular bodies, or MVB. 
+
+
+00:09:18.100 --> 00:09:22.000
+Fusion of the MVB with the plasma membrane releases the newly formed viruses 
+
+
+00:09:22.100 --> 00:09:28.000
+to the extracellular space, where they are able to attach to and infect new cells.
