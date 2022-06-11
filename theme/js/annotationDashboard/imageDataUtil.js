@@ -108,6 +108,8 @@ export async function loadPngForFrame() {
   let currentPNGS = timeOb.currentFrames();
  
   const pathImg = `../static/assets/stills/${currentPNGS}/flat`;
+
+  console.log('pathimage!!!',pathImg)
   // The path to the image that we want to add
   const imgPath = `${pathImg + (check(pullFrame))}.png`;
   // Create a new Image object.
@@ -130,7 +132,7 @@ export async function loadPngForFrame() {
     const _data = cxt.getImageData(0, 0, canvas.width, canvas.height);
 
     currentImageData.data = _data.data.map((m, i) => {
-      if ((i + 1) % 4 === 0) m = 0;
+      // if ((i + 1) % 4 === 0) m = 0;
       return m;
     });
     currentImageData.width = _data.width;

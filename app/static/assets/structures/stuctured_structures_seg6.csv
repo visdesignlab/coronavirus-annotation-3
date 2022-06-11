@@ -1,8 +1,10 @@
 hierarchy,rgb,structure_name,hex,color,time,alias,short_name
-cell,"[[1,0,207]]",cell membrane,0000FF,blue,"[506,580]","cell membrane,membrane",Membrane
-virus,"[[250,226,11]]",DMV,FBDB48,yellow,"[506,513]","DMV","DMV",
-virus,"[[0,255,0]]",spike protein,00FF00,green,"[514,569]","s protein,spike protein,s proteins,spike proteins",Spike,
+cell,"[[0,0,254]]",cell membrane,0000FF,blue,"[506,580]","cell membrane,membrane",Membrane
+cell,"[[3,0,245]]",cell membrane,0000FF,blue,"[514,559]","cell membrane,membrane",Membrane
+virus,"[[255,190,1]]",DMV,FBDB48,yellow,"[506,513]","DMV","DMV",
+virus,"[[0,255,1]]",spike protein,00FF00,green,"[514,569]","s protein,spike protein,s proteins,spike proteins",Spike,
 virus,"[[255,255,0]]",membrane protein,yellow,FFFF00,"[514,569]","m protein,membrane protein",M Protein
-virus,"[[225,226,227]]",nsp,fff700,pink,"[514,554]","NSP",NSP,
+virus,"[[235,0,245]]",nsp,fff700,pink,"[514,554]","NSP",NSP,
 virus,"[[225,226,227]]",nucleocapsid protein,fff700,gray,"[514,559]","nucleocapsid protein",Nucleocapsid,
 virus,"[[255,191,1]]",genomic RNA,ff6700,orange,"[514,553]","genomic RNA,rna,RNA",genomic RNA
+virus,"[[254,254,254]]",virus membrane,white,FFFFFF,"[0,18],[21,28],[30,85]","membrane,virus membrane",Membrane

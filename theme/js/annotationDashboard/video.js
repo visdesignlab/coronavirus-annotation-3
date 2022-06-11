@@ -122,6 +122,14 @@ function initializeVideo() {
   volumeButton.style.border = 'none';
   volumeButton.style['background-color'] = 'transparent';
 
+  const ccButton = document.getElementById('cc-controls');
+  ccButton.addEventListener('click', toggleCC);
+
+  // var tracks = video.textTracks[0];
+  // tracks.mode = 'hidden';
+
+  // console.log('tracksssss', tracks);
+
  // updateVolumeIcon();
 }
 
@@ -162,6 +170,18 @@ function updateVolumeIcon() {
     volumeLow.setAttribute('visibility',"visible"); //.classList.remove('hidden');
   } else {
     volumeHigh.setAttribute('visibility',"visible"); //.classList.remove('hidden');
+  }
+}
+
+function toggleCC() {
+
+  const video = document.getElementById('video');
+  var tracks = video.textTracks[0];
+  
+  if (tracks.mode === 'showing') {
+    tracks.mode = 'hidden';
+  } else {
+    tracks.mode = 'showing';
   }
 }
 
@@ -407,11 +427,10 @@ export function togglePlay() {
 }
 
 export async function mouseMoveVideo(coord, video) {
-    // console.log('END DRAW TIMEEEE',endDrawTime);
+
     if(!video.playing && (structureSelected.selected === false && video.currentTime <= endDrawTime)){
    
       const snip = getCoordColor(coord);
-      console.log('SNIP',snip)
 
       if (snip != 'unknown' && snip.structure_name != currentColorCodes && !video.playing && snip.color != 'black') {
         currentColorCodes = snip.structure_name;
@@ -518,8 +537,8 @@ export async function mouseClickVideo(coord, video) {
       
     unselectStructure(commentData, video);
   
-   structureSelectedToggle(null, null);
-    d3.select('.x-out').remove();
+    structureSelectedToggle(null, null);
+      d3.select('.x-out').remove();
 
     }else if(snip.structure_name === structureSelected.structure){
       structureSelectedToggle(null, null);
@@ -538,7 +557,7 @@ export async function mouseClickVideo(coord, video) {
       structureSelectedToggle(coord, snip);
       colorTimeline(snip);
       let structureAnnotations = updateWithSelectedStructure(snip, commentData);
-      console.log('structure annot',structureAnnotations)
+     
       structureTooltip(structureAnnotations, coord, snip, false);
       let dim = getRightDimension();
       let xTest = d3.select('#interaction').select('x-out');
@@ -853,9 +872,9 @@ export function videoUpdates(data, annoType) {
     
     
       function mostRecent(){
-       // console.log('filter in most recent',filteredAnnotations);
+     
         let seconds = filteredAnnotations.map(m=> m.seconds);
-        console.log('s',seconds)
+      
 
       
       }

@@ -1,9 +1,9 @@
 hierarchy,rgb,structure_name,hex,color,time,alias,short_name
-virus,"[[191,239,69]]",NSP 12,6499c4,lime green,"[437,450],[468,505]","NSP 12,nsp12",NSP 12
-virus,"[[249,190,212]]",NSP 13,4e9ba3,dusty rose,"[437,450],[453,467]","NSP 13,nsp13",NSP 13
-virus,"[[255,251,20]]",NSP 14,9edfe6,light yellow,"[437,450],[749,505]","NSP 14,nsp14",NSP 14
-virus,"[[221,190,255]]",NSP 8,dcc5ed,lavender,"[437,450],[468,505]","NSP 8,nsp8",NSP 8
-virus,"[[255,0,254]]",NSP 16,3a599c,magenta,"[437,450],[750,505]","NSP 16,nsp16",NSP 16
+virus,"[[191,238,69]]",NSP 12,6499c4,lime green,"[375,422],[420,436]","NSP12",NSP 12
+virus,"[[248,189,212]]",NSP 13,4e9ba3,dusty rose,"[375,422],[420,436]","NSP13",NSP 13
+virus,"[[254,250,201]]",NSP 14,9edfe6,light yellow,"[375,390],[393,411]","NSP14",NSP 14
+virus,"[[221,189,255]]",NSP 8,dcc5ed,lavender,"[375,422]","NSP8",NSP 8
+virus,"[[254,0,253]]",NSP 16,3a599c,magenta,"[375,390]","NSP16",NSP 16
 virus,"[[154,99,36]]",NSP 10,243761,brown,"[440,450],[749,752]","NSP 10,nsp10",NSP 10
 virus,"[[128,128,0]]",NSP 7,513680,camo green,"[443,450]","NSP 7,nsp7",NSP 7
 virus,"[[218,123,34]]",Positive genomic RNA,ff6700,orange,"[451,505]","Positive genomic RNA,positive rna",(+) RNA

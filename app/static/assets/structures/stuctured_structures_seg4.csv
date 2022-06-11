@@ -1,9 +1,9 @@
 hierarchy,rgb,structure_name,hex,color,time,alias,short_name
-virus,"[[191,239,69]]",NSP 12,6499c4,lime green,"[375,422],[420,436]","NSP12",NSP 12
-virus,"[[249,190,212]]",NSP 13,4e9ba3,dusty rose,"[375,422],[420,436]","NSP13",NSP 13
-virus,"[[255,251,202]]",NSP 14,9edfe6,light yellow,"[375,390],[393,411]","NSP14",NSP 14
-virus,"[[221,190,255]]",NSP 8,dcc5ed,lavender,"[375,422]","NSP8",NSP 8
-virus,"[[255,0,254]]",NSP 16,3a599c,magenta,"[375,390]","NSP16",NSP 16
+virus,"[[191,238,69]]",NSP 12,6499c4,lime green,"[375,422],[420,436]","NSP12",NSP 12
+virus,"[[248,189,212]]",NSP 13,4e9ba3,dusty rose,"[375,422],[420,436]","NSP13",NSP 13
+virus,"[[254,250,201]]",NSP 14,9edfe6,light yellow,"[375,390],[393,411]","NSP14",NSP 14
+virus,"[[221,189,255]]",NSP 8,dcc5ed,lavender,"[375,422]","NSP8",NSP 8
+virus,"[[254,0,253]]",NSP 16,3a599c,magenta,"[375,390]","NSP16",NSP 16
 virus,"[[154,99,36]]",NSP 10,243761,brown,"[383,390]","NSP10",NSP 10
 virus,"[[128,128,0]]",NSP 7,513680,camo green,"[383,391]","NSP7",NSP 7
 virus,"[[251,250,33]]",TRS,fff700,yellow,"[415,436]","TSR",TRS

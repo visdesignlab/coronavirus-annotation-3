@@ -11,7 +11,8 @@
         let _segId = 1;
         let _range = [0,86];
         let _anno = 'annotation_3.csv';
-        let _stills = 'sec1_2600';
+        // let _stills = 'sec1_2600';
+        let _stills = 'flatImages';
         let _frames = [1,2600];
     
         let changeRange = function(data){

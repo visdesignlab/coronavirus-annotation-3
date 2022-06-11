@@ -121,12 +121,14 @@
                   <!-- <use href="#volume-high"></use> -->
                 </svg>
               </button>
-            
               <input style="position:relative; top:3px" class="volume" id="volume" value="1" type="range" max="1" min="0" step="0.01">
             </div>
-       
+            
+            <div id="cc-controls" style="position:relative; top:-5px; cursor:pointer">
+              <!-- <svg style="height: 43px; width: 43px; color: rgb(0, 0, 255);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="32" y="48" width="192" height="160" rx="8" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"></rect><path d="M116,147.6a28,28,0,1,1,0-39.2" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"></path><path d="M188,147.6a28,28,0,1,1,0-39.2" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"></path></svg> -->
+              <button id="subtitles" type="button" data-state="subtitles">CC</button>
+            </div>
         
-
             <div class="progress-bar">
               <div class="progress-bar-fill"></div>
             </div>
@@ -134,8 +136,9 @@
 
           </div>
           <video controls class="video" id="video" preload="metadata">
-            <source src="{{url_for('static', filename='assets/complete_3D_supercomp_credit.mp4')}}" type="video/mp4">
+            <source src="{{url_for('static', filename='assets/sections1_3_3D_supercomp_noCredit_061022.mp4')}}" type="video/mp4">
               <p>Your browser does not support HTML5 video.</p>
+            <track label="English" mode="hidden" kind="subtitles" srclang="en" src="{{url_for('static', filename='assets/sections1_3_3D_supercomp_noCredit.vtt')}}" default>
           </video>
           <canvas id="canvas"></canvas>
           <div id="interaction"></div>
