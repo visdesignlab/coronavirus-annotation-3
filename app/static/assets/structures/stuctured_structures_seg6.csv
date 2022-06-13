@@ -5,6 +5,7 @@ virus,"[[255,190,1]]",DMV,FBDB48,yellow,"[506,513]","DMV","DMV",
 virus,"[[0,255,1]]",spike protein,00FF00,green,"[514,569]","s protein,spike protein,s proteins,spike proteins",Spike,
 virus,"[[255,255,0]]",membrane protein,yellow,FFFF00,"[514,569]","m protein,membrane protein",M Protein
 virus,"[[235,0,245]]",nsp,fff700,pink,"[514,554]","NSP",NSP,
-virus,"[[225,226,227]]",nucleocapsid protein,fff700,gray,"[514,559]","nucleocapsid protein",Nucleocapsid,
+virus,"[[190,190,190]]",nucleocapsid protein,fff700,gray,"[514,559]","nucleocapsid protein",Nucleocapsid,
+virus,"[[255,255,255]]",nucleocapsid protein,fff700,gray,"[559,562]","nucleocapsid protein",Nucleocapsid,
 virus,"[[255,191,1]]",genomic RNA,ff6700,orange,"[514,553]","genomic RNA,rna,RNA",genomic RNA
-virus,"[[254,254,254]]",virus membrane,white,FFFFFF,"[0,18],[21,28],[30,85]","membrane,virus membrane",Membrane
+virus,"[[254,254,254]]",virus membrane,white,FFFFFF,"[551, 557]","membrane,virus membrane",Membrane

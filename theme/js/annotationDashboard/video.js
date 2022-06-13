@@ -128,7 +128,6 @@ function initializeVideo() {
   // var tracks = video.textTracks[0];
   // tracks.mode = 'hidden';
 
-  // console.log('tracksssss', tracks);
 
  // updateVolumeIcon();
 }
@@ -207,11 +206,11 @@ function addMouseEvents2Video(){
   .on('click', (event) => mouseClickVideo(d3.pointer(event), video))
   .on('mousemove', async (event) => {
     toggleQueue(false);
-    let structOb = timeRangeSingleton.getInstance();
-        
-        if(structOb.currentSeg() != 3){
-          mouseMoveVideo(d3.pointer(event), video);
-        }
+   // let structOb = timeRangeSingleton.getInstance();
+    mouseMoveVideo(d3.pointer(event), video);
+        // if(structOb.currentSeg() != 3){
+        //   mouseMoveVideo(d3.pointer(event), video);
+        // }
   });
 
   d3.select('#interaction')
@@ -250,7 +249,6 @@ export async function formatVidPlayer() {
   if(video.readyState >= 2) {
     
     canPlay = true;
-    
     resizeVideoElements();
     drawFrameOnPause(video);
     addMouseEvents2Video();
@@ -427,6 +425,8 @@ export function togglePlay() {
 }
 
 export async function mouseMoveVideo(coord, video) {
+
+   // console.log('IN MOUSE MOVE VIDEO',structureSelected.selected, video.currentTime, endDrawTime)
 
     if(!video.playing && (structureSelected.selected === false && video.currentTime <= endDrawTime)){
    
@@ -831,13 +831,14 @@ export function videoUpdates(data, annoType) {
       const commentData = formatCommentData({...commentOb.currentData()});
       
       const timeRange = [video.currentTime < 1.5 ? 0 : Math.floor(video.currentTime - 1.5), video.currentTime + 1.5];
-      const commentsInTimeframe = commentData.filter((f, i) => {
+     
+      const commentsInTimeframe = commentData.length > 0 ? commentData.filter((f, i) => {
         const time = JSON.parse(f.videoTime);
         if (time.length > 1) {
           return time[0] <= video.currentTime && time[1] >= video.currentTime;
         }
         return time <= timeRange[1] && time >= timeRange[0];
-      });
+      }) : [];
 
       const svgTest = d3.select('#interaction').select('svg');
       const svg = svgTest.empty() ? d3.select('#interaction').append('svg') : svgTest;
@@ -850,7 +851,6 @@ export function videoUpdates(data, annoType) {
 
     let timeOb = timeRangeSingleton.getInstance();
     let currentDuration = timeOb.currentRange();
-
 
     if(video.currentTime < currentDuration[1]){
 
@@ -870,16 +870,11 @@ export function videoUpdates(data, annoType) {
         .filter((f) => {
           return (video.currentTime >= f.seconds[0] && video.currentTime <= f.seconds[1])});
     
-    
-      function mostRecent(){
-     
-        let seconds = filteredAnnotations.map(m=> m.seconds);
-      
+      // function mostRecent(){
+      //   let seconds = filteredAnnotations.map(m=> m.seconds);
 
-      
-      }
-
-      mostRecent();
+      // }
+      // mostRecent();
       /**
        * UPDATE AND HIGHLGIHT ANNOTATION BAR
        */
@@ -888,7 +883,7 @@ export function videoUpdates(data, annoType) {
       updateTimeElapsed(timeRange);
     
       if(video.playing){
-        //d3.selectAll('.anno').classed('de-em', true);
+        
         d3.selectAll('.memo').classed('de-em', true);
       }
 
@@ -973,9 +968,6 @@ export function videoUpdates(data, annoType) {
       let dims = getRightDimension();
 
       navGs.attr('transform', (d, i, n)=> `translate(${(i * (dims.width / n.length))+180},${(dims.height / 2)})`);
-
-     
-
     }
   };
 }

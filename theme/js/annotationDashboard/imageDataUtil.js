@@ -109,14 +109,15 @@ export async function loadPngForFrame() {
  
   const pathImg = `../static/assets/stills/${currentPNGS}/flat`;
 
-  console.log('pathimage!!!',pathImg)
+  
   // The path to the image that we want to add
   const imgPath = `${pathImg + (check(pullFrame))}.png`;
+
+  console.log('pathimage image path!!!', imgPath)
   // Create a new Image object.
   const imgObj = new Image();
   // Set the src of this Image object.
   imgObj.src = imgPath;
-
 
   imgObj.onload = function () {
     let dimension = getRightDimension();
@@ -132,7 +133,7 @@ export async function loadPngForFrame() {
     const _data = cxt.getImageData(0, 0, canvas.width, canvas.height);
 
     currentImageData.data = _data.data.map((m, i) => {
-      // if ((i + 1) % 4 === 0) m = 0;
+      if ((i + 1) % 4 === 0) m = 0;
       return m;
     });
     currentImageData.width = _data.width;
@@ -218,6 +219,8 @@ export function getCoordColor(coord) {
   //('new_rgb', new_rgb);
   console.log(new_rgb);
   let filterDict = colorStructCurrent;
+
+
 
   let colorCodes = [redForCoord, greenForCoord, blueForCoord];
 

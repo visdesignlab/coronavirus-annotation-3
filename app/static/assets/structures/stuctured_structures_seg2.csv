@@ -5,10 +5,11 @@ virus,"[[191,191,191],[204,204,204]]",n protein,a6a6a6,gray,"[87,118]",n protein
 virus,"[[255,191,1]]",genomic RNA,ff6700,orange,"[87,219],[251,268]","genomic RNA,rna,RNA",genomic RNA
 virus,"[[255,255,1]]",unknown yellow,,yellow,"[87,92]",unknown yellow,unknown yellow
 cell,"[[2,250,1]]",translation initian complex,,green,"[94,101]",translation initian complex,translation initian complex
-cell,"[[174,0,231]]",ribosome,4b92a7,purple,"[93,118],[121,156],[171,189],[196,403]",ribosome,Ribosome
-virus,"[[118,255,203]]",NSP 1,9693cd,light mint,"[97,118],[122,150]","NSP1,nsp1,NSP 1",NSP 1
-virus,"[[65,210,199]]",NSP 2,a7a6ba,teal,"[97,118],[122,148]","NSP2,nsp2,NSP 2",NSP 2
-virus,"[[254,0,190]]",NSP 3,,hot pink,"[103,156],[212,268]","NSP3,nsp3,NSP 3",NSP 3
+cell,"[[174,0,233]]",ribosome,4b92a7,purple,"[93,118],[121,156],[171,189],[196,403]",ribosome,Ribosome
+cell,"[[174,0,255]]",ribosome,4b92a7,purple,"[93,118],[121,156],[171,189],[196,403]",ribosome,Ribosome
+virus,"[[118,255,205]]",NSP 1,9693cd,light mint,"[97,118],[122,150]","NSP1,nsp1,NSP 1",NSP 1
+virus,"[[66,211,200]]",NSP 2,a7a6ba,teal,"[97,118],[122,148]","NSP2,nsp2,NSP 2",NSP 2
+virus,"[[255,1,191]]",NSP 3,,hot pink,"[103,156],[212,268]","NSP3,nsp3,NSP 3",NSP 3
 virus,"[[191,0,1]]",NSP 4,,crimson,"[87,92],[133,156],[239,268]","NSP4,nsp4,NSP 4",NSP 4
 virus,"[[0,0,173]]",NSP 5,222222,dark blue,"[139,156],[174,206],[214,237]","NSP5,nsp5,NSP 5",NSP 5
 virus,"[[104,199,255]]",NSP 6,,light blue,"[143,156]","NSP 6,nsp6,NSP6",NSP 6

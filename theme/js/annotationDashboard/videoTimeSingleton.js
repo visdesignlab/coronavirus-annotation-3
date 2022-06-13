@@ -16,7 +16,7 @@
         let _frames = [1,2600];
     
         let changeRange = function(data){
-
+            console.log('DATA IN CHANGE', data);
             _range = data.range;
             _segId = data.id;
             _stills = data.stills;
